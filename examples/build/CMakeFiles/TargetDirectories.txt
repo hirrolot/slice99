@@ -1,0 +1,3 @@
+/media/hirrolot/772CF8924BEBB279/Documents/slice99/examples/build/CMakeFiles/rebuild_cache.dir
+/media/hirrolot/772CF8924BEBB279/Documents/slice99/examples/build/CMakeFiles/edit_cache.dir
+/media/hirrolot/772CF8924BEBB279/Documents/slice99/examples/build/CMakeFiles/demo.dir

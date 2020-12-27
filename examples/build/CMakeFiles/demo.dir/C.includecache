@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../../slice99.h
+assert.h
+-
+stdbool.h
+-
+stddef.h
+-
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+
+/media/hirrolot/772CF8924BEBB279/Documents/slice99/examples/demo.c
+slice99.h
+-
+assert.h
+-
+
