@@ -1,8 +1,7 @@
 # slice99
 
-[[`examples/demo.c`](examples/demo.c)] [ [Playground >>](https://godbolt.org/z/xqrzE8) ]
+[[`examples/demo.c`](examples/demo.c)] [ [Playground >>](https://godbolt.org/z/eesfjo) ]
 ```c
-
 #include <slice99.h>
 
 #include <assert.h>
@@ -36,9 +35,7 @@ int main(void) {
 
     data = Slice99_from_array((int[]){1, 2, 3});
     Slice99_reverse(data, &temp);
-    assert(*(int *)Slice99_get(data, 0) == 3);
-    assert(*(int *)Slice99_get(data, 1) == 2);
-    assert(*(int *)Slice99_get(data, 2) == 1);
+    assert(Slice99_primitive_eq(data, Slice99_from_array((int[]){3, 2, 1})));
     // }
 
     // ... and more!

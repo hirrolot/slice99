@@ -103,9 +103,11 @@ inline static Slice99 Slice99_from_ptrdiff(void *start, void *end, size_t item_s
  * Constructs an empty slice.
  *
  * @param[in] item_size
+ *
+ * @pre `item_size > 0`
  */
 inline static Slice99 Slice99_empty(size_t item_size) {
-    assert(item_size >= 0);
+    assert(item_size > 0);
     return Slice99_new("", item_size, 0);
 }
 
