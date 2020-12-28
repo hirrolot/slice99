@@ -78,7 +78,7 @@ static int rand_range(int min, int max) {
     Slice99 slices[count];                                                                         \
                                                                                                    \
     do {                                                                                           \
-        int array[50][count];                                                                      \
+        int array[10][count];                                                                      \
         size_t len[count];                                                                         \
                                                                                                    \
         for (size_t k = 0; k < count; k++) {                                                       \
@@ -103,17 +103,17 @@ static bool slice_int_eq(Slice99 lhs, Slice99 rhs) {
 
 TEST(from_str) {
     // clang-format off
-    const char *str = "abc";
+    const char *str = "";
     ASSERT_SLICE(
-        Slice99_from_str("abc"),
+        Slice99_from_str(""),
         PTR str,
         ITEM_SIZE sizeof(char),
         LEN strlen(str)
     );
 
-    str = "";
+    str = "abc";
     ASSERT_SLICE(
-        Slice99_from_str(""),
+        Slice99_from_str("abc"),
         PTR str,
         ITEM_SIZE sizeof(char),
         LEN strlen(str)
@@ -308,40 +308,52 @@ TEST(primitive_starts_with) {
     int data[] = {1, 2, 3, 4, 5};
     Slice99 slice = Slice99_from_array(data);
 
+    assert(Slice99_primitive_starts_with(slice, slice));
+    assert(Slice99_primitive_starts_with(slice, Slice99_empty(sizeof(data[0]))));
     assert(Slice99_primitive_starts_with(slice, Slice99_sub(slice, 0, 0)));
     assert(Slice99_primitive_starts_with(slice, Slice99_sub(slice, 0, 3)));
 
     assert(!Slice99_primitive_starts_with(slice, Slice99_sub(slice, 1, 2)));
+    assert(!Slice99_primitive_starts_with(slice, Slice99_sub(slice, 3, 5)));
 }
 
 TEST(starts_with) {
     int data[] = {1, 2, 3, 4, 5};
     Slice99 slice = Slice99_from_array(data);
 
+    assert(Slice99_primitive_starts_with(slice, slice));
+    assert(Slice99_primitive_starts_with(slice, Slice99_empty(sizeof(data[0]))));
     assert(Slice99_starts_with(slice, Slice99_sub(slice, 0, 0), int_comparator));
     assert(Slice99_starts_with(slice, Slice99_sub(slice, 0, 3), int_comparator));
 
     assert(!Slice99_starts_with(slice, Slice99_sub(slice, 1, 3), int_comparator));
+    assert(!Slice99_starts_with(slice, Slice99_sub(slice, 3, 5), int_comparator));
 }
 
 TEST(primitive_ends_with) {
     int data[] = {1, 2, 3, 4, 5};
     Slice99 slice = Slice99_from_array(data);
 
+    assert(Slice99_primitive_ends_with(slice, slice));
+    assert(Slice99_primitive_ends_with(slice, Slice99_empty(sizeof(data[0]))));
     assert(Slice99_primitive_ends_with(slice, Slice99_sub(slice, 0, 0)));
     assert(Slice99_primitive_ends_with(slice, Slice99_sub(slice, 3, (int)slice.len)));
 
     assert(!Slice99_primitive_ends_with(slice, Slice99_sub(slice, 1, 4)));
+    assert(!Slice99_primitive_ends_with(slice, Slice99_sub(slice, 0, 3)));
 }
 
 TEST(ends_with) {
     int data[] = {1, 2, 3, 4, 5};
     Slice99 slice = Slice99_from_array(data);
 
+    assert(Slice99_ends_with(slice, slice, int_comparator));
+    assert(Slice99_ends_with(slice, Slice99_empty(sizeof(data[0])), int_comparator));
     assert(Slice99_ends_with(slice, Slice99_sub(slice, 0, 0), int_comparator));
     assert(Slice99_ends_with(slice, Slice99_sub(slice, 3, (int)slice.len), int_comparator));
 
     assert(!Slice99_ends_with(slice, Slice99_sub(slice, 1, 4), int_comparator));
+    assert(!Slice99_ends_with(slice, Slice99_sub(slice, 0, 3), int_comparator));
 }
 
 TEST(copy) {
@@ -424,11 +436,16 @@ TEST(reverse_involutive) {
     for (size_t i = 0; i < 100; i++) {
         GEN_INT_ARRAY_SLICES(slices, 1);
 
-        int saved_array[Slice99_size(slices[0])];
-        memcpy(saved_array, slices[0].ptr, sizeof(saved_array));
+        int *saved_array;
+        if ((saved_array = malloc(Slice99_size(slices[0]))) == NULL) {
+            abort();
+        }
+
+        memcpy(saved_array, slices[0].ptr, sizeof(Slice99_size(slices[0])));
         Slice99 saved_slice = Slice99_from_array(saved_array);
 
         ASSERT_INVOLUTION(slice_rev_aux, Slice99_primitive_eq, saved_slice);
+        free(saved_array);
     }
 }
 
