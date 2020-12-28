@@ -24,7 +24,7 @@
  * A slice of some array.
  *
  * The macros #SLICE99_ASSERT, #SLICE99_MEMCMP, #SLICE99_MEMCPY, #SLICE99_STRLEN, #SLICE99_QSORT,
- * and #SLICE99_BSEARCH# are automatically defined in case they have not been defined before
+ * and #SLICE99_BSEARCH are automatically defined in case they have not been defined before
  * including this header file. They represent the corresponding standard library's functions, though
  * actual implementations can differ. If you develop software for a freestanding environment, these
  * macros might need to be defined beforehand. Note that #SLICE99_QSORT and #SLICE99_BSEARCH might
@@ -51,7 +51,7 @@
 
 #ifndef SLICE99_ASSERT
 #include <assert.h>
-/// Like `assert.
+/// Like `assert`.
 #define SLICE99_ASSERT assert
 #endif // SLICE99_ASSERT
 
