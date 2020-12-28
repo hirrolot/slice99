@@ -1,3 +1,6 @@
+#define SLICE99_INCLUDE_SORT
+#define SLICE99_INCLUDE_BSEARCH
+
 #include <slice99.h>
 
 #include <assert.h>

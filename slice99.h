@@ -1,17 +1,65 @@
 /**
  * @file
  * A slice of some array.
+ *
+ * The macros #SLICE99_ASSERT, #SLICE99_MEMCMP, #SLICE99_MEMCPY, #SLICE99_STRLEN, #SLICE99_QSORT,
+ * and #SLICE99_BSEARCH# are automatically defined in case they have not been defined before
+ * including this header file. They represent the corresponding standard library's functions, though
+ * actual implementations can differ. If you develop software for a freestanding environment, these
+ * macros might need to be defined beforehand. Note that #SLICE99_QSORT and #SLICE99_BSEARCH might
+ * need to be provided only if you define `SLICE99_INCLUDE_SORT` and `SLICE99_INCLUDE_BSEARCH`,
+ * respectively.
  */
 
 #ifndef SLICE99_H
 #define SLICE99_H
 
-#include <assert.h>
 #include <stdbool.h>
 #include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
+
+#ifndef SLICE99_ASSERT
+#include <assert.h>
+/// Like `assert.
+#define SLICE99_ASSERT assert
+#endif // SLICE99_ASSERT
+
+#ifndef SLICE99_MEMCMP
 #include <string.h>
+/// Like `memcmp`.
+#define SLICE99_MEMCMP memcmp
+#endif
+
+#ifndef SLICE99_MEMCPY
+#include <string.h>
+/// Like `memcpy`.
+#define SLICE99_MEMCPY memcpy
+#endif
+
+#ifndef SLICE99_STRLEN
+#include <string.h>
+/// Like `strlen`.
+#define SLICE99_STRLEN strlen
+#endif
+
+#ifdef SLICE99_INCLUDE_SORT
+
+#ifndef SLICE99_QSORT
+#include <stdlib.h>
+/// Like `qsort`.
+#define SLICE99_QSORT qsort
+#endif
+
+#endif // SLICE99_INCLUDE_SORT
+
+#ifdef SLICE99_INCLUDE_BSEARCH
+
+#ifndef SLICE99_BSEARCH
+#include <stdlib.h>
+/// Like `bsearch`.
+#define SLICE99_BSEARCH bsearch
+#endif
+
+#endif // SLICE99_INCLUDE_BSEARCH
 
 /**
  * Computes a number of items in an array expression.
@@ -60,8 +108,8 @@ typedef struct {
  * @pre `item_size > 0`
  */
 inline static Slice99 Slice99_new(void *ptr, size_t item_size, size_t len) {
-    assert(ptr);
-    assert(item_size > 0);
+    SLICE99_ASSERT(ptr);
+    SLICE99_ASSERT(item_size > 0);
 
     return (Slice99){.ptr = ptr, .item_size = item_size, .len = len};
 }
@@ -74,9 +122,9 @@ inline static Slice99 Slice99_new(void *ptr, size_t item_size, size_t len) {
  * @pre `str != NULL`
  */
 inline static Slice99 Slice99_from_str(char *str) {
-    assert(str);
+    SLICE99_ASSERT(str);
 
-    return Slice99_new(str, sizeof(char), strlen(str));
+    return Slice99_new(str, sizeof(char), SLICE99_STRLEN(str));
 }
 
 /**
@@ -92,13 +140,13 @@ inline static Slice99 Slice99_from_str(char *str) {
  * @pre `(((char *)end - (char *)start)) % item_size == 0`
  */
 inline static Slice99 Slice99_from_ptrdiff(void *start, void *end, size_t item_size) {
-    assert(start);
-    assert(end);
+    SLICE99_ASSERT(start);
+    SLICE99_ASSERT(end);
 
     const ptrdiff_t diff = (char *)end - (char *)start;
 
-    assert(diff >= 0);
-    assert((size_t)diff % item_size == 0);
+    SLICE99_ASSERT(diff >= 0);
+    SLICE99_ASSERT((size_t)diff % item_size == 0);
 
     return Slice99_new(start, item_size, (size_t)(diff / (ptrdiff_t)item_size));
 }
@@ -111,7 +159,7 @@ inline static Slice99 Slice99_from_ptrdiff(void *start, void *end, size_t item_s
  * @pre `item_size > 0`
  */
 inline static Slice99 Slice99_empty(size_t item_size) {
-    assert(item_size > 0);
+    SLICE99_ASSERT(item_size > 0);
     return Slice99_new("", item_size, 0);
 }
 
@@ -141,7 +189,7 @@ inline static size_t Slice99_size(Slice99 self) {
  * @param[in] self The slice upon which the pointer will be computed.
  * @param[in] i The index of a desired item.
  *
- * @note This subroutine is implemented as a macro due to the absence of an signed `size_t`
+ * @note This subroutine is implemented as a macro due to the absence of a signed `size_t`
  * counterpart (i.e. the index can be negative).
  */
 #define Slice99_get(self, i) Slice99_get_cast_type(self, i, size_t)
@@ -179,7 +227,7 @@ inline static void *Slice99_last(Slice99 self) {
  *
  * @return A slice with the aforementioned properties.
  *
- * @note This subroutine is implemented as a macro due to the absence of an signed `size_t`
+ * @note This subroutine is implemented as a macro due to the absence of a signed `size_t`
  * counterpart (i.e. the indices can be negative).
  *
  * @pre `start_idx <= end_idx`
@@ -191,7 +239,7 @@ inline static void *Slice99_last(Slice99 self) {
  * The same as #Slice99_sub but explicitly casts `(self).item_size` to @p T.
  */
 #define Slice99_sub_cast_type(self, start_idx, end_idx, T)                                         \
-    (assert((start_idx) <= (end_idx)),                                                             \
+    (SLICE99_ASSERT((start_idx) <= (end_idx)),                                                     \
      Slice99_from_ptrdiff(                                                                         \
          Slice99_get_cast_type((self), (start_idx), T),                                            \
          Slice99_get_cast_type((self), (end_idx), T), (self).item_size))
@@ -207,7 +255,7 @@ inline static void *Slice99_last(Slice99 self) {
 inline static bool Slice99_primitive_eq(Slice99 lhs, Slice99 rhs) {
     return Slice99_size(lhs) != Slice99_size(rhs)
                ? false
-               : memcmp(lhs.ptr, rhs.ptr, Slice99_size(lhs)) == 0;
+               : SLICE99_MEMCMP(lhs.ptr, rhs.ptr, Slice99_size(lhs)) == 0;
 }
 
 /**
@@ -225,8 +273,8 @@ inline static bool Slice99_primitive_eq(Slice99 lhs, Slice99 rhs) {
  */
 inline static bool
 Slice99_eq(Slice99 lhs, Slice99 rhs, int (*comparator)(const void *, const void *)) {
-    assert(lhs.item_size == rhs.item_size);
-    assert(comparator);
+    SLICE99_ASSERT(lhs.item_size == rhs.item_size);
+    SLICE99_ASSERT(comparator);
 
     if (lhs.len != rhs.len) {
         return false;
@@ -270,8 +318,8 @@ inline static bool Slice99_primitive_starts_with(Slice99 self, Slice99 prefix) {
  */
 inline static bool
 Slice99_starts_with(Slice99 self, Slice99 prefix, int (*comparator)(const void *, const void *)) {
-    assert(self.item_size == prefix.item_size);
-    assert(comparator);
+    SLICE99_ASSERT(self.item_size == prefix.item_size);
+    SLICE99_ASSERT(comparator);
 
     return self.len < prefix.len ? false
                                  : Slice99_eq(Slice99_sub(self, 0, prefix.len), prefix, comparator);
@@ -307,8 +355,8 @@ inline static bool Slice99_primitive_ends_with(Slice99 self, Slice99 postfix) {
  */
 inline static bool
 Slice99_ends_with(Slice99 self, Slice99 postfix, int (*comparator)(const void *, const void *)) {
-    assert(self.item_size == postfix.item_size);
-    assert(comparator);
+    SLICE99_ASSERT(self.item_size == postfix.item_size);
+    SLICE99_ASSERT(comparator);
 
     return self.len < postfix.len
                ? false
@@ -323,14 +371,20 @@ Slice99_ends_with(Slice99 self, Slice99 postfix, int (*comparator)(const void *,
  * @param[in] src The slice to be copied to @p dst.
  */
 inline static void Slice99_copy(Slice99 dst, Slice99 src) {
-    memcpy(dst.ptr, src.ptr, Slice99_size(src));
+    SLICE99_MEMCPY(dst.ptr, src.ptr, Slice99_size(src));
 }
+
+#ifdef SLICE99_INCLUDE_IO
+
+#include <stdio.h>
 
 /**
  * Writes @p self to @p stream, byte-by-byte.
  *
  * @param[in] self The slice to be written.
  * @param[out] stream The stream to which @p self will be written.
+ *
+ * @note Included only if `SLICE99_INCLUDE_IO` is defined.
  */
 inline static void Slice99_fwrite(Slice99 self, FILE *stream) {
     fwrite(self.ptr, self.item_size, self.len, stream);
@@ -340,6 +394,8 @@ inline static void Slice99_fwrite(Slice99 self, FILE *stream) {
  * Writes @p self to `stdout`, byte-by-byte.
  *
  * @param[in] self The slice to be written.
+ *
+ * @note Included only if `SLICE99_INCLUDE_IO` is defined.
  */
 inline static void Slice99_write(Slice99 self) {
     Slice99_fwrite(self, stdout);
@@ -350,6 +406,8 @@ inline static void Slice99_write(Slice99 self) {
  *
  * @param[in] self The slice to be written.
  * @param[out] stream The stream to which @p self will be written.
+ *
+ * @note Included only if `SLICE99_INCLUDE_IO` is defined.
  */
 inline static void Slice99_fwrite_ln(Slice99 self, FILE *stream) {
     Slice99_fwrite(self, stream);
@@ -360,11 +418,17 @@ inline static void Slice99_fwrite_ln(Slice99 self, FILE *stream) {
  * The same as #Slice99_write but places a new line character afterwards.
  *
  * @param[in] self The slice to be written.
+ *
+ * @note Included only if `SLICE99_INCLUDE_IO` is defined.
  */
 inline static void Slice99_write_ln(Slice99 self) {
     Slice99_write(self);
     puts("");
 }
+
+#endif // SLICE99_INCLUDE_IO
+
+#ifdef SLICE99_INCLUDE_SORT
 
 /**
  * Sorts the items in @p self.
@@ -373,13 +437,19 @@ inline static void Slice99_write_ln(Slice99 self) {
  * @param[in] comparator A function deciding whether two items are equal ot not (0 if equal, any
  * other value otherwise).
  *
+ * @note Included only if `SLICE99_INCLUDE_SORT` is defined.
+ *
  * @pre `comparator != NULL`
  */
 inline static void Slice99_sort(Slice99 self, int (*comparator)(const void *, const void *)) {
-    assert(comparator);
+    SLICE99_ASSERT(comparator);
 
-    qsort(self.ptr, self.len, self.item_size, comparator);
+    SLICE99_QSORT(self.ptr, self.len, self.item_size, comparator);
 }
+
+#endif // SLICE99_INCLUDE_SORT
+
+#ifdef SLICE99_INCLUDE_BSEARCH
 
 /**
  * Performs a binary search in @p self.
@@ -392,14 +462,18 @@ inline static void Slice99_sort(Slice99 self, int (*comparator)(const void *, co
  * @return A pointer to an element in @p self that compares equal to @p key. If it does not exist,
  * `NULL`.
  *
+ * @note Included only if `SLICE99_INCLUDE_BSEARCH` is defined.
+ *
  * @pre `comparator != NULL`
  */
 inline static void *
 Slice99_bsearch(Slice99 self, const void *key, int (*comparator)(const void *, const void *)) {
-    assert(comparator);
+    SLICE99_ASSERT(comparator);
 
-    return bsearch(key, self.ptr, self.len, self.item_size, comparator);
+    return SLICE99_BSEARCH(key, self.ptr, self.len, self.item_size, comparator);
 }
+
+#endif // SLICE99_INCLUDE_BSEARCH
 
 /**
  * Swaps the @p lhs -indexed and @p rhs -indexed items.
@@ -409,18 +483,18 @@ Slice99_bsearch(Slice99 self, const void *key, int (*comparator)(const void *, c
  * @param[in] rhs The index of the second item.
  * @param[out] temp The memory area of `self.item_size` bytes accessible for reading and writing.
  *
- * @note This subroutine is implemented as a macro due to the absence of an signed `size_t`
+ * @note This subroutine is implemented as a macro due to the absence of a signed `size_t`
  * counterpart (i.e. the indices can be negative).
  *
  * @pre `temp != NULL`
  */
 #define Slice99_swap(self, lhs, rhs, temp)                                                         \
     do {                                                                                           \
-        assert(temp);                                                                              \
+        SLICE99_ASSERT(temp);                                                                      \
                                                                                                    \
-        memcpy((temp), Slice99_get(self, lhs), (self).item_size);                                  \
-        memcpy(Slice99_get(self, lhs), Slice99_get(self, rhs), (self).item_size);                  \
-        memcpy(Slice99_get(self, rhs), (temp), (self).item_size);                                  \
+        SLICE99_MEMCPY((temp), Slice99_get(self, lhs), (self).item_size);                          \
+        SLICE99_MEMCPY(Slice99_get(self, lhs), Slice99_get(self, rhs), (self).item_size);          \
+        SLICE99_MEMCPY(Slice99_get(self, rhs), (temp), (self).item_size);                          \
     } while (0)
 
 /**
@@ -434,13 +508,13 @@ Slice99_bsearch(Slice99 self, const void *key, int (*comparator)(const void *, c
  * @pre `self.item_size == other.item_size`
  */
 inline static void Slice99_swap_with_slice(Slice99 self, Slice99 other, void *restrict temp) {
-    assert(self.len == other.len);
-    assert(self.item_size == other.item_size);
+    SLICE99_ASSERT(self.len == other.len);
+    SLICE99_ASSERT(self.item_size == other.item_size);
 
     for (size_t i = 0; i < self.len; i++) {
-        memcpy(temp, Slice99_get(self, i), self.item_size);
-        memcpy(Slice99_get(self, i), Slice99_get(other, i), self.item_size);
-        memcpy(Slice99_get(other, i), temp, self.item_size);
+        SLICE99_MEMCPY(temp, Slice99_get(self, i), self.item_size);
+        SLICE99_MEMCPY(Slice99_get(self, i), Slice99_get(other, i), self.item_size);
+        SLICE99_MEMCPY(Slice99_get(other, i), temp, self.item_size);
     }
 }
 
@@ -453,7 +527,7 @@ inline static void Slice99_swap_with_slice(Slice99 self, Slice99 other, void *re
  * @pre `temp != NULL`
  */
 inline static void Slice99_reverse(Slice99 self, void *restrict temp) {
-    assert(temp);
+    SLICE99_ASSERT(temp);
 
     for (size_t i = 0; i < self.len / 2; i++) {
         Slice99_swap(self, i, self.len - i - 1, temp);
@@ -474,9 +548,9 @@ inline static void Slice99_reverse(Slice99 self, void *restrict temp) {
  */
 inline static void
 Slice99_split_at(Slice99 self, size_t i, Slice99 *restrict lhs, Slice99 *restrict rhs) {
-    assert(i <= self.len);
-    assert(lhs);
-    assert(rhs);
+    SLICE99_ASSERT(i <= self.len);
+    SLICE99_ASSERT(lhs);
+    SLICE99_ASSERT(rhs);
 
     *lhs = Slice99_sub(self, 0, i);
     *rhs = Slice99_sub(self, i, self.len);
