@@ -48,11 +48,12 @@ int main(void) {
 
 The main type is [`Slice99`]. It represents a pointer to some array accompanied with an array item size and its length. The utilities `Slice99_*` are used to manipulate this type.
 
-To install slice99, just copy [`slice99.h`](slice99.h) to your code base and then `#include <slice99.h>` where necessary.
+To install slice99, just copy [`slice99.h`](slice99.h) to your code base (or use [Git submodules]) and then `#include <slice99.h>` where necessary.
 
 Enjoy!
 
 [`Slice99`]: https://hirrolot.github.io/slice99/structSlice99.html
+[Git submodules]: https://git-scm.com/book/en/v2/Git-Tools-Submodules
 
 ## Motivation
 
