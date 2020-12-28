@@ -314,42 +314,42 @@ inline static void Slice99_copy(Slice99 dst, Slice99 src) {
 }
 
 /**
- * Prints @p self to @p stream.
+ * Writes @p self to @p stream, byte-by-byte.
  *
- * @param[in] self The slice to be printed.
- * @param[out] stream The stream to which @p self will be printed.
+ * @param[in] self The slice to be written.
+ * @param[out] stream The stream to which @p self will be written.
  */
-inline static void Slice99_print_to_file(Slice99 self, FILE *stream) {
+inline static void Slice99_fwrite(Slice99 self, FILE *stream) {
     fwrite(self.ptr, self.item_size, self.len, stream);
 }
 
 /**
- * Prints @p self to `stdout`.
+ * Writes @p self to `stdout`, byte-by-byte.
  *
- * @param[in] self The slice to be printed.
+ * @param[in] self The slice to be written.
  */
-inline static void Slice99_print(Slice99 self) {
-    Slice99_print_to_file(self, stdout);
+inline static void Slice99_write(Slice99 self) {
+    Slice99_fwrite(self, stdout);
 }
 
 /**
- * The same as #Slice99_print_to_file but places a new line character afterwards.
+ * The same as #Slice99_fwrite but places a new line character afterwards.
  *
- * @param[in] self The slice to be printed.
- * @param[out] stream The stream to which @p self will be printed.
+ * @param[in] self The slice to be written.
+ * @param[out] stream The stream to which @p self will be written.
  */
-inline static void Slice99_print_to_file_ln(Slice99 self, FILE *stream) {
-    Slice99_print_to_file(self, stream);
+inline static void Slice99_fwrite_ln(Slice99 self, FILE *stream) {
+    Slice99_fwrite(self, stream);
     fprintf(stream, "\n");
 }
 
 /**
  * The same as #Slice99_print but places a new line character afterwards.
  *
- * @param[in] self The slice to be printed.
+ * @param[in] self The slice to be written.
  */
-inline static void Slice99_print_ln(Slice99 self) {
-    Slice99_print(self);
+inline static void Slice99_write_ln(Slice99 self) {
+    Slice99_write(self);
     puts("");
 }
 
