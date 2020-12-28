@@ -1,6 +1,6 @@
 # slice99
 
-[[`examples/demo.c`](examples/demo.c)] [ [Playground >>](https://godbolt.org/z/eesfjo) ]
+[[`examples/demo.c`](examples/demo.c)] [ [Playground >>](https://godbolt.org/z/eErKMa) ]
 ```c
 #include <slice99.h>
 
@@ -16,7 +16,7 @@ int main(void) {
     // }
 
     // Subslicing {
-    assert(Slice99_primitive_eq(Slice99_idx(str, 3, 9), Slice99_from_str("lo wor")));
+    assert(Slice99_primitive_eq(Slice99_sub(str, 3, 9), Slice99_from_str("lo wor")));
     // }
 
     // Predicates {
