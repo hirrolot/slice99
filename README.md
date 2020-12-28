@@ -1,5 +1,9 @@
 # slice99
 
+This library provides [array slicing] facilities for pure C99.
+
+[array slicing]: https://en.wikipedia.org/wiki/Array_slicing
+
 [[`examples/demo.c`](examples/demo.c)] [ [Playground >>](https://godbolt.org/z/eErKMa) ]
 ```c
 #include <slice99.h>
@@ -41,3 +45,29 @@ int main(void) {
     // ... and more!
 }
 ```
+
+The main type is [`Slice99`]. It represents a pointer to some array accompanied with an array item size and its length. The utilities `Slice99_*` are used to manipulate this type.
+
+To install slice99, just copy [`slice99.h`](slice99.h) to your code base and then `#include <slice99.h>` where necessary.
+
+Enjoy!
+
+[`Slice99`]: https://hirrolot.github.io/slice99/structSlice99.html
+
+## Motivation
+
+Normally, we pass a pointer to the first element of some array together with its length as separate arguments:
+
+```c
+void foo(size_t len, int array[static len]) { /* ... */ }
+```
+
+However, this approach is notoriously error-prone: the interface is easy to misuse, for example, by passing an invalid length. Moreover, sometimes programmers need to perform specific operations on `array` which are not exported by the standard library, leading to even more bugs and code clutter.
+
+This is what slice99 tries to fix.
+
+## FAQ
+
+### Q: Can I use this library to develop bare-metal software?
+
+A: Yes, see the [docs](https://hirrolot.github.io/slice99/slice99_8h.html#details).
