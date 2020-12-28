@@ -170,7 +170,7 @@ inline static void *Slice99_last(Slice99 self) {
  *
  * @pre `start_idx <= end_idx`
  */
-inline static Slice99 Slice99_idx(Slice99 self, int start_idx, int end_idx) {
+inline static Slice99 Slice99_sub(Slice99 self, int start_idx, int end_idx) {
     assert(start_idx <= end_idx);
 
     return Slice99_from_ptrdiff(
@@ -232,7 +232,7 @@ Slice99_eq(Slice99 lhs, Slice99 rhs, int (*comparator)(const void *, const void 
 inline static bool Slice99_primitive_starts_with(Slice99 self, Slice99 prefix) {
     return Slice99_size(self) < Slice99_size(prefix)
                ? false
-               : Slice99_primitive_eq(Slice99_idx(self, 0, (int)prefix.len), prefix);
+               : Slice99_primitive_eq(Slice99_sub(self, 0, (int)prefix.len), prefix);
 }
 
 /**
@@ -254,7 +254,7 @@ Slice99_starts_with(Slice99 self, Slice99 prefix, int (*comparator)(const void *
 
     return self.len < prefix.len
                ? false
-               : Slice99_eq(Slice99_idx(self, 0, (int)prefix.len), prefix, comparator);
+               : Slice99_eq(Slice99_sub(self, 0, (int)prefix.len), prefix, comparator);
 }
 
 /**
@@ -269,7 +269,7 @@ inline static bool Slice99_primitive_ends_with(Slice99 self, Slice99 postfix) {
     return Slice99_size(self) < Slice99_size(postfix)
                ? false
                : Slice99_primitive_eq(
-                     Slice99_idx(self, (int)(self.len - postfix.len), (int)self.len), postfix);
+                     Slice99_sub(self, (int)(self.len - postfix.len), (int)self.len), postfix);
 }
 
 /**
@@ -292,7 +292,7 @@ Slice99_ends_with(Slice99 self, Slice99 postfix, int (*comparator)(const void *,
     return self.len < postfix.len
                ? false
                : Slice99_eq(
-                     Slice99_idx(self, (int)(self.len - postfix.len), (int)self.len), postfix,
+                     Slice99_sub(self, (int)(self.len - postfix.len), (int)self.len), postfix,
                      comparator);
 }
 
@@ -451,8 +451,8 @@ Slice99_split_at(Slice99 self, size_t i, Slice99 *restrict lhs, Slice99 *restric
     assert(lhs);
     assert(rhs);
 
-    *lhs = Slice99_idx(self, 0, (int)i);
-    *rhs = Slice99_idx(self, (int)i, (int)self.len);
+    *lhs = Slice99_sub(self, 0, (int)i);
+    *rhs = Slice99_sub(self, (int)i, (int)self.len);
 }
 
 #endif // SLICE99_H

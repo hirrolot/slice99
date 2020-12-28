@@ -181,40 +181,40 @@ TEST(last) {
     assert(Slice99_last(Slice99_from_array(data)) == &data[2]);
 }
 
-TEST(idx) {
+TEST(sub) {
     int data[] = {1, 2, 3, 4, 5};
 
     // clang-format off
     ASSERT_SLICE(
-        Slice99_idx(Slice99_from_array(data), 0, 0),
+        Slice99_sub(Slice99_from_array(data), 0, 0),
         PTR data,
         ITEM_SIZE sizeof(int),
         LEN 0
     );
 
     ASSERT_SLICE(
-        Slice99_idx(Slice99_from_array(data), 0, 3),
+        Slice99_sub(Slice99_from_array(data), 0, 3),
         PTR data,
         ITEM_SIZE sizeof(int),
         LEN 3
     );
 
     ASSERT_SLICE(
-        Slice99_idx(Slice99_from_array(data), 2, 4),
+        Slice99_sub(Slice99_from_array(data), 2, 4),
         PTR data + 2,
         ITEM_SIZE sizeof(int),
         LEN 2
     );
 
     ASSERT_SLICE(
-        Slice99_idx(Slice99_new(data + 2, sizeof(int), 3), -2, 1),
+        Slice99_sub(Slice99_new(data + 2, sizeof(int), 3), -2, 1),
         PTR data,
         ITEM_SIZE sizeof(int),
         LEN 3
     );
 
     ASSERT_SLICE(
-        Slice99_idx(Slice99_new(data + 3, sizeof(int), 2), -2, -1),
+        Slice99_sub(Slice99_new(data + 3, sizeof(int), 2), -2, -1),
         PTR data + 1,
         ITEM_SIZE sizeof(int),
         LEN 1
@@ -308,40 +308,40 @@ TEST(primitive_starts_with) {
     int data[] = {1, 2, 3, 4, 5};
     Slice99 slice = Slice99_from_array(data);
 
-    assert(Slice99_primitive_starts_with(slice, Slice99_idx(slice, 0, 0)));
-    assert(Slice99_primitive_starts_with(slice, Slice99_idx(slice, 0, 3)));
+    assert(Slice99_primitive_starts_with(slice, Slice99_sub(slice, 0, 0)));
+    assert(Slice99_primitive_starts_with(slice, Slice99_sub(slice, 0, 3)));
 
-    assert(!Slice99_primitive_starts_with(slice, Slice99_idx(slice, 1, 2)));
+    assert(!Slice99_primitive_starts_with(slice, Slice99_sub(slice, 1, 2)));
 }
 
 TEST(starts_with) {
     int data[] = {1, 2, 3, 4, 5};
     Slice99 slice = Slice99_from_array(data);
 
-    assert(Slice99_starts_with(slice, Slice99_idx(slice, 0, 0), int_comparator));
-    assert(Slice99_starts_with(slice, Slice99_idx(slice, 0, 3), int_comparator));
+    assert(Slice99_starts_with(slice, Slice99_sub(slice, 0, 0), int_comparator));
+    assert(Slice99_starts_with(slice, Slice99_sub(slice, 0, 3), int_comparator));
 
-    assert(!Slice99_starts_with(slice, Slice99_idx(slice, 1, 3), int_comparator));
+    assert(!Slice99_starts_with(slice, Slice99_sub(slice, 1, 3), int_comparator));
 }
 
 TEST(primitive_ends_with) {
     int data[] = {1, 2, 3, 4, 5};
     Slice99 slice = Slice99_from_array(data);
 
-    assert(Slice99_primitive_ends_with(slice, Slice99_idx(slice, 0, 0)));
-    assert(Slice99_primitive_ends_with(slice, Slice99_idx(slice, 3, (int)slice.len)));
+    assert(Slice99_primitive_ends_with(slice, Slice99_sub(slice, 0, 0)));
+    assert(Slice99_primitive_ends_with(slice, Slice99_sub(slice, 3, (int)slice.len)));
 
-    assert(!Slice99_primitive_ends_with(slice, Slice99_idx(slice, 1, 4)));
+    assert(!Slice99_primitive_ends_with(slice, Slice99_sub(slice, 1, 4)));
 }
 
 TEST(ends_with) {
     int data[] = {1, 2, 3, 4, 5};
     Slice99 slice = Slice99_from_array(data);
 
-    assert(Slice99_ends_with(slice, Slice99_idx(slice, 0, 0), int_comparator));
-    assert(Slice99_ends_with(slice, Slice99_idx(slice, 3, (int)slice.len), int_comparator));
+    assert(Slice99_ends_with(slice, Slice99_sub(slice, 0, 0), int_comparator));
+    assert(Slice99_ends_with(slice, Slice99_sub(slice, 3, (int)slice.len), int_comparator));
 
-    assert(!Slice99_ends_with(slice, Slice99_idx(slice, 1, 4), int_comparator));
+    assert(!Slice99_ends_with(slice, Slice99_sub(slice, 1, 4), int_comparator));
 }
 
 TEST(copy) {
@@ -537,7 +537,7 @@ int main(void) {
     test_get();
     test_first();
     test_last();
-    test_idx();
+    test_sub();
     test_primitive_eq();
     test_eq();
     test_primitive_starts_with();
