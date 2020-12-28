@@ -1,6 +1,6 @@
 /**
  * @file
- * A slice of an array.
+ * A slice of some array.
  */
 
 #ifndef SLICE99_H
@@ -25,12 +25,12 @@
     Slice99_new((void *)(__VA_ARGS__), sizeof((__VA_ARGS__)[0]), Slice99_array_len(__VA_ARGS__))
 
 /**
- * A slice of an array.
+ * A slice of some array.
  *
  * This structure should not be constructed manually; use #Slice99_new instead.
  *
  * @invariant #ptr shall not be `NULL`.
- * @invariant #item_size shall be greater than 0.
+ * @invariant #item_size shall be strictly greater than 0.
  */
 typedef struct {
     /**
@@ -51,6 +51,10 @@ typedef struct {
 
 /**
  * Constructs a slice.
+ *
+ * @param[in] ptr The value of Slice99#ptr.
+ * @param[in] item_size The value of Slice99#item_size.
+ * @param[in] len The value of Slice99#len.
  *
  * @pre `ptr != NULL`
  * @pre `item_size > 0`
@@ -78,9 +82,9 @@ inline static Slice99 Slice99_from_str(char *str) {
 /**
  * Constructs a slice residing between @p start (inclusively) and @p end (exclusively).
  *
- * @param[in] start
- * @param[in] end
- * @param[in] item_size
+ * @param[in] start The start position of a returned slice, inclusively.
+ * @param[in] end The end position of a returned slice, exlusively.
+ * @param[in] item_size The value of Slice99#item_size.
  *
  * @pre `start != NULL`
  * @pre `end != NULL`
@@ -102,7 +106,7 @@ inline static Slice99 Slice99_from_ptrdiff(void *start, void *end, size_t item_s
 /**
  * Constructs an empty slice.
  *
- * @param[in] item_size
+ * @param[in] item_size The value of Slice99#item_size.
  *
  * @pre `item_size > 0`
  */
@@ -114,7 +118,7 @@ inline static Slice99 Slice99_empty(size_t item_size) {
 /**
  * Checks whether @p self is empty or not.
  *
- * @param[in] self
+ * @param[in] self The checked slice.
  *
  * @return `true` if @p self is empty, otherwise `false`.
  */
@@ -125,7 +129,7 @@ inline static bool Slice99_is_empty(Slice99 self) {
 /**
  * Computes a total size in bytes.
  *
- * @param[in] self
+ * @param[in] self The slice whose size is to be computed.
  */
 inline static size_t Slice99_size(Slice99 self) {
     return self.item_size * self.len;
@@ -134,7 +138,7 @@ inline static size_t Slice99_size(Slice99 self) {
 /**
  * Computes a pointer to the @p i -indexed item.
  *
- * @param[in] self
+ * @param[in] self The slice upon which the pointer will be computed.
  * @param[in] i The index of a desired item.
  */
 inline static void *Slice99_get(Slice99 self, int i) {
@@ -144,7 +148,7 @@ inline static void *Slice99_get(Slice99 self, int i) {
 /**
  * Computes a pointer to the first item.
  *
- * @param[in] self
+ * @param[in] self The slice upon which the pointer will be computed.
  */
 inline static void *Slice99_first(Slice99 self) {
     return Slice99_get(self, 0);
@@ -153,14 +157,14 @@ inline static void *Slice99_first(Slice99 self) {
 /**
  * Computes a pointer to the last item.
  *
- * @param[in] self
+ * @param[in] self The slice upon which the pointer will be computed.
  */
 inline static void *Slice99_last(Slice99 self) {
     return Slice99_get(self, (int)(self.len - 1));
 }
 
 /**
- * Indexing @p self with [@p start_idx `..` @p end_idx].
+ * Subslicing @p self with [@p start_idx `..` @p end_idx].
  *
  * @param[in] self The original slice.
  * @param[in] start_idx The index at which a new slice will reside, inclusively.
@@ -180,8 +184,8 @@ inline static Slice99 Slice99_sub(Slice99 self, int start_idx, int end_idx) {
 /**
  * Performs a byte-by-byte comparison of @p lhs with @p rhs.
  *
- * @param[in] lhs
- * @param[in] rhs
+ * @param[in] lhs The first slice to be compared.
+ * @param[in] rhs The second slice to be compared.
  *
  * @return `true` if @p lhs and @p rhs are equal, `false` otherwise.
  */
@@ -194,9 +198,10 @@ inline static bool Slice99_primitive_eq(Slice99 lhs, Slice99 rhs) {
 /**
  * Performs a comparison of @p lhs with @p rhs with a user-supplied comparator.
  *
- * @param[in] lhs
- * @param[in] rhs
- * @param[in] comparator
+ * @param[in] lhs The first slice to be compared.
+ * @param[in] rhs The second slice to be compared.
+ * @param[in] comparator A function deciding whether two items are equal ot not (0 if equal, any
+ * other value otherwise).
  *
  * @return `true` if @p lhs and @p rhs are equal, `false` otherwise.
  *
@@ -224,8 +229,8 @@ Slice99_eq(Slice99 lhs, Slice99 rhs, int (*comparator)(const void *, const void 
 /**
  * Checks whether @p prefix is a prefix of @p self, byte-by-byte.
  *
- * @param[in] self
- * @param[in] prefix
+ * @param[in] self The slice to be checked for @p prefix.
+ * @param[in] prefix The slice to be checked whether it is a prefix of @p self.
  *
  * @return `true` if @p prefix is a prefix of @p self, otherwise `false`.
  */
@@ -238,9 +243,10 @@ inline static bool Slice99_primitive_starts_with(Slice99 self, Slice99 prefix) {
 /**
  * Checks whether @p prefix is a prefix of @p self with a user-supplied comparator.
  *
- * @param[in] self
- * @param[in] prefix
- * @param[in] comparator
+ * @param[in] self The slice to be checked for @p prefix.
+ * @param[in] prefix The slice to be checked whether it is a prefix of @p self.
+ * @param[in] comparator A function deciding whether two items are equal ot not (0 if equal, any
+ * other value otherwise).
  *
  * @return `true` if @p prefix is a prefix of @p self, otherwise `false`.
  *
@@ -260,8 +266,8 @@ Slice99_starts_with(Slice99 self, Slice99 prefix, int (*comparator)(const void *
 /**
  * Checks whether @p postfix is a postfix of @p self, byte-by-byte.
  *
- * @param[in] self
- * @param[in] postfix
+ * @param[in] self The slice to be checked for @p postfix.
+ * @param[in] postfix The slice to be checked whether it is a postfix of @p self.
  *
  * @return `true` if @p postfix is a postfix of @p self, otherwise `false`.
  */
@@ -275,9 +281,10 @@ inline static bool Slice99_primitive_ends_with(Slice99 self, Slice99 postfix) {
 /**
  * Checks whether @p postfix is a postfix of @p self with a user-supplied comparator.
  *
- * @param[in] self
- * @param[in] postfix
- * @param[in] comparator
+ * @param[in] self The slice to be checked for @p postfix.
+ * @param[in] postfix The slice to be checked whether it is a postfix of @p self.
+ * @param[in] comparator A function deciding whether two items are equal ot not (0 if equal, any
+ * other value otherwise).
  *
  * @return `true` if @p postfix is a postfix of @p self, otherwise `false`.
  *
@@ -299,8 +306,8 @@ Slice99_ends_with(Slice99 self, Slice99 postfix, int (*comparator)(const void *,
 /**
  * Copies @p src to the beginning of @p dst, byte-by-byte.
  *
- * @param[out] dst
- * @param[in] src
+ * @param[out] dst The location to which the whole @p src will be copied.
+ * @param[in] src The slice to be copied to @p dst.
  */
 inline static void Slice99_copy(Slice99 dst, Slice99 src) {
     memcpy(dst.ptr, src.ptr, Slice99_size(src));
@@ -309,8 +316,8 @@ inline static void Slice99_copy(Slice99 dst, Slice99 src) {
 /**
  * Prints @p self to @p stream.
  *
- * @param[in] self
- * @param[out] stream
+ * @param[in] self The slice to be printed.
+ * @param[out] stream The stream to which @p self will be printed.
  */
 inline static void Slice99_print_to_file(Slice99 self, FILE *stream) {
     fwrite(self.ptr, self.item_size, self.len, stream);
@@ -319,7 +326,7 @@ inline static void Slice99_print_to_file(Slice99 self, FILE *stream) {
 /**
  * Prints @p self to `stdout`.
  *
- * @param[in] self
+ * @param[in] self The slice to be printed.
  */
 inline static void Slice99_print(Slice99 self) {
     Slice99_print_to_file(self, stdout);
@@ -328,8 +335,8 @@ inline static void Slice99_print(Slice99 self) {
 /**
  * The same as #Slice99_print_to_file but places a new line character afterwards.
  *
- * @param[in] self
- * @param[out] stream
+ * @param[in] self The slice to be printed.
+ * @param[out] stream The stream to which @p self will be printed.
  */
 inline static void Slice99_print_to_file_ln(Slice99 self, FILE *stream) {
     Slice99_print_to_file(self, stream);
@@ -339,7 +346,7 @@ inline static void Slice99_print_to_file_ln(Slice99 self, FILE *stream) {
 /**
  * The same as #Slice99_print but places a new line character afterwards.
  *
- * @param[in] self
+ * @param[in] self The slice to be printed.
  */
 inline static void Slice99_print_ln(Slice99 self) {
     Slice99_print(self);
@@ -349,8 +356,9 @@ inline static void Slice99_print_ln(Slice99 self) {
 /**
  * Sorts the items in @p self.
  *
- * @param[out] self
- * @param[in] comparator
+ * @param[out] self The slice whose items will be sorted.
+ * @param[in] comparator A function deciding whether two items are equal ot not (0 if equal, any
+ * other value otherwise).
  *
  * @pre `comparator != NULL`
  */
@@ -363,9 +371,10 @@ inline static void Slice99_sort(Slice99 self, int (*comparator)(const void *, co
 /**
  * Performs a binary search in @p self.
  *
- * @param[in] self
- * @param[in] key
- * @param[in] comparator
+ * @param[in] self The slice in which the binary search will be performed.
+ * @param[in] key The value to search for.
+ * @param[in] comparator A function returning the order of two items (0 if equal, <0 if the first
+ * item is lesser than the second, >0 if the first item is greater than the second).
  *
  * @return A pointer to an element in @p self that compares equal to @p key. If it does not exist,
  * `NULL`.
@@ -382,7 +391,7 @@ Slice99_bsearch(Slice99 self, const void *key, int (*comparator)(const void *, c
 /**
  * Swaps the @p lhs -indexed and @p rhs -indexed items.
  *
- * @param[out] self
+ * @param[out] self The slice in which @p lhs and @p rhs will be swapped.
  * @param[in] lhs The index of the first item.
  * @param[in] rhs The index of the second item.
  * @param[out] temp The memory area of `self.item_size` bytes accessible for reading and writing.
@@ -400,8 +409,8 @@ inline static void Slice99_swap(Slice99 self, int lhs, int rhs, void *restrict t
 /**
  * Swaps all the items in @p self with those in @p other.
  *
- * @param[out] self
- * @param[out] other
+ * @param[out] self The first slice to be swapped.
+ * @param[out] other The second slice to be swapped.
  * @param[out] temp The memory area of `self.item_size` bytes accessible for reading and writing.
  *
  * @pre `self.len == other.len`
@@ -421,7 +430,7 @@ inline static void Slice99_swap_with_slice(Slice99 self, Slice99 other, void *re
 /**
  * Reverses the order of items in @p self.
  *
- * @param[out] self
+ * @param[out] self The slice to be reversed.
  * @param[out] temp The memory area of `self.item_size` bytes accessible for reading and writing.
  *
  * @pre `temp != NULL`
@@ -437,7 +446,7 @@ inline static void Slice99_reverse(Slice99 self, void *restrict temp) {
 /**
  * Splits @p self into two parts.
  *
- * @param[in] self
+ * @param[in] self The slice to be splitted into @p lhs and @p rhs.
  * @param[out] lhs The first part of @p self indexed as [0; @p i).
  * @param[out] rhs The second part of @p self indexed as [@p i; `self.len`).
  *
