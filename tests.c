@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <limits.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -168,7 +169,7 @@ TEST(get) {
     assert(Slice99_get(slice, 2) == &data[2]);
 
     assert((int *)Slice99_get(slice, 3) - 1 == &data[2]);
-    assert((int *)Slice99_get(slice, -1) + 1 == &data[0]);
+    assert((int *)Slice99_get_cast_type(slice, -1, int) + 1 == &data[0]);
 }
 
 TEST(first) {
@@ -207,14 +208,14 @@ TEST(sub) {
     );
 
     ASSERT_SLICE(
-        Slice99_sub(Slice99_new(data + 2, sizeof(int), 3), -2, 1),
+        Slice99_sub_cast_type(Slice99_new(data + 2, sizeof(int), 3), -2, 1, int),
         PTR data,
         ITEM_SIZE sizeof(int),
         LEN 3
     );
 
     ASSERT_SLICE(
-        Slice99_sub(Slice99_new(data + 3, sizeof(int), 2), -2, -1),
+        Slice99_sub_cast_type(Slice99_new(data + 3, sizeof(int), 2), -2, -1, int),
         PTR data + 1,
         ITEM_SIZE sizeof(int),
         LEN 1
@@ -337,7 +338,7 @@ TEST(primitive_ends_with) {
     assert(Slice99_primitive_ends_with(slice, slice));
     assert(Slice99_primitive_ends_with(slice, Slice99_empty(sizeof(data[0]))));
     assert(Slice99_primitive_ends_with(slice, Slice99_sub(slice, 0, 0)));
-    assert(Slice99_primitive_ends_with(slice, Slice99_sub(slice, 3, (int)slice.len)));
+    assert(Slice99_primitive_ends_with(slice, Slice99_sub(slice, 3, slice.len)));
 
     assert(!Slice99_primitive_ends_with(slice, Slice99_sub(slice, 1, 4)));
     assert(!Slice99_primitive_ends_with(slice, Slice99_sub(slice, 0, 3)));
@@ -350,7 +351,7 @@ TEST(ends_with) {
     assert(Slice99_ends_with(slice, slice, int_comparator));
     assert(Slice99_ends_with(slice, Slice99_empty(sizeof(data[0])), int_comparator));
     assert(Slice99_ends_with(slice, Slice99_sub(slice, 0, 0), int_comparator));
-    assert(Slice99_ends_with(slice, Slice99_sub(slice, 3, (int)slice.len), int_comparator));
+    assert(Slice99_ends_with(slice, Slice99_sub(slice, 3, slice.len), int_comparator));
 
     assert(!Slice99_ends_with(slice, Slice99_sub(slice, 1, 4), int_comparator));
     assert(!Slice99_ends_with(slice, Slice99_sub(slice, 0, 3), int_comparator));

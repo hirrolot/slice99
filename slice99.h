@@ -140,10 +140,17 @@ inline static size_t Slice99_size(Slice99 self) {
  *
  * @param[in] self The slice upon which the pointer will be computed.
  * @param[in] i The index of a desired item.
+ *
+ * @note This subroutine is implemented as a macro due to the absence of an signed `size_t`
+ * counterpart (i.e. the index can be negative).
  */
-inline static void *Slice99_get(Slice99 self, int i) {
-    return (char *)self.ptr + (i * (int)self.item_size);
-}
+#define Slice99_get(self, i) Slice99_get_cast_type(self, i, size_t)
+
+/**
+ * The same as #Slice99_get but explicitly casts `(self).item_size` to @p T.
+ */
+#define Slice99_get_cast_type(self, i, T)                                                          \
+    ((void *)((char *)(self).ptr + ((i) * (T)(self).item_size)))
 
 /**
  * Computes a pointer to the first item.
@@ -160,7 +167,7 @@ inline static void *Slice99_first(Slice99 self) {
  * @param[in] self The slice upon which the pointer will be computed.
  */
 inline static void *Slice99_last(Slice99 self) {
-    return Slice99_get(self, (int)(self.len - 1));
+    return Slice99_get(self, self.len - 1);
 }
 
 /**
@@ -172,14 +179,22 @@ inline static void *Slice99_last(Slice99 self) {
  *
  * @return A slice with the aforementioned properties.
  *
+ * @note This subroutine is implemented as a macro due to the absence of an signed `size_t`
+ * counterpart (i.e. the indices can be negative).
+ *
  * @pre `start_idx <= end_idx`
  */
-inline static Slice99 Slice99_sub(Slice99 self, int start_idx, int end_idx) {
-    assert(start_idx <= end_idx);
+#define Slice99_sub(self, start_idx, end_idx)                                                      \
+    Slice99_sub_cast_type(self, start_idx, end_idx, size_t)
 
-    return Slice99_from_ptrdiff(
-        Slice99_get(self, start_idx), Slice99_get(self, end_idx), self.item_size);
-}
+/**
+ * The same as #Slice99_sub but explicitly casts `(self).item_size` to @p T.
+ */
+#define Slice99_sub_cast_type(self, start_idx, end_idx, T)                                         \
+    (assert((start_idx) <= (end_idx)),                                                             \
+     Slice99_from_ptrdiff(                                                                         \
+         Slice99_get_cast_type((self), (start_idx), T),                                            \
+         Slice99_get_cast_type((self), (end_idx), T), (self).item_size))
 
 /**
  * Performs a byte-by-byte comparison of @p lhs with @p rhs.
@@ -218,7 +233,7 @@ Slice99_eq(Slice99 lhs, Slice99 rhs, int (*comparator)(const void *, const void 
     }
 
     for (size_t i = 0; i < lhs.len; i++) {
-        if (comparator(Slice99_get(lhs, (int)i), Slice99_get(rhs, (int)i)) != 0) {
+        if (comparator(Slice99_get(lhs, i), Slice99_get(rhs, i)) != 0) {
             return false;
         }
     }
@@ -237,7 +252,7 @@ Slice99_eq(Slice99 lhs, Slice99 rhs, int (*comparator)(const void *, const void 
 inline static bool Slice99_primitive_starts_with(Slice99 self, Slice99 prefix) {
     return Slice99_size(self) < Slice99_size(prefix)
                ? false
-               : Slice99_primitive_eq(Slice99_sub(self, 0, (int)prefix.len), prefix);
+               : Slice99_primitive_eq(Slice99_sub(self, 0, prefix.len), prefix);
 }
 
 /**
@@ -258,9 +273,8 @@ Slice99_starts_with(Slice99 self, Slice99 prefix, int (*comparator)(const void *
     assert(self.item_size == prefix.item_size);
     assert(comparator);
 
-    return self.len < prefix.len
-               ? false
-               : Slice99_eq(Slice99_sub(self, 0, (int)prefix.len), prefix, comparator);
+    return self.len < prefix.len ? false
+                                 : Slice99_eq(Slice99_sub(self, 0, prefix.len), prefix, comparator);
 }
 
 /**
@@ -275,7 +289,7 @@ inline static bool Slice99_primitive_ends_with(Slice99 self, Slice99 postfix) {
     return Slice99_size(self) < Slice99_size(postfix)
                ? false
                : Slice99_primitive_eq(
-                     Slice99_sub(self, (int)(self.len - postfix.len), (int)self.len), postfix);
+                     Slice99_sub(self, (self.len - postfix.len), self.len), postfix);
 }
 
 /**
@@ -299,8 +313,7 @@ Slice99_ends_with(Slice99 self, Slice99 postfix, int (*comparator)(const void *,
     return self.len < postfix.len
                ? false
                : Slice99_eq(
-                     Slice99_sub(self, (int)(self.len - postfix.len), (int)self.len), postfix,
-                     comparator);
+                     Slice99_sub(self, self.len - postfix.len, self.len), postfix, comparator);
 }
 
 /**
@@ -344,7 +357,7 @@ inline static void Slice99_fwrite_ln(Slice99 self, FILE *stream) {
 }
 
 /**
- * The same as #Slice99_print but places a new line character afterwards.
+ * The same as #Slice99_write but places a new line character afterwards.
  *
  * @param[in] self The slice to be written.
  */
@@ -396,15 +409,19 @@ Slice99_bsearch(Slice99 self, const void *key, int (*comparator)(const void *, c
  * @param[in] rhs The index of the second item.
  * @param[out] temp The memory area of `self.item_size` bytes accessible for reading and writing.
  *
+ * @note This subroutine is implemented as a macro due to the absence of an signed `size_t`
+ * counterpart (i.e. the indices can be negative).
+ *
  * @pre `temp != NULL`
  */
-inline static void Slice99_swap(Slice99 self, int lhs, int rhs, void *restrict temp) {
-    assert(temp);
-
-    memcpy(temp, Slice99_get(self, lhs), self.item_size);
-    memcpy(Slice99_get(self, lhs), Slice99_get(self, rhs), self.item_size);
-    memcpy(Slice99_get(self, rhs), temp, self.item_size);
-}
+#define Slice99_swap(self, lhs, rhs, temp)                                                         \
+    do {                                                                                           \
+        assert(temp);                                                                              \
+                                                                                                   \
+        memcpy((temp), Slice99_get(self, lhs), (self).item_size);                                  \
+        memcpy(Slice99_get(self, lhs), Slice99_get(self, rhs), (self).item_size);                  \
+        memcpy(Slice99_get(self, rhs), (temp), (self).item_size);                                  \
+    } while (0)
 
 /**
  * Swaps all the items in @p self with those in @p other.
@@ -421,9 +438,9 @@ inline static void Slice99_swap_with_slice(Slice99 self, Slice99 other, void *re
     assert(self.item_size == other.item_size);
 
     for (size_t i = 0; i < self.len; i++) {
-        memcpy(temp, Slice99_get(self, (int)i), self.item_size);
-        memcpy(Slice99_get(self, (int)i), Slice99_get(other, (int)i), self.item_size);
-        memcpy(Slice99_get(other, (int)i), temp, self.item_size);
+        memcpy(temp, Slice99_get(self, i), self.item_size);
+        memcpy(Slice99_get(self, i), Slice99_get(other, i), self.item_size);
+        memcpy(Slice99_get(other, i), temp, self.item_size);
     }
 }
 
@@ -439,7 +456,7 @@ inline static void Slice99_reverse(Slice99 self, void *restrict temp) {
     assert(temp);
 
     for (size_t i = 0; i < self.len / 2; i++) {
-        Slice99_swap(self, (int)i, (int)(self.len - i - 1), temp);
+        Slice99_swap(self, i, self.len - i - 1, temp);
     }
 }
 
@@ -447,6 +464,7 @@ inline static void Slice99_reverse(Slice99 self, void *restrict temp) {
  * Splits @p self into two parts.
  *
  * @param[in] self The slice to be splitted into @p lhs and @p rhs.
+ * @param[in] i The index at which @p self will be splitted.
  * @param[out] lhs The first part of @p self indexed as [0; @p i).
  * @param[out] rhs The second part of @p self indexed as [@p i; `self.len`).
  *
@@ -460,8 +478,8 @@ Slice99_split_at(Slice99 self, size_t i, Slice99 *restrict lhs, Slice99 *restric
     assert(lhs);
     assert(rhs);
 
-    *lhs = Slice99_sub(self, 0, (int)i);
-    *rhs = Slice99_sub(self, (int)i, (int)self.len);
+    *lhs = Slice99_sub(self, 0, i);
+    *rhs = Slice99_sub(self, i, self.len);
 }
 
 #endif // SLICE99_H
