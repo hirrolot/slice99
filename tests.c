@@ -32,6 +32,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include <assert-algebraic/assert_algebraic.h>
+
 #define TEST(name) static void test_##name(void)
 
 // A small eDSL for asserting a slice {
@@ -50,31 +52,6 @@
 // }
 
 // Property-based testing {
-
-// Algebraic stuff {
-#define ASSERT_IMPLICATION(cond_1, cond_2)                                                         \
-    if (cond_1) {                                                                                  \
-        assert(cond_2);                                                                            \
-    }                                                                                              \
-                                                                                                   \
-    do {                                                                                           \
-    } while (0)
-
-#define ASSERT_BIDIRECTIONAL_IMPLICATION(lhs, rhs)                                                 \
-    ASSERT_IMPLICATION(lhs, rhs);                                                                  \
-    ASSERT_IMPLICATION(rhs, lhs);                                                                  \
-                                                                                                   \
-    do {                                                                                           \
-    } while (0)
-
-#define ASSERT_REFLEXIVITY(op, expr) assert(op(expr, expr))
-
-#define ASSERT_SYMMETRICITY(op, lhs, rhs)                                                          \
-    ASSERT_BIDIRECTIONAL_IMPLICATION(op(lhs, rhs), op(rhs, lhs))
-
-#define ASSERT_TRANSITIVITY(op, expr_1, expr_2, expr_3)                                            \
-    ASSERT_IMPLICATION(op(expr_1, expr_2) && op(expr_2, expr_3), op(expr_1, expr_2))
-
 #define TEST_IS_EQUIVALENCE(name)                                                                  \
     TEST(name##_is_equivalence) {                                                                  \
         test_##name##_is_reflexive();                                                              \
@@ -83,9 +60,6 @@
     }                                                                                              \
                                                                                                    \
     _Static_assert(true, "")
-
-#define ASSERT_INVOLUTION(op, eq, expr) assert(eq(op(op(expr)), expr))
-// }
 
 // Test cases generation {
 static int rand_range(int min, int max) {
@@ -265,21 +239,21 @@ TEST(primitive_eq_basic) {
 TEST(primitive_eq_is_reflexive) {
     for (size_t i = 0; i < 100; i++) {
         GEN_INT_ARRAY_SLICES(slices, 1);
-        ASSERT_REFLEXIVITY(Slice99_primitive_eq, slices[0]);
+        ASSERT_REFLEXIVE(Slice99_primitive_eq, slices[0]);
     }
 }
 
 TEST(primitive_eq_is_symmetric) {
     for (size_t i = 0; i < 100; i++) {
         GEN_INT_ARRAY_SLICES(slices, 2);
-        ASSERT_SYMMETRICITY(Slice99_primitive_eq, slices[0], slices[1]);
+        ASSERT_SYMMETRIC(Slice99_primitive_eq, slices[0], slices[1]);
     }
 }
 
 TEST(primitive_eq_is_transitive) {
     for (size_t i = 0; i < 100; i++) {
         GEN_INT_ARRAY_SLICES(slices, 3);
-        ASSERT_TRANSITIVITY(Slice99_primitive_eq, slices[0], slices[1], slices[2]);
+        ASSERT_TRANSITIVE(Slice99_primitive_eq, slices[0], slices[1], slices[2]);
     }
 }
 
@@ -304,21 +278,21 @@ TEST(eq_basic) {
 TEST(eq_is_reflexive) {
     for (size_t i = 0; i < 100; i++) {
         GEN_INT_ARRAY_SLICES(slices, 1);
-        ASSERT_REFLEXIVITY(slice_int_eq, slices[0]);
+        ASSERT_REFLEXIVE(slice_int_eq, slices[0]);
     }
 }
 
 TEST(eq_is_symmetric) {
     for (size_t i = 0; i < 100; i++) {
         GEN_INT_ARRAY_SLICES(slices, 2);
-        ASSERT_SYMMETRICITY(slice_int_eq, slices[0], slices[1]);
+        ASSERT_SYMMETRIC(slice_int_eq, slices[0], slices[1]);
     }
 }
 
 TEST(eq_is_transitive) {
     for (size_t i = 0; i < 100; i++) {
         GEN_INT_ARRAY_SLICES(slices, 3);
-        ASSERT_TRANSITIVITY(slice_int_eq, slices[0], slices[1], slices[2]);
+        ASSERT_TRANSITIVE(slice_int_eq, slices[0], slices[1], slices[2]);
     }
 }
 
@@ -470,7 +444,7 @@ TEST(reverse_involutive) {
         memcpy(saved_array, slices[0].ptr, sizeof(Slice99_size(slices[0])));
         Slice99 saved_slice = Slice99_from_array(saved_array);
 
-        ASSERT_INVOLUTION(slice_rev_aux, Slice99_primitive_eq, saved_slice);
+        ASSERT_INVOLUTIVE(slice_rev_aux, Slice99_primitive_eq, saved_slice);
         free(saved_array);
     }
 }
