@@ -17,6 +17,9 @@ jobs:
     - name: Update Git submodules
       run: git submodule update --init --recursive
 
+    - name: Install the dev tooling
+      run: sudo apt install cppcheck clang-tools
+
     - name: Test
       run: bash scripts/test.sh
 
