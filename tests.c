@@ -32,7 +32,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include <assert-algebraic/assert_algebraic.h>
+#include <assert_algebraic.h>
 
 #define TEST(name) static void test_##name(void)
 
@@ -52,44 +52,17 @@
 // }
 
 // Property-based testing {
-#define TEST_IS_EQUIVALENCE(name)                                                                  \
-    TEST(name##_is_equivalence) {                                                                  \
-        test_##name##_is_reflexive();                                                              \
-        test_##name##_is_symmetric();                                                              \
-        test_##name##_is_transitive();                                                             \
-    }                                                                                              \
-                                                                                                   \
-    _Static_assert(true, "")
+static Slice99 gen_int_slice(void) {
+    const size_t len = rand() % (10);
+    Slice99 data = Slice99_new(malloc(len * sizeof(int)), sizeof(int), len);
 
-// Test cases generation {
-static int rand_range(int min, int max) {
-    return min + rand() % (max - min + 1);
+    for (size_t i = 0; i < len; i++) {
+        *(int *)Slice99_get(data, i) = rand() % INT_MAX;
+    }
+
+    return data;
 }
-
-#define GEN_ARRAY(array, len, max_val)                                                             \
-    for (size_t l = 0; l < len; l++) {                                                             \
-        (array)[l] = rand_range(0, (int)max_val);                                                  \
-    }                                                                                              \
-                                                                                                   \
-    do {                                                                                           \
-    } while (0)
-
-#define GEN_INT_ARRAY_SLICES(slices, count)                                                        \
-    Slice99 slices[count];                                                                         \
-                                                                                                   \
-    do {                                                                                           \
-        int array[10][count];                                                                      \
-        size_t len[count];                                                                         \
-                                                                                                   \
-        for (size_t k = 0; k < count; k++) {                                                       \
-            len[k] = (size_t)rand_range(0, (int)Slice99_array_len(array[0]));                      \
-            GEN_ARRAY(array[k], len[k], INT_MAX);                                                  \
-            slices[k] = Slice99_new(array[k], sizeof(array[0][0]), len[k]);                        \
-        }                                                                                          \
-    } while (0)
 // }
-
-// } (Property-based testing)
 
 // Auxiliary functions {
 static int int_comparator(const void *lhs, const void *rhs) {
@@ -236,28 +209,21 @@ TEST(primitive_eq_basic) {
     assert(!Slice99_primitive_eq(Slice99_from_str(str), slice_1));
 }
 
-TEST(primitive_eq_is_reflexive) {
+TEST(primitive_eq_is_equivalence) {
     for (size_t i = 0; i < 100; i++) {
-        GEN_INT_ARRAY_SLICES(slices, 1);
-        ASSERT_REFLEXIVE(Slice99_primitive_eq, slices[0]);
+        Slice99 slices[] = {
+            gen_int_slice(),
+            gen_int_slice(),
+            gen_int_slice(),
+        };
+
+        ASSERT_EQUIVALENCE(Slice99_primitive_eq, slices[0], slices[1], slices[2]);
+
+        free(slices[0].ptr);
+        free(slices[1].ptr);
+        free(slices[2].ptr);
     }
 }
-
-TEST(primitive_eq_is_symmetric) {
-    for (size_t i = 0; i < 100; i++) {
-        GEN_INT_ARRAY_SLICES(slices, 2);
-        ASSERT_SYMMETRIC(Slice99_primitive_eq, slices[0], slices[1]);
-    }
-}
-
-TEST(primitive_eq_is_transitive) {
-    for (size_t i = 0; i < 100; i++) {
-        GEN_INT_ARRAY_SLICES(slices, 3);
-        ASSERT_TRANSITIVE(Slice99_primitive_eq, slices[0], slices[1], slices[2]);
-    }
-}
-
-TEST_IS_EQUIVALENCE(primitive_eq);
 
 TEST(primitive_eq) {
     test_primitive_eq_basic();
@@ -275,28 +241,21 @@ TEST(eq_basic) {
     assert(!Slice99_primitive_eq(slice_1, slice_3));
 }
 
-TEST(eq_is_reflexive) {
+TEST(eq_is_equivalence) {
     for (size_t i = 0; i < 100; i++) {
-        GEN_INT_ARRAY_SLICES(slices, 1);
-        ASSERT_REFLEXIVE(slice_int_eq, slices[0]);
+        Slice99 slices[] = {
+            gen_int_slice(),
+            gen_int_slice(),
+            gen_int_slice(),
+        };
+
+        ASSERT_EQUIVALENCE(slice_int_eq, slices[0], slices[1], slices[2]);
+
+        free(slices[0].ptr);
+        free(slices[1].ptr);
+        free(slices[2].ptr);
     }
 }
-
-TEST(eq_is_symmetric) {
-    for (size_t i = 0; i < 100; i++) {
-        GEN_INT_ARRAY_SLICES(slices, 2);
-        ASSERT_SYMMETRIC(slice_int_eq, slices[0], slices[1]);
-    }
-}
-
-TEST(eq_is_transitive) {
-    for (size_t i = 0; i < 100; i++) {
-        GEN_INT_ARRAY_SLICES(slices, 3);
-        ASSERT_TRANSITIVE(slice_int_eq, slices[0], slices[1], slices[2]);
-    }
-}
-
-TEST_IS_EQUIVALENCE(eq);
 
 TEST(eq) {
     test_eq_basic();
@@ -304,12 +263,10 @@ TEST(eq) {
 }
 // } (Slice99_eq)
 
-TEST(primitive_starts_with) {
-    int data[] = {1, 2, 3, 4, 5};
-    Slice99 slice = Slice99_from_array(data);
+// Slice99_primitive_starts_with {
+TEST(primitive_starts_with_basic) {
+    Slice99 slice = Slice99_from_array((int[]){1, 2, 3, 4, 5});
 
-    assert(Slice99_primitive_starts_with(slice, slice));
-    assert(Slice99_primitive_starts_with(slice, Slice99_empty(sizeof(data[0]))));
     assert(Slice99_primitive_starts_with(slice, Slice99_sub(slice, 0, 0)));
     assert(Slice99_primitive_starts_with(slice, Slice99_sub(slice, 0, 3)));
 
@@ -317,25 +274,118 @@ TEST(primitive_starts_with) {
     assert(!Slice99_primitive_starts_with(slice, Slice99_sub(slice, 3, 5)));
 }
 
-TEST(starts_with) {
-    int data[] = {1, 2, 3, 4, 5};
-    Slice99 slice = Slice99_from_array(data);
+TEST(primitive_starts_with_partial_order) {
+    for (size_t i = 0; i < 100; i++) {
+        Slice99 slices[] = {
+            gen_int_slice(),
+            gen_int_slice(),
+            gen_int_slice(),
+        };
 
-    assert(Slice99_primitive_starts_with(slice, slice));
-    assert(Slice99_primitive_starts_with(slice, Slice99_empty(sizeof(data[0]))));
-    assert(Slice99_starts_with(slice, Slice99_sub(slice, 0, 0), int_comparator));
-    assert(Slice99_starts_with(slice, Slice99_sub(slice, 0, 3), int_comparator));
+        ASSERT_PARTIAL_ORDER(
+            Slice99_primitive_starts_with, Slice99_primitive_eq, slices[0], slices[1], slices[2]);
 
-    assert(!Slice99_starts_with(slice, Slice99_sub(slice, 1, 3), int_comparator));
-    assert(!Slice99_starts_with(slice, Slice99_sub(slice, 3, 5), int_comparator));
+        free(slices[0].ptr);
+        free(slices[1].ptr);
+        free(slices[2].ptr);
+    }
 }
 
-TEST(primitive_ends_with) {
-    int data[] = {1, 2, 3, 4, 5};
-    Slice99 slice = Slice99_from_array(data);
+TEST(primitive_starts_with_empty_slice_is_min) {
+    for (size_t i = 0; i < 100; i++) {
+        Slice99 slice = gen_int_slice();
 
-    assert(Slice99_primitive_ends_with(slice, slice));
-    assert(Slice99_primitive_ends_with(slice, Slice99_empty(sizeof(data[0]))));
+        assert(Slice99_primitive_starts_with(slice, Slice99_empty(sizeof(int))));
+
+        free(slice.ptr);
+    }
+}
+
+TEST(primitive_starts_with_reflexive) {
+    for (size_t i = 0; i < 100; i++) {
+        Slice99 slice = gen_int_slice();
+
+        ASSERT_REFLEXIVE(Slice99_primitive_starts_with, slice);
+
+        free(slice.ptr);
+    }
+}
+
+TEST(primitive_starts_with) {
+    test_primitive_starts_with_basic();
+    test_primitive_starts_with_partial_order();
+    test_primitive_starts_with_empty_slice_is_min();
+    test_primitive_starts_with_reflexive();
+}
+// } (Slice99_primitive_starts_with)
+
+// Slice99_starts_with {
+#define STARTS_WITH(slice, prefix) Slice99_starts_with(slice, prefix, int_comparator)
+
+TEST(starts_with_basic) {
+    Slice99 slice = Slice99_from_array((int[]){1, 2, 3, 4, 5});
+
+    assert(STARTS_WITH(slice, Slice99_sub(slice, 0, 0)));
+    assert(STARTS_WITH(slice, Slice99_sub(slice, 0, 3)));
+
+    assert(!STARTS_WITH(slice, Slice99_sub(slice, 1, 2)));
+    assert(!STARTS_WITH(slice, Slice99_sub(slice, 3, 5)));
+}
+
+TEST(starts_with_partial_order) {
+    for (size_t i = 0; i < 100; i++) {
+        Slice99 slices[] = {
+            gen_int_slice(),
+            gen_int_slice(),
+            gen_int_slice(),
+        };
+
+#define EQ(slice, other) Slice99_eq(slice, other, int_comparator)
+
+        ASSERT_PARTIAL_ORDER(STARTS_WITH, EQ, slices[0], slices[1], slices[2]);
+
+#undef EQ
+
+        free(slices[0].ptr);
+        free(slices[1].ptr);
+        free(slices[2].ptr);
+    }
+}
+
+TEST(starts_with_empty_slice_is_min) {
+    for (size_t i = 0; i < 100; i++) {
+        Slice99 slice = gen_int_slice();
+
+        assert(STARTS_WITH(slice, Slice99_empty(sizeof(int))));
+
+        free(slice.ptr);
+    }
+}
+
+TEST(starts_with_reflexive) {
+    for (size_t i = 0; i < 100; i++) {
+        Slice99 slice = gen_int_slice();
+
+        ASSERT_REFLEXIVE(STARTS_WITH, slice);
+
+        free(slice.ptr);
+    }
+}
+
+TEST(starts_with) {
+    test_starts_with_basic();
+    test_starts_with_partial_order();
+    test_starts_with_empty_slice_is_min();
+    test_starts_with_reflexive();
+}
+
+#undef STARTS_WITH
+// } (Slice99_starts_with)
+
+// Slice99_primitive_ends_with {
+TEST(primitive_ends_with_basic) {
+    Slice99 slice = Slice99_from_array((int[]){1, 2, 3, 4, 5});
+
     assert(Slice99_primitive_ends_with(slice, Slice99_sub(slice, 0, 0)));
     assert(Slice99_primitive_ends_with(slice, Slice99_sub(slice, 3, slice.len)));
 
@@ -343,18 +393,113 @@ TEST(primitive_ends_with) {
     assert(!Slice99_primitive_ends_with(slice, Slice99_sub(slice, 0, 3)));
 }
 
-TEST(ends_with) {
-    int data[] = {1, 2, 3, 4, 5};
-    Slice99 slice = Slice99_from_array(data);
+TEST(primitive_ends_with_partial_order) {
+    for (size_t i = 0; i < 100; i++) {
+        Slice99 slices[] = {
+            gen_int_slice(),
+            gen_int_slice(),
+            gen_int_slice(),
+        };
 
-    assert(Slice99_ends_with(slice, slice, int_comparator));
-    assert(Slice99_ends_with(slice, Slice99_empty(sizeof(data[0])), int_comparator));
-    assert(Slice99_ends_with(slice, Slice99_sub(slice, 0, 0), int_comparator));
-    assert(Slice99_ends_with(slice, Slice99_sub(slice, 3, slice.len), int_comparator));
+        ASSERT_PARTIAL_ORDER(
+            Slice99_primitive_ends_with, Slice99_primitive_eq, slices[0], slices[1], slices[2]);
 
-    assert(!Slice99_ends_with(slice, Slice99_sub(slice, 1, 4), int_comparator));
-    assert(!Slice99_ends_with(slice, Slice99_sub(slice, 0, 3), int_comparator));
+        free(slices[0].ptr);
+        free(slices[1].ptr);
+        free(slices[2].ptr);
+    }
 }
+
+TEST(primitive_ends_with_empty_slice_is_max) {
+    for (size_t i = 0; i < 100; i++) {
+        Slice99 slice = gen_int_slice();
+
+        assert(Slice99_primitive_ends_with(slice, Slice99_empty(sizeof(int))));
+
+        free(slice.ptr);
+    }
+}
+
+TEST(primitive_ends_with_reflexive) {
+    for (size_t i = 0; i < 100; i++) {
+        Slice99 slice = gen_int_slice();
+
+        ASSERT_REFLEXIVE(Slice99_primitive_ends_with, slice);
+
+        free(slice.ptr);
+    }
+}
+
+TEST(primitive_ends_with) {
+    test_primitive_ends_with_basic();
+    test_primitive_ends_with_partial_order();
+    test_primitive_ends_with_empty_slice_is_max();
+    test_primitive_ends_with_reflexive();
+}
+// } (Slice99_primitive_ends_with)
+
+// Slice99_ends_with {
+#define ENDS_WITH(slice, postfix) Slice99_ends_with(slice, postfix, int_comparator)
+
+TEST(ends_with_basic) {
+    Slice99 slice = Slice99_from_array((int[]){1, 2, 3, 4, 5});
+
+    assert(ENDS_WITH(slice, Slice99_sub(slice, 0, 0)));
+    assert(ENDS_WITH(slice, Slice99_sub(slice, 3, slice.len)));
+
+    assert(!ENDS_WITH(slice, Slice99_sub(slice, 1, 4)));
+    assert(!ENDS_WITH(slice, Slice99_sub(slice, 0, 3)));
+}
+
+TEST(ends_with_partial_order) {
+    for (size_t i = 0; i < 100; i++) {
+        Slice99 slices[] = {
+            gen_int_slice(),
+            gen_int_slice(),
+            gen_int_slice(),
+        };
+
+#define EQ(slice, other) Slice99_eq(slice, other, int_comparator)
+
+        ASSERT_PARTIAL_ORDER(ENDS_WITH, EQ, slices[0], slices[1], slices[2]);
+
+#undef EQ
+
+        free(slices[0].ptr);
+        free(slices[1].ptr);
+        free(slices[2].ptr);
+    }
+}
+
+TEST(ends_with_empty_slice_is_max) {
+    for (size_t i = 0; i < 100; i++) {
+        Slice99 slice = gen_int_slice();
+
+        assert(ENDS_WITH(slice, Slice99_empty(sizeof(int))));
+
+        free(slice.ptr);
+    }
+}
+
+TEST(ends_with_reflexive) {
+    for (size_t i = 0; i < 100; i++) {
+        Slice99 slice = gen_int_slice();
+
+        ASSERT_REFLEXIVE(ENDS_WITH, slice);
+
+        free(slice.ptr);
+    }
+}
+
+TEST(ends_with) {
+    test_ends_with_basic();
+    test_ends_with_partial_order();
+    test_ends_with_empty_slice_is_max();
+    test_ends_with_reflexive();
+}
+
+#undef ENDS_WITH
+// } (Slice99_ends_with)
 
 TEST(copy) {
     int data[] = {1, 2, 3, 4, 5};
@@ -434,14 +579,14 @@ static Slice99 slice_rev_aux(Slice99 slice) {
 
 TEST(reverse_involutive) {
     for (size_t i = 0; i < 100; i++) {
-        GEN_INT_ARRAY_SLICES(slices, 1);
+        Slice99 slice = gen_int_slice();
 
         int *saved_array;
-        if ((saved_array = malloc(Slice99_size(slices[0]))) == NULL) {
+        if ((saved_array = malloc(Slice99_size(slice))) == NULL) {
             abort();
         }
 
-        memcpy(saved_array, slices[0].ptr, sizeof(Slice99_size(slices[0])));
+        memcpy(saved_array, slice.ptr, sizeof(Slice99_size(slice)));
         Slice99 saved_slice = Slice99_from_array(saved_array);
 
         ASSERT_INVOLUTIVE(slice_rev_aux, Slice99_primitive_eq, saved_slice);
