@@ -587,7 +587,7 @@ TEST(reverse_involutive) {
         }
 
         memcpy(saved_array, slice.ptr, sizeof(Slice99_size(slice)));
-        Slice99 saved_slice = Slice99_from_array(saved_array);
+        Slice99 saved_slice = Slice99_new(saved_array, sizeof(int), slice.len);
 
         ASSERT_INVOLUTIVE(slice_rev_aux, Slice99_primitive_eq, saved_slice);
         free(saved_array);
