@@ -301,21 +301,10 @@ TEST(primitive_starts_with_empty_slice_is_min) {
     }
 }
 
-TEST(primitive_starts_with_reflexive) {
-    for (size_t i = 0; i < 100; i++) {
-        Slice99 slice = gen_int_slice();
-
-        ASSERT_REFLEXIVE(Slice99_primitive_starts_with, slice);
-
-        free(slice.ptr);
-    }
-}
-
 TEST(primitive_starts_with) {
     test_primitive_starts_with_basic();
     test_primitive_starts_with_partial_order();
     test_primitive_starts_with_empty_slice_is_min();
-    test_primitive_starts_with_reflexive();
 }
 // } (Slice99_primitive_starts_with)
 
@@ -362,21 +351,10 @@ TEST(starts_with_empty_slice_is_min) {
     }
 }
 
-TEST(starts_with_reflexive) {
-    for (size_t i = 0; i < 100; i++) {
-        Slice99 slice = gen_int_slice();
-
-        ASSERT_REFLEXIVE(STARTS_WITH, slice);
-
-        free(slice.ptr);
-    }
-}
-
 TEST(starts_with) {
     test_starts_with_basic();
     test_starts_with_partial_order();
     test_starts_with_empty_slice_is_min();
-    test_starts_with_reflexive();
 }
 
 #undef STARTS_WITH
@@ -420,21 +398,10 @@ TEST(primitive_ends_with_empty_slice_is_max) {
     }
 }
 
-TEST(primitive_ends_with_reflexive) {
-    for (size_t i = 0; i < 100; i++) {
-        Slice99 slice = gen_int_slice();
-
-        ASSERT_REFLEXIVE(Slice99_primitive_ends_with, slice);
-
-        free(slice.ptr);
-    }
-}
-
 TEST(primitive_ends_with) {
     test_primitive_ends_with_basic();
     test_primitive_ends_with_partial_order();
     test_primitive_ends_with_empty_slice_is_max();
-    test_primitive_ends_with_reflexive();
 }
 // } (Slice99_primitive_ends_with)
 
@@ -481,21 +448,10 @@ TEST(ends_with_empty_slice_is_max) {
     }
 }
 
-TEST(ends_with_reflexive) {
-    for (size_t i = 0; i < 100; i++) {
-        Slice99 slice = gen_int_slice();
-
-        ASSERT_REFLEXIVE(ENDS_WITH, slice);
-
-        free(slice.ptr);
-    }
-}
-
 TEST(ends_with) {
     test_ends_with_basic();
     test_ends_with_partial_order();
     test_ends_with_empty_slice_is_max();
-    test_ends_with_reflexive();
 }
 
 #undef ENDS_WITH
