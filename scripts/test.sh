@@ -2,7 +2,7 @@
 
 # Check the tests.
 cppcheck tests.c
-scan-build --use-analyzer=/usr/bin/clang clang tests.c -I. -Weverything -std=c99 -o tests
+scan-build --use-analyzer=/usr/bin/clang clang tests.c -I. -Iassert-algebraic -Weverything -std=c99 -o tests
 ./tests
 rm tests
 
