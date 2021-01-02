@@ -8,6 +8,7 @@ var searchData=
   ['slice99_5fget_5fcast_5ftype',['Slice99_get_cast_type',['../slice99_8h.html#a80df197030d2e328a1856a68204b7c0b',1,'slice99.h']]],
   ['slice99_5fmemcmp',['SLICE99_MEMCMP',['../slice99_8h.html#a4ad6e85e51121b718c704bc6f7c16cd7',1,'slice99.h']]],
   ['slice99_5fmemcpy',['SLICE99_MEMCPY',['../slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c',1,'slice99.h']]],
+  ['slice99_5fmemmove',['SLICE99_MEMMOVE',['../slice99_8h.html#afa5c9f55ad339be88c60744fadb239f6',1,'slice99.h']]],
   ['slice99_5fqsort',['SLICE99_QSORT',['../slice99_8h.html#af75364d1b179202146fcf2953356d01a',1,'slice99.h']]],
   ['slice99_5fstrlen',['SLICE99_STRLEN',['../slice99_8h.html#a74ab39995ce273807783bb0006d9d85d',1,'slice99.h']]],
   ['slice99_5fsub',['Slice99_sub',['../slice99_8h.html#a2c941abce41d90462e745ef6729e8965',1,'slice99.h']]],

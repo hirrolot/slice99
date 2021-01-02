@@ -1,7 +1,8 @@
 var searchData=
 [
   ['slice99_5fbsearch',['Slice99_bsearch',['../slice99_8h.html#acdc649fac630f1f611482f2d114f5a7e',1,'slice99.h']]],
-  ['slice99_5fcopy',['Slice99_copy',['../slice99_8h.html#a220fd9062065a54846bd6b623b5fc605',1,'slice99.h']]],
+  ['slice99_5fcopy',['Slice99_copy',['../slice99_8h.html#af0633af9b428c3c28e0476c65c4bb5dc',1,'slice99.h']]],
+  ['slice99_5fcopy_5fnon_5foverlapping',['Slice99_copy_non_overlapping',['../slice99_8h.html#ab6e9856494623751a31202d2f1d94409',1,'slice99.h']]],
   ['slice99_5fempty',['Slice99_empty',['../slice99_8h.html#ab3b1792fcd0cad249aeff742baa5cc65',1,'slice99.h']]],
   ['slice99_5fends_5fwith',['Slice99_ends_with',['../slice99_8h.html#adcdfc64cdb2e3b1e0842d98d38ea6faf',1,'slice99.h']]],
   ['slice99_5feq',['Slice99_eq',['../slice99_8h.html#adf32a71381185a03e3b50ed6179d7544',1,'slice99.h']]],
