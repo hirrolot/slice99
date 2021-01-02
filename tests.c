@@ -465,9 +465,23 @@ TEST(copy) {
     assert(memcmp(data, copied, sizeof(data)) == 0);
     memset(copied, 0, sizeof(copied));
 
-    Slice99_copy(Slice99_new(copied, 1, 0), Slice99_from_array(data));
+    // Check that copy occurs even if a destination slice is empty.
+    Slice99_copy(Slice99_new(copied, sizeof(int), 0), Slice99_from_array(data));
     assert(memcmp(data, copied, sizeof(data)) == 0);
     memset(copied, 0, sizeof(copied));
+}
+
+TEST(copy_non_overlapping) {
+    Slice99 slice = Slice99_from_array((int[]){1, 2, 3, 4, 5});
+
+    Slice99_copy(slice, Slice99_sub(slice, 1, slice.len));
+    assert(memcmp(slice.ptr, (const int[]){2, 3, 4, 5}, sizeof(int) * 4) == 0);
+
+    // Check that copy occurs even if a destination slice is empty.
+    int data[] = {1, 2, 3, 4, 5};
+    int copied[Slice99_array_len(data)];
+    Slice99_copy(Slice99_new(copied, sizeof(int), 0), Slice99_from_array(data));
+    assert(memcmp(data, copied, sizeof(data)) == 0);
 }
 
 TEST(sort) {
@@ -663,6 +677,7 @@ int main(void) {
     test_primitive_ends_with();
     test_ends_with();
     test_copy();
+    test_copy_non_overlapping();
     test_sort();
     test_bsearch();
     test_swap();

@@ -23,13 +23,13 @@
  * @file
  * A slice of some array.
  *
- * The macros #SLICE99_ASSERT, #SLICE99_MEMCMP, #SLICE99_MEMCPY, #SLICE99_STRLEN, #SLICE99_QSORT,
- * and #SLICE99_BSEARCH are automatically defined in case they have not been defined before
- * including this header file. They represent the corresponding standard library's functions, though
- * actual implementations can differ. If you develop software for a freestanding environment, these
- * macros might need to be defined beforehand. Note that #SLICE99_QSORT and #SLICE99_BSEARCH might
- * need to be provided only if you define `SLICE99_INCLUDE_SORT` and `SLICE99_INCLUDE_BSEARCH`,
- * respectively.
+ * The macros #SLICE99_ASSERT, #SLICE99_MEMCMP, #SLICE99_MEMCPY, #SLICE99_MEMMOVE, #SLICE99_STRLEN,
+ * #SLICE99_QSORT, and #SLICE99_BSEARCH are automatically defined in case they have not been defined
+ * before including this header file. They represent the corresponding standard library's functions,
+ * though actual implementations can differ. If you develop software for a freestanding environment,
+ * these macros might need to be defined beforehand. Note that #SLICE99_QSORT and #SLICE99_BSEARCH
+ * might need to be provided only if you define `SLICE99_INCLUDE_SORT` and
+ * `SLICE99_INCLUDE_BSEARCH`, respectively.
  */
 
 /**
@@ -65,6 +65,12 @@
 #include <string.h>
 /// Like `memcpy`.
 #define SLICE99_MEMCPY memcpy
+#endif
+
+#ifndef SLICE99_MEMMOVE
+#include <string.h>
+/// Like `memmove`.
+#define SLICE99_MEMMOVE memmove
 #endif
 
 #ifndef SLICE99_STRLEN
@@ -397,13 +403,22 @@ Slice99_ends_with(Slice99 self, Slice99 postfix, int (*comparator)(const void *,
 }
 
 /**
- * Copies @p src to the beginning of @p dst, byte-by-byte.
+ * Copies @p other to the beginning of @p self, byte-by-byte.
  *
- * @param[out] dst The location to which the whole @p src will be copied.
- * @param[in] src The slice to be copied to @p dst.
+ * @param[out] self The location to which the whole @p other will be copied.
+ * @param[in] other The slice to be copied to @p self.
  */
-inline static void Slice99_copy(Slice99 dst, Slice99 src) {
-    SLICE99_MEMCPY(dst.ptr, src.ptr, Slice99_size(src));
+inline static void Slice99_copy(Slice99 self, Slice99 other) {
+    SLICE99_MEMMOVE(self.ptr, other.ptr, Slice99_size(other));
+}
+
+/**
+ * The same as #Slice99_copy except that @p self and @p other shall be non-overlapping.
+ *
+ * @pre @p self and @p other shall be non-overlapping.
+ */
+inline static void Slice99_copy_non_overlapping(Slice99 self, Slice99 other) {
+    SLICE99_MEMCPY(self.ptr, other.ptr, Slice99_size(other));
 }
 
 #ifdef SLICE99_INCLUDE_IO
