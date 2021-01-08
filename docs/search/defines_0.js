@@ -13,5 +13,5 @@ var searchData=
   ['slice99_5fstrlen',['SLICE99_STRLEN',['../slice99_8h.html#a74ab39995ce273807783bb0006d9d85d',1,'slice99.h']]],
   ['slice99_5fsub',['Slice99_sub',['../slice99_8h.html#a2c941abce41d90462e745ef6729e8965',1,'slice99.h']]],
   ['slice99_5fsub_5fcast_5ftype',['Slice99_sub_cast_type',['../slice99_8h.html#aff5368fbf40b74b98e7f24de59596e8c',1,'slice99.h']]],
-  ['slice99_5fswap',['Slice99_swap',['../slice99_8h.html#ab329a6e614bc483f1306a39a66344343',1,'slice99.h']]]
+  ['slice99_5fswap',['Slice99_swap',['../slice99_8h.html#acd148e62b60b316dfba5be120ef54c8a',1,'slice99.h']]]
 ];

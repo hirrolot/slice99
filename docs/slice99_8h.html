@@ -131,9 +131,9 @@ Macros</h2></td></tr>
 <tr class="memitem:aff5368fbf40b74b98e7f24de59596e8c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#aff5368fbf40b74b98e7f24de59596e8c">Slice99_sub_cast_type</a>(self,  start_idx,  end_idx,  T)</td></tr>
 <tr class="memdesc:aff5368fbf40b74b98e7f24de59596e8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The same as <a class="el" href="slice99_8h.html#a2c941abce41d90462e745ef6729e8965" title="Subslicing self with [start_idx .. end_idx]. ">Slice99_sub</a> but explicitly casts <code>(self).item_size</code> to <code>T</code>.  <a href="#aff5368fbf40b74b98e7f24de59596e8c">More...</a><br /></td></tr>
 <tr class="separator:aff5368fbf40b74b98e7f24de59596e8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab329a6e614bc483f1306a39a66344343"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#ab329a6e614bc483f1306a39a66344343">Slice99_swap</a>(self,  lhs,  rhs,  temp)</td></tr>
-<tr class="memdesc:ab329a6e614bc483f1306a39a66344343"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps the <code>lhs</code> -indexed and <code>rhs</code> -indexed items.  <a href="#ab329a6e614bc483f1306a39a66344343">More...</a><br /></td></tr>
-<tr class="separator:ab329a6e614bc483f1306a39a66344343"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd148e62b60b316dfba5be120ef54c8a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#acd148e62b60b316dfba5be120ef54c8a">Slice99_swap</a>(self,  lhs,  rhs,  backup)</td></tr>
+<tr class="memdesc:acd148e62b60b316dfba5be120ef54c8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps the <code>lhs</code> -indexed and <code>rhs</code> -indexed items.  <a href="#acd148e62b60b316dfba5be120ef54c8a">More...</a><br /></td></tr>
+<tr class="separator:acd148e62b60b316dfba5be120ef54c8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -203,12 +203,12 @@ Functions</h2></td></tr>
 <tr class="memitem:acdc649fac630f1f611482f2d114f5a7e"><td class="memItemLeft" align="right" valign="top">static void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#acdc649fac630f1f611482f2d114f5a7e">Slice99_bsearch</a> (<a class="el" href="structSlice99.html">Slice99</a> self, const void *key, int(*comparator)(const void *, const void *))</td></tr>
 <tr class="memdesc:acdc649fac630f1f611482f2d114f5a7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a binary search in <code>self</code>.  <a href="#acdc649fac630f1f611482f2d114f5a7e">More...</a><br /></td></tr>
 <tr class="separator:acdc649fac630f1f611482f2d114f5a7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add6a922470674a63c04f6cb34f10c587"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#add6a922470674a63c04f6cb34f10c587">Slice99_swap_with_slice</a> (<a class="el" href="structSlice99.html">Slice99</a> self, <a class="el" href="structSlice99.html">Slice99</a> other, void *restrict temp)</td></tr>
-<tr class="memdesc:add6a922470674a63c04f6cb34f10c587"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps all the items in <code>self</code> with those in <code>other</code>.  <a href="#add6a922470674a63c04f6cb34f10c587">More...</a><br /></td></tr>
-<tr class="separator:add6a922470674a63c04f6cb34f10c587"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a572e5a0f8f9f47dfdeafb432f9c6b036"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a572e5a0f8f9f47dfdeafb432f9c6b036">Slice99_reverse</a> (<a class="el" href="structSlice99.html">Slice99</a> self, void *restrict temp)</td></tr>
-<tr class="memdesc:a572e5a0f8f9f47dfdeafb432f9c6b036"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverses the order of items in <code>self</code>.  <a href="#a572e5a0f8f9f47dfdeafb432f9c6b036">More...</a><br /></td></tr>
-<tr class="separator:a572e5a0f8f9f47dfdeafb432f9c6b036"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64763843fbfeea0099a7bae8a3fcd941"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a64763843fbfeea0099a7bae8a3fcd941">Slice99_swap_with_slice</a> (<a class="el" href="structSlice99.html">Slice99</a> self, <a class="el" href="structSlice99.html">Slice99</a> other, void *restrict backup)</td></tr>
+<tr class="memdesc:a64763843fbfeea0099a7bae8a3fcd941"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps all the items in <code>self</code> with those in <code>other</code>.  <a href="#a64763843fbfeea0099a7bae8a3fcd941">More...</a><br /></td></tr>
+<tr class="separator:a64763843fbfeea0099a7bae8a3fcd941"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51f4ba9696f12fa0cf82fa018828e9a9"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a51f4ba9696f12fa0cf82fa018828e9a9">Slice99_reverse</a> (<a class="el" href="structSlice99.html">Slice99</a> self, void *restrict backup)</td></tr>
+<tr class="memdesc:a51f4ba9696f12fa0cf82fa018828e9a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reverses the order of items in <code>self</code>.  <a href="#a51f4ba9696f12fa0cf82fa018828e9a9">More...</a><br /></td></tr>
+<tr class="separator:a51f4ba9696f12fa0cf82fa018828e9a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a292232b30f8add259cc03a87e5c96d86"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a292232b30f8add259cc03a87e5c96d86">Slice99_split_at</a> (<a class="el" href="structSlice99.html">Slice99</a> self, size_t i, <a class="el" href="structSlice99.html">Slice99</a> *restrict lhs, <a class="el" href="structSlice99.html">Slice99</a> *restrict rhs)</td></tr>
 <tr class="memdesc:a292232b30f8add259cc03a87e5c96d86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits <code>self</code> into two parts.  <a href="#a292232b30f8add259cc03a87e5c96d86">More...</a><br /></td></tr>
 <tr class="separator:a292232b30f8add259cc03a87e5c96d86"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -346,8 +346,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab329a6e614bc483f1306a39a66344343"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab329a6e614bc483f1306a39a66344343">&#9670;&nbsp;</a></span>Slice99_swap</h2>
+<a id="acd148e62b60b316dfba5be120ef54c8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd148e62b60b316dfba5be120ef54c8a">&#9670;&nbsp;</a></span>Slice99_swap</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -374,7 +374,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">temp&#160;</td>
+          <td class="paramname">backup&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -383,7 +383,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {                                                                                           \</div><div class="line">        SLICE99_ASSERT(temp);                                                                      <a class="code" href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c">\</a></div><div class="line"><a class="code" href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c">                                                                                                   \</a></div><div class="line"><a class="code" href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c">        SLICE99_MEMCPY</a>((temp), <a class="code" href="slice99_8h.html#a907b544bdd92e9d7a7b3b50c69102fd6">Slice99_get</a>(<span class="keyword">self</span>, lhs), (<span class="keyword">self</span>).item_size);                          \</div><div class="line">        SLICE99_MEMCPY(<a class="code" href="slice99_8h.html#a907b544bdd92e9d7a7b3b50c69102fd6">Slice99_get</a>(<span class="keyword">self</span>, lhs), <a class="code" href="slice99_8h.html#a907b544bdd92e9d7a7b3b50c69102fd6">Slice99_get</a>(<span class="keyword">self</span>, rhs), (<span class="keyword">self</span>).item_size);          \</div><div class="line">        SLICE99_MEMCPY(<a class="code" href="slice99_8h.html#a907b544bdd92e9d7a7b3b50c69102fd6">Slice99_get</a>(<span class="keyword">self</span>, rhs), (temp), (<span class="keyword">self</span>).item_size);                          \</div><div class="line">    } <span class="keywordflow">while</span> (0)</div><div class="ttc" id="slice99_8h_html_a7306a32a97b3b8a5f05c7b052618930c"><div class="ttname"><a href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c">SLICE99_MEMCPY</a></div><div class="ttdeci">#define SLICE99_MEMCPY</div><div class="ttdoc">Like memcpy. </div><div class="ttdef"><b>Definition:</b> slice99.h:67</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {                                                                                           \</div><div class="line">        SLICE99_ASSERT(backup);                                                                    <a class="code" href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c">\</a></div><div class="line"><a class="code" href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c">                                                                                                   \</a></div><div class="line"><a class="code" href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c">        SLICE99_MEMCPY</a>((backup), <a class="code" href="slice99_8h.html#a907b544bdd92e9d7a7b3b50c69102fd6">Slice99_get</a>(<span class="keyword">self</span>, lhs), (<span class="keyword">self</span>).item_size);                        \</div><div class="line">        SLICE99_MEMCPY(<a class="code" href="slice99_8h.html#a907b544bdd92e9d7a7b3b50c69102fd6">Slice99_get</a>(<span class="keyword">self</span>, lhs), <a class="code" href="slice99_8h.html#a907b544bdd92e9d7a7b3b50c69102fd6">Slice99_get</a>(<span class="keyword">self</span>, rhs), (<span class="keyword">self</span>).item_size);          \</div><div class="line">        SLICE99_MEMCPY(<a class="code" href="slice99_8h.html#a907b544bdd92e9d7a7b3b50c69102fd6">Slice99_get</a>(<span class="keyword">self</span>, rhs), (backup), (<span class="keyword">self</span>).item_size);                        \</div><div class="line">    } <span class="keywordflow">while</span> (0)</div><div class="ttc" id="slice99_8h_html_a7306a32a97b3b8a5f05c7b052618930c"><div class="ttname"><a href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c">SLICE99_MEMCPY</a></div><div class="ttdeci">#define SLICE99_MEMCPY</div><div class="ttdoc">Like memcpy. </div><div class="ttdef"><b>Definition:</b> slice99.h:67</div></div>
 <div class="ttc" id="slice99_8h_html_a907b544bdd92e9d7a7b3b50c69102fd6"><div class="ttname"><a href="slice99_8h.html#a907b544bdd92e9d7a7b3b50c69102fd6">Slice99_get</a></div><div class="ttdeci">#define Slice99_get(self, i)</div><div class="ttdoc">Computes a pointer to the i -indexed item. </div><div class="ttdef"><b>Definition:</b> slice99.h:233</div></div>
 </div><!-- fragment -->
 <p>Swaps the <code>lhs</code> -indexed and <code>rhs</code> -indexed items. </p>
@@ -392,12 +392,12 @@ Functions</h2></td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">self</td><td>The slice in which <code>lhs</code> and <code>rhs</code> will be swapped. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">lhs</td><td>The index of the first item. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">rhs</td><td>The index of the second item. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">temp</td><td>The memory area of <code>self.item_size</code> bytes accessible for reading and writing.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">backup</td><td>The memory area of <code>self.item_size</code> bytes accessible for reading and writing.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This subroutine is implemented as a macro due to the absence of a signed <code>size_t</code> counterpart (i.e. the indices can be negative).</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd><code>temp != NULL</code> </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>backup != NULL</code> </dd></dl>
 
 </div>
 </div>
@@ -1170,8 +1170,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a572e5a0f8f9f47dfdeafb432f9c6b036"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a572e5a0f8f9f47dfdeafb432f9c6b036">&#9670;&nbsp;</a></span>Slice99_reverse()</h2>
+<a id="a51f4ba9696f12fa0cf82fa018828e9a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51f4ba9696f12fa0cf82fa018828e9a9">&#9670;&nbsp;</a></span>Slice99_reverse()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1189,7 +1189,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">void *restrict&#160;</td>
-          <td class="paramname"><em>temp</em>&#160;</td>
+          <td class="paramname"><em>backup</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1208,11 +1208,11 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">self</td><td>The slice to be reversed. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">temp</td><td>The memory area of <code>self.item_size</code> bytes accessible for reading and writing.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">backup</td><td>The memory area of <code>self.item_size</code> bytes accessible for reading and writing.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section pre"><dt>Precondition</dt><dd><code>temp != NULL</code> </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>backup != NULL</code> </dd></dl>
 
 </div>
 </div>
@@ -1417,8 +1417,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="add6a922470674a63c04f6cb34f10c587"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add6a922470674a63c04f6cb34f10c587">&#9670;&nbsp;</a></span>Slice99_swap_with_slice()</h2>
+<a id="a64763843fbfeea0099a7bae8a3fcd941"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64763843fbfeea0099a7bae8a3fcd941">&#9670;&nbsp;</a></span>Slice99_swap_with_slice()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1442,7 +1442,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">void *restrict&#160;</td>
-          <td class="paramname"><em>temp</em>&#160;</td>
+          <td class="paramname"><em>backup</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1462,7 +1462,7 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">self</td><td>The first slice to be swapped. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">other</td><td>The second slice to be swapped. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">temp</td><td>The memory area of <code>self.item_size</code> bytes accessible for reading and writing.</td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">backup</td><td>The memory area of <code>self.item_size</code> bytes accessible for reading and writing.</td></tr>
   </table>
   </dd>
 </dl>

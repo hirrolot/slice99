@@ -28,7 +28,7 @@ var searchData=
   ['slice99_5fprimitive_5feq',['Slice99_primitive_eq',['../slice99_8h.html#a6d0170af68a66bd469eff16c0fd5d503',1,'slice99.h']]],
   ['slice99_5fprimitive_5fstarts_5fwith',['Slice99_primitive_starts_with',['../slice99_8h.html#a5f8c3986891a359399a136dfc7767254',1,'slice99.h']]],
   ['slice99_5fqsort',['SLICE99_QSORT',['../slice99_8h.html#af75364d1b179202146fcf2953356d01a',1,'slice99.h']]],
-  ['slice99_5freverse',['Slice99_reverse',['../slice99_8h.html#a572e5a0f8f9f47dfdeafb432f9c6b036',1,'slice99.h']]],
+  ['slice99_5freverse',['Slice99_reverse',['../slice99_8h.html#a51f4ba9696f12fa0cf82fa018828e9a9',1,'slice99.h']]],
   ['slice99_5fsize',['Slice99_size',['../slice99_8h.html#a305e4878c540defdc9ed1ab987b4af98',1,'slice99.h']]],
   ['slice99_5fsort',['Slice99_sort',['../slice99_8h.html#a92fa3f03cef49b60206d43abd5d02946',1,'slice99.h']]],
   ['slice99_5fsplit_5fat',['Slice99_split_at',['../slice99_8h.html#a292232b30f8add259cc03a87e5c96d86',1,'slice99.h']]],
@@ -36,8 +36,8 @@ var searchData=
   ['slice99_5fstrlen',['SLICE99_STRLEN',['../slice99_8h.html#a74ab39995ce273807783bb0006d9d85d',1,'slice99.h']]],
   ['slice99_5fsub',['Slice99_sub',['../slice99_8h.html#a2c941abce41d90462e745ef6729e8965',1,'slice99.h']]],
   ['slice99_5fsub_5fcast_5ftype',['Slice99_sub_cast_type',['../slice99_8h.html#aff5368fbf40b74b98e7f24de59596e8c',1,'slice99.h']]],
-  ['slice99_5fswap',['Slice99_swap',['../slice99_8h.html#ab329a6e614bc483f1306a39a66344343',1,'slice99.h']]],
-  ['slice99_5fswap_5fwith_5fslice',['Slice99_swap_with_slice',['../slice99_8h.html#add6a922470674a63c04f6cb34f10c587',1,'slice99.h']]],
+  ['slice99_5fswap',['Slice99_swap',['../slice99_8h.html#acd148e62b60b316dfba5be120ef54c8a',1,'slice99.h']]],
+  ['slice99_5fswap_5fwith_5fslice',['Slice99_swap_with_slice',['../slice99_8h.html#a64763843fbfeea0099a7bae8a3fcd941',1,'slice99.h']]],
   ['slice99_5fwrite',['Slice99_write',['../slice99_8h.html#a84aaf560a0ac60367ba665e8520ee544',1,'slice99.h']]],
   ['slice99_5fwrite_5fln',['Slice99_write_ln',['../slice99_8h.html#aa5c6aa8e9267ef6e0428764ab6028a9b',1,'slice99.h']]]
 ];
