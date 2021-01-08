@@ -69,6 +69,10 @@ However, this approach is notoriously error-prone: the interface is easy to misu
 
 This is what slice99 tries to fix.
 
+## Projects using slice99
+
+ - [Hirrolot/smolrtsp](https://github.com/Hirrolot/smolrtsp) --  A small, portable, extensible RTSP 1.0 implementation in C99.
+
 ## FAQ
 
 ### Q: Can I use this library to develop bare-metal software?
