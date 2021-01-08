@@ -283,6 +283,28 @@ inline static void *Slice99_last(Slice99 self) {
          Slice99_get_cast_type((self), (end_idx), T), (self).item_size))
 
 /**
+ * Advances @p self by @p offset items.
+ *
+ * @param[in] self The original slice.
+ * @param[in] offset The number of items to advance. Can be negative.
+ *
+ * @return A slice advanced by @p offset items.
+ *
+ * @note This subroutine is implemented as a macro due to the absence of a signed `size_t`
+ * counterpart (i.e. the offset can be negative).
+ *
+ * @pre `offset <= (self).len`
+ */
+#define Slice99_advance(self, offset) Slice99_advance_cast_type(self, offset, size_t, size_t)
+
+/**
+ * The same as #Slice99_advance but explicitly casts `(self).item_size` to @p T and `(self).len` to
+ * @p U.
+ */
+#define Slice99_advance_cast_type(self, offset, T, U)                                              \
+    Slice99_sub_cast_type(self, offset, (U)(self).len, T)
+
+/**
  * Performs a byte-by-byte comparison of @p lhs with @p rhs.
  *
  * @param[in] lhs The first slice to be compared.

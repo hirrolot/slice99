@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
  - `Slice99_copy`
+ - `Slice99_advance`, `Slice99_advance_cast_type`
 
 ### Changed
 

@@ -195,6 +195,40 @@ TEST(sub) {
     // clang-format on
 }
 
+TEST(advance) {
+    int data[] = {1, 2, 3, 4, 5};
+
+    // clang-format off
+    ASSERT_SLICE(
+        Slice99_advance(Slice99_from_array(data), 0),
+        PTR data,
+        ITEM_SIZE sizeof(int),
+        LEN 5
+    );
+
+    ASSERT_SLICE(
+        Slice99_advance(Slice99_from_array(data), 1),
+        PTR data + 1,
+        ITEM_SIZE sizeof(int),
+        LEN 4
+    );
+
+    ASSERT_SLICE(
+        Slice99_advance(Slice99_from_array(data), 5),
+        PTR data + 5,
+        ITEM_SIZE sizeof(int),
+        LEN 0
+    );
+
+    ASSERT_SLICE(
+        Slice99_advance_cast_type(Slice99_new(data + 1, sizeof(int), 4), -1, int, int),
+        PTR data,
+        ITEM_SIZE sizeof(int),
+        LEN 5
+    );
+    // clang-format on
+}
+
 // Slice99_primitive_eq {
 TEST(primitive_eq_basic) {
     char str[] = "12345";
@@ -670,6 +704,7 @@ int main(void) {
     test_first();
     test_last();
     test_sub();
+    test_advance();
     test_primitive_eq();
     test_eq();
     test_primitive_starts_with();
