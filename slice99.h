@@ -528,20 +528,20 @@ Slice99_bsearch(Slice99 self, const void *key, int (*comparator)(const void *, c
  * @param[out] self The slice in which @p lhs and @p rhs will be swapped.
  * @param[in] lhs The index of the first item.
  * @param[in] rhs The index of the second item.
- * @param[out] temp The memory area of `self.item_size` bytes accessible for reading and writing.
+ * @param[out] backup The memory area of `self.item_size` bytes accessible for reading and writing.
  *
  * @note This subroutine is implemented as a macro due to the absence of a signed `size_t`
  * counterpart (i.e. the indices can be negative).
  *
- * @pre `temp != NULL`
+ * @pre `backup != NULL`
  */
-#define Slice99_swap(self, lhs, rhs, temp)                                                         \
+#define Slice99_swap(self, lhs, rhs, backup)                                                       \
     do {                                                                                           \
-        SLICE99_ASSERT(temp);                                                                      \
+        SLICE99_ASSERT(backup);                                                                    \
                                                                                                    \
-        SLICE99_MEMCPY((temp), Slice99_get(self, lhs), (self).item_size);                          \
+        SLICE99_MEMCPY((backup), Slice99_get(self, lhs), (self).item_size);                        \
         SLICE99_MEMCPY(Slice99_get(self, lhs), Slice99_get(self, rhs), (self).item_size);          \
-        SLICE99_MEMCPY(Slice99_get(self, rhs), (temp), (self).item_size);                          \
+        SLICE99_MEMCPY(Slice99_get(self, rhs), (backup), (self).item_size);                        \
     } while (0)
 
 /**
@@ -549,19 +549,19 @@ Slice99_bsearch(Slice99 self, const void *key, int (*comparator)(const void *, c
  *
  * @param[out] self The first slice to be swapped.
  * @param[out] other The second slice to be swapped.
- * @param[out] temp The memory area of `self.item_size` bytes accessible for reading and writing.
+ * @param[out] backup The memory area of `self.item_size` bytes accessible for reading and writing.
  *
  * @pre `self.len == other.len`
  * @pre `self.item_size == other.item_size`
  */
-inline static void Slice99_swap_with_slice(Slice99 self, Slice99 other, void *restrict temp) {
+inline static void Slice99_swap_with_slice(Slice99 self, Slice99 other, void *restrict backup) {
     SLICE99_ASSERT(self.len == other.len);
     SLICE99_ASSERT(self.item_size == other.item_size);
 
     for (size_t i = 0; i < self.len; i++) {
-        SLICE99_MEMCPY(temp, Slice99_get(self, i), self.item_size);
+        SLICE99_MEMCPY(backup, Slice99_get(self, i), self.item_size);
         SLICE99_MEMCPY(Slice99_get(self, i), Slice99_get(other, i), self.item_size);
-        SLICE99_MEMCPY(Slice99_get(other, i), temp, self.item_size);
+        SLICE99_MEMCPY(Slice99_get(other, i), backup, self.item_size);
     }
 }
 
@@ -569,15 +569,15 @@ inline static void Slice99_swap_with_slice(Slice99 self, Slice99 other, void *re
  * Reverses the order of items in @p self.
  *
  * @param[out] self The slice to be reversed.
- * @param[out] temp The memory area of `self.item_size` bytes accessible for reading and writing.
+ * @param[out] backup The memory area of `self.item_size` bytes accessible for reading and writing.
  *
- * @pre `temp != NULL`
+ * @pre `backup != NULL`
  */
-inline static void Slice99_reverse(Slice99 self, void *restrict temp) {
-    SLICE99_ASSERT(temp);
+inline static void Slice99_reverse(Slice99 self, void *restrict backup) {
+    SLICE99_ASSERT(backup);
 
     for (size_t i = 0; i < self.len / 2; i++) {
-        Slice99_swap(self, i, self.len - i - 1, temp);
+        Slice99_swap(self, i, self.len - i - 1, backup);
     }
 }
 

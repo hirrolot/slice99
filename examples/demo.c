@@ -44,14 +44,14 @@ int main(void) {
 
     // Mutators {
     Slice99 data = Slice99_from_array((int[]){5, 8, 1, 9});
-    int temp;
+    int backup;
 
-    Slice99_swap(data, 1, 3, &temp);
+    Slice99_swap(data, 1, 3, &backup);
     assert(*(int *)Slice99_get(data, 1) == 9);
     assert(*(int *)Slice99_get(data, 3) == 8);
 
     data = Slice99_from_array((int[]){1, 2, 3});
-    Slice99_reverse(data, &temp);
+    Slice99_reverse(data, &backup);
     assert(Slice99_primitive_eq(data, Slice99_from_array((int[]){3, 2, 1})));
     // }
 

@@ -6,7 +6,7 @@ This library provides [array slicing] facilities for pure C99.
 
 [array slicing]: https://en.wikipedia.org/wiki/Array_slicing
 
-[[`examples/demo.c`](examples/demo.c)] [ [Playground >>](https://godbolt.org/z/eErKMa) ]
+[[`examples/demo.c`](examples/demo.c)] [ [Playground >>](https://godbolt.org/z/ef3j66) ]
 ```c
 #include <slice99.h>
 
@@ -33,14 +33,14 @@ int main(void) {
 
     // Mutators {
     Slice99 data = Slice99_from_array((int[]){5, 8, 1, 9});
-    int temp;
+    int backup;
 
-    Slice99_swap(data, 1, 3, &temp);
+    Slice99_swap(data, 1, 3, &backup);
     assert(*(int *)Slice99_get(data, 1) == 9);
     assert(*(int *)Slice99_get(data, 3) == 8);
 
     data = Slice99_from_array((int[]){1, 2, 3});
-    Slice99_reverse(data, &temp);
+    Slice99_reverse(data, &backup);
     assert(Slice99_primitive_eq(data, Slice99_from_array((int[]){3, 2, 1})));
     // }
 

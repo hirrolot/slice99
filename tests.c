@@ -506,22 +506,22 @@ TEST(bsearch) {
 }
 
 TEST(swap) {
-    int temp;
+    int backup;
 
     Slice99 slice = Slice99_from_array((int[]){1, 2, 3, 4, 5});
 
-    Slice99_swap(slice, 1, 3, &temp);
+    Slice99_swap(slice, 1, 3, &backup);
     assert(*(int *)Slice99_get(slice, 1) == 4);
     assert(*(int *)Slice99_get(slice, 3) == 2);
 }
 
 TEST(swap_with_slice) {
-    int temp;
+    int backup;
 
     Slice99 lhs = Slice99_from_array((int[]){1, 2, 3, 4, 5}),
             rhs = Slice99_from_array((int[]){6, 7, 8, 9, 0});
 
-    Slice99_swap_with_slice(lhs, rhs, &temp);
+    Slice99_swap_with_slice(lhs, rhs, &backup);
 
     assert(memcmp(lhs.ptr, (const int[]){6, 7, 8, 9, 0}, Slice99_size(lhs)) == 0);
     assert(memcmp(rhs.ptr, (const int[]){1, 2, 3, 4, 5}, Slice99_size(rhs)) == 0);
@@ -529,21 +529,21 @@ TEST(swap_with_slice) {
 
 // Slice99_reverse {
 TEST(reverse_basic) {
-    int temp;
+    int backup;
 
     char empty_str[] = "";
     Slice99 slice = Slice99_new(empty_str, 1, 0);
-    Slice99_reverse(slice, &temp);
+    Slice99_reverse(slice, &backup);
     assert(memcmp(slice.ptr, empty_str, Slice99_size(slice)) == 0);
 
     slice = Slice99_from_array((int[]){1, 2, 3, 4, 5});
-    Slice99_reverse(slice, &temp);
+    Slice99_reverse(slice, &backup);
     assert(memcmp(slice.ptr, (const int[]){5, 4, 3, 2, 1}, Slice99_size(slice)) == 0);
 }
 
 static Slice99 slice_rev_aux(Slice99 slice) {
-    int temp;
-    Slice99_reverse(slice, &temp);
+    int backup;
+    Slice99_reverse(slice, &backup);
     return slice;
 }
 
