@@ -131,6 +131,13 @@ Macros</h2></td></tr>
 <tr class="memitem:aff5368fbf40b74b98e7f24de59596e8c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#aff5368fbf40b74b98e7f24de59596e8c">Slice99_sub_cast_type</a>(self,  start_idx,  end_idx,  T)</td></tr>
 <tr class="memdesc:aff5368fbf40b74b98e7f24de59596e8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The same as <a class="el" href="slice99_8h.html#a2c941abce41d90462e745ef6729e8965" title="Subslicing self with [start_idx .. end_idx]. ">Slice99_sub</a> but explicitly casts <code>(self).item_size</code> to <code>T</code>.  <a href="#aff5368fbf40b74b98e7f24de59596e8c">More...</a><br /></td></tr>
 <tr class="separator:aff5368fbf40b74b98e7f24de59596e8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a094655c210fc792711c1c61f2d205404"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a094655c210fc792711c1c61f2d205404">Slice99_advance</a>(self,  offset)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a64f9dee756ecea6812d186e85f549917">Slice99_advance_cast_type</a>(self, offset, size_t, size_t)</td></tr>
+<tr class="memdesc:a094655c210fc792711c1c61f2d205404"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances <code>self</code> by <code>offset</code> items.  <a href="#a094655c210fc792711c1c61f2d205404">More...</a><br /></td></tr>
+<tr class="separator:a094655c210fc792711c1c61f2d205404"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64f9dee756ecea6812d186e85f549917"><td class="memItemLeft" align="right" valign="top"><a id="a64f9dee756ecea6812d186e85f549917"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a64f9dee756ecea6812d186e85f549917">Slice99_advance_cast_type</a>(self,  offset,  T,  U)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#aff5368fbf40b74b98e7f24de59596e8c">Slice99_sub_cast_type</a>(self, offset, (U)(self).len, T)</td></tr>
+<tr class="memdesc:a64f9dee756ecea6812d186e85f549917"><td class="mdescLeft">&#160;</td><td class="mdescRight">The same as <a class="el" href="slice99_8h.html#a094655c210fc792711c1c61f2d205404" title="Advances self by offset items. ">Slice99_advance</a> but explicitly casts <code>(self).item_size</code> to <code>T</code> and <code>(self).len</code> to <code>U</code>. <br /></td></tr>
+<tr class="separator:a64f9dee756ecea6812d186e85f549917"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd148e62b60b316dfba5be120ef54c8a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#acd148e62b60b316dfba5be120ef54c8a">Slice99_swap</a>(self,  lhs,  rhs,  backup)</td></tr>
 <tr class="memdesc:acd148e62b60b316dfba5be120ef54c8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps the <code>lhs</code> -indexed and <code>rhs</code> -indexed items.  <a href="#acd148e62b60b316dfba5be120ef54c8a">More...</a><br /></td></tr>
 <tr class="separator:acd148e62b60b316dfba5be120ef54c8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -217,6 +224,46 @@ Functions</h2></td></tr>
 <div class="textblock"><p>A slice of some array. </p>
 <p>The macros <a class="el" href="slice99_8h.html#a29d489b28cf4d2cf56a17a2617990fee" title="Like assert. ">SLICE99_ASSERT</a>, <a class="el" href="slice99_8h.html#a4ad6e85e51121b718c704bc6f7c16cd7" title="Like memcmp. ">SLICE99_MEMCMP</a>, <a class="el" href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c" title="Like memcpy. ">SLICE99_MEMCPY</a>, <a class="el" href="slice99_8h.html#afa5c9f55ad339be88c60744fadb239f6" title="Like memmove. ">SLICE99_MEMMOVE</a>, <a class="el" href="slice99_8h.html#a74ab39995ce273807783bb0006d9d85d" title="Like strlen. ">SLICE99_STRLEN</a>, <a class="el" href="slice99_8h.html#af75364d1b179202146fcf2953356d01a" title="Like qsort. ">SLICE99_QSORT</a>, and <a class="el" href="slice99_8h.html#aedee03b3135514dfcbdf244d01fa4d35" title="Like bsearch. ">SLICE99_BSEARCH</a> are automatically defined in case they have not been defined before including this header file. They represent the corresponding standard library's functions, though actual implementations can differ. If you develop software for a freestanding environment, these macros might need to be defined beforehand. Note that <a class="el" href="slice99_8h.html#af75364d1b179202146fcf2953356d01a" title="Like qsort. ">SLICE99_QSORT</a> and <a class="el" href="slice99_8h.html#aedee03b3135514dfcbdf244d01fa4d35" title="Like bsearch. ">SLICE99_BSEARCH</a> might need to be provided only if you define <code>SLICE99_INCLUDE_SORT</code> and <code>SLICE99_INCLUDE_BSEARCH</code>, respectively. </p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a094655c210fc792711c1c61f2d205404"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a094655c210fc792711c1c61f2d205404">&#9670;&nbsp;</a></span>Slice99_advance</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define Slice99_advance</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">self, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">offset&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a64f9dee756ecea6812d186e85f549917">Slice99_advance_cast_type</a>(self, offset, size_t, size_t)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Advances <code>self</code> by <code>offset</code> items. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The original slice. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">offset</td><td>The number of items to advance. Can be negative.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A slice advanced by <code>offset</code> items.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This subroutine is implemented as a macro due to the absence of a signed <code>size_t</code> counterpart (i.e. the offset can be negative).</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>offset &lt;= (self).len</code> </dd></dl>
+
+</div>
+</div>
 <a id="a907b544bdd92e9d7a7b3b50c69102fd6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a907b544bdd92e9d7a7b3b50c69102fd6">&#9670;&nbsp;</a></span>Slice99_get</h2>
 

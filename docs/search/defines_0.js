@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['slice99_5fadvance',['Slice99_advance',['../slice99_8h.html#a094655c210fc792711c1c61f2d205404',1,'slice99.h']]],
+  ['slice99_5fadvance_5fcast_5ftype',['Slice99_advance_cast_type',['../slice99_8h.html#a64f9dee756ecea6812d186e85f549917',1,'slice99.h']]],
   ['slice99_5farray_5flen',['Slice99_array_len',['../slice99_8h.html#a2c76760ffa8f1b96400c17539684c6da',1,'slice99.h']]],
   ['slice99_5fassert',['SLICE99_ASSERT',['../slice99_8h.html#a29d489b28cf4d2cf56a17a2617990fee',1,'slice99.h']]],
   ['slice99_5fbsearch',['SLICE99_BSEARCH',['../slice99_8h.html#aedee03b3135514dfcbdf244d01fa4d35',1,'slice99.h']]],
