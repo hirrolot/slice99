@@ -1,6 +1,6 @@
 # slice99
 [![CI](https://github.com/Hirrolot/slice99/workflows/C/C++%20CI/badge.svg)](https://github.com/Hirrolot/slice99/actions)
-[![docs](https://img.shields.io/badge/docs-github.io-blue)](https://hirrolot.github.io/slice99/)
+[![docs](https://img.shields.io/badge/docs-github.io-blue)](https://hirrolot.github.io/slice99/slice99_8h.html)
 
 This library provides [array slicing] facilities for pure C99.
 
