@@ -202,6 +202,44 @@ inline static Slice99 Slice99_empty(size_t item_size) {
 }
 
 /**
+ * Updates @p self with the new pointer @p new_ptr.
+ *
+ * @param[in] self The slice whose pointer to data will be updated.
+ * @param[in] new_ptr The new pointer to data.
+ *
+ * @pre `new_ptr != NULL`
+ */
+inline static Slice99 Slice99_update_ptr(Slice99 self, void *new_ptr) {
+    SLICE99_ASSERT(new_ptr);
+
+    return Slice99_new(new_ptr, self.item_size, self.len);
+}
+
+/**
+ * Updates @p self with the new item size @p new_item_size.
+ *
+ * @param[in] self The slice whose item size will be updated.
+ * @param[in] new_item_size The new item size.
+ *
+ * @pre `new_item_size > 0`
+ */
+inline static Slice99 Slice99_update_item_size(Slice99 self, size_t new_item_size) {
+    SLICE99_ASSERT(new_item_size > 0);
+
+    return Slice99_new(self.ptr, new_item_size, self.len);
+}
+
+/**
+ * Updates @p self with the new length @p new_len.
+ *
+ * @param[in] self The slice whose length will be updated.
+ * @param[in] new_len The new length.
+ */
+inline static Slice99 Slice99_update_len(Slice99 self, size_t new_len) {
+    return Slice99_new(self.ptr, self.item_size, new_len);
+}
+
+/**
  * Checks whether @p self is empty or not.
  *
  * @param[in] self The checked slice.

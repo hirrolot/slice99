@@ -122,6 +122,48 @@ TEST(from_ptrdiff) {
     // clang-format on
 }
 
+TEST(update_ptr) {
+    Slice99 slice = Slice99_from_str("abc");
+    const char *new_str = "def";
+
+    // clang-format off
+    ASSERT_SLICE(
+        Slice99_update_ptr(slice, (void *)new_str),
+        PTR new_str,
+        ITEM_SIZE slice.item_size,
+        LEN slice.len
+    );
+    // clang-format on
+}
+
+TEST(update_item_size) {
+    Slice99 slice = Slice99_from_str("abcd");
+    const size_t new_item_size = 2;
+
+    // clang-format off
+    ASSERT_SLICE(
+        Slice99_update_item_size(slice, new_item_size),
+        PTR slice.ptr,
+        ITEM_SIZE new_item_size,
+        LEN slice.len
+    );
+    // clang-format on
+}
+
+TEST(update_len) {
+    Slice99 slice = Slice99_from_str("abc");
+    const size_t new_len = 1;
+
+    // clang-format off
+    ASSERT_SLICE(
+        Slice99_update_len(slice, new_len),
+        PTR slice.ptr,
+        ITEM_SIZE slice.item_size,
+        LEN new_len
+    );
+    // clang-format on
+}
+
 TEST(is_empty) {
     assert(!Slice99_is_empty(Slice99_from_array((int[]){1, 2, 3})));
     assert(Slice99_is_empty(Slice99_new("abc", 1, 0)));
@@ -698,6 +740,9 @@ int main(void) {
 
     test_from_str();
     test_from_ptrdiff();
+    test_update_ptr();
+    test_update_item_size();
+    test_update_len();
     test_is_empty();
     test_size();
     test_get();
