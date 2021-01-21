@@ -136,6 +136,21 @@ typedef struct {
 } Slice99;
 
 /**
+ * A slice that might exist or not (that is, optional).
+ */
+typedef struct {
+    /**
+     * Whether #data exist or not.
+     */
+    bool exists;
+
+    /**
+     * The slice of data.
+     */
+    Slice99 data;
+} Slice99Maybe;
+
+/**
  * Constructs a slice.
  *
  * @param[in] ptr The value of Slice99#ptr.
