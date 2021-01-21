@@ -151,15 +151,6 @@ typedef struct {
 } Slice99Maybe;
 
 /**
- * Constructs an optional slice.
- *
- * @param[in] slice The value of Slice99Maybe#slice.
- */
-inline static Slice99Maybe Slice99Maybe_new(Slice99 slice) {
-    return (Slice99Maybe){.exists = true, .slice = slice};
-}
-
-/**
  * Constructs a slice.
  *
  * @param[in] ptr The value of Slice99#ptr.
@@ -685,6 +676,22 @@ Slice99_split_at(Slice99 self, size_t i, Slice99 *restrict lhs, Slice99 *restric
 
     *lhs = Slice99_sub(self, 0, i);
     *rhs = Slice99_sub(self, i, self.len);
+}
+
+/**
+ * Constructs an optional slice with some value.
+ *
+ * @param[in] slice The value of Slice99Maybe#slice.
+ */
+inline static Slice99Maybe Slice99Maybe_just(Slice99 slice) {
+    return (Slice99Maybe){.exists = true, .slice = slice};
+}
+
+/**
+ * Constructs an optional slice without a value.
+ */
+inline static Slice99Maybe Slice99Maybe_nothing(void) {
+    return (Slice99Maybe){.exists = false, .slice = Slice99_empty(sizeof(char))};
 }
 
 #endif // SLICE99_H
