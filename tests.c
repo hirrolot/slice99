@@ -735,6 +735,14 @@ TEST(split_at) {
 }
 // } (Slice99_split_at)
 
+TEST(maybe_new) {
+    Slice99 slice = Slice99_from_str("abc");
+    Slice99Maybe maybe = Slice99Maybe_new(slice);
+
+    assert(maybe.exists);
+    assert(Slice99_primitive_eq(slice, maybe.slice));
+}
+
 int main(void) {
     srand((unsigned)time(NULL));
 
@@ -764,6 +772,8 @@ int main(void) {
     test_swap_with_slice();
     test_reverse();
     test_split_at();
+
+    test_maybe_new();
 
     puts("All the tests have passed!");
 }
