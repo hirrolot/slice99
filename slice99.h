@@ -106,6 +106,9 @@
 
 /**
  * Constructs a slice from an array expression.
+ *
+ * The resulting slice will have #Slice99.len equal to the number of items in the array, and
+ * #Slice99.item_size equal to the size of each item.
  */
 #define Slice99_from_array(...)                                                                    \
     Slice99_new((void *)(__VA_ARGS__), sizeof((__VA_ARGS__)[0]), Slice99_array_len(__VA_ARGS__))
