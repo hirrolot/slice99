@@ -735,6 +735,14 @@ TEST(split_at) {
 }
 // } (Slice99_split_at)
 
+TEST(to_c_str) {
+    Slice99 slice = Slice99_from_array((char[]){'a', 'b', 'c'});
+    char out[4];
+
+    Slice99_to_c_str(slice, out);
+    assert(strcmp(out, "abc") == 0);
+}
+
 TEST(maybe_just) {
     Slice99 slice = Slice99_from_str("abc");
     Slice99Maybe maybe = Slice99Maybe_just(slice);
@@ -748,8 +756,6 @@ TEST(maybe_nothing) {
 
     assert(!maybe.exists);
 }
-
-TEST(maybe_none) {}
 
 int main(void) {
     srand((unsigned)time(NULL));
@@ -780,6 +786,7 @@ int main(void) {
     test_swap_with_slice();
     test_reverse();
     test_split_at();
+    test_to_c_str();
 
     test_maybe_just();
     test_maybe_nothing();

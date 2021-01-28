@@ -682,6 +682,16 @@ Slice99_split_at(Slice99 self, size_t i, Slice99 *restrict lhs, Slice99 *restric
 }
 
 /**
+ * Copies @p self to @p out and appends '\0' to the end.
+ *
+ * @pre @p out must be capable of writing `Slice99_size(self) + 1` bytes.
+ */
+inline static void Slice99_to_c_str(Slice99 self, char out[restrict]) {
+    SLICE99_MEMCPY(out, self.ptr, Slice99_size(self));
+    out[Slice99_size(self)] = '\0';
+}
+
+/**
  * Constructs an optional slice with some value.
  *
  * @param[in] slice The value of Slice99Maybe#slice.
