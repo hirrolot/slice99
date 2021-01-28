@@ -682,11 +682,40 @@ Slice99_split_at(Slice99 self, size_t i, Slice99 *restrict lhs, Slice99 *restric
 }
 
 /**
+ * Finds the first occurence of an item for which @p predicate holds.
+ *
+ * @param[in] self The slice which will be searched for an item.
+ * @param[in] predicate The predicate on an item.
+ * @param[in] cx The auxiliary value provided to @p predicate each time.
+ *
+ * @pre `predicate != NULL`
+ */
+inline static void *
+Slice99_find(Slice99 self, bool (*predicate)(const void *item, void *cx), void *cx) {
+    SLICE99_ASSERT(predicate);
+
+    for (size_t i = 0; i < self.len; i++) {
+        void *item = Slice99_get(self, i);
+        if (predicate(item, cx)) {
+            return item;
+        }
+    }
+
+    return NULL;
+}
+
+/**
  * Copies @p self to @p out and appends '\0' to the end.
  *
+ * @param[in] self The slice which will be copied.
+ * @param[in] out The memory area to which @p self and the null character will be copied.
+ *
+ * @pre `out != NULL`
  * @pre @p out must be capable of writing `Slice99_size(self) + 1` bytes.
  */
 inline static void Slice99_to_c_str(Slice99 self, char out[restrict]) {
+    SLICE99_ASSERT(out);
+
     SLICE99_MEMCPY(out, self.ptr, Slice99_size(self));
     out[Slice99_size(self)] = '\0';
 }

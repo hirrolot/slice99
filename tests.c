@@ -735,6 +735,40 @@ TEST(split_at) {
 }
 // } (Slice99_split_at)
 
+// Slice99_find {
+typedef struct {
+    int a, b, c;
+} Foo;
+
+static bool find_predicate(const void *item, void *cx) {
+    (*(int *)cx)++;
+    return ((Foo *)item)->b == 9;
+}
+
+TEST(find) {
+    Slice99 slice = Slice99_from_array((Foo[]){
+        {1, 2, 3},
+        {124, 187, 9011},
+        {0, 9, 191},
+    });
+
+    int cx = 0;
+    assert(Slice99_find(slice, find_predicate, &cx) == Slice99_get(slice, 2));
+    assert(cx == 3);
+
+    slice = Slice99_from_array((Foo[]){
+        {1, 2, 3},
+        {124, 187, 9011},
+        {0, 33, 191},
+        {10, 0, 121101},
+    });
+
+    cx = 0;
+    assert(Slice99_find(slice, find_predicate, &cx) == NULL);
+    assert(cx == 4);
+}
+// } (Slice99_find)
+
 TEST(to_c_str) {
     Slice99 slice = Slice99_from_array((char[]){'a', 'b', 'c'});
     char out[4];
@@ -786,6 +820,7 @@ int main(void) {
     test_swap_with_slice();
     test_reverse();
     test_split_at();
+    test_find();
     test_to_c_str();
 
     test_maybe_just();
