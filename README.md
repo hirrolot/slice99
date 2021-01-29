@@ -69,6 +69,8 @@ However, this approach is notoriously error-prone: the interface is easy to misu
 
 This is what slice99 tries to fix, though losing in type safety; if you want to stay type-safe, you can still pass a length and a pointer, convert them to `Slice99` by `Slice99_new` and use the multitude of functions it provides (`Slice99_for_each`, `Slice99_bsearch`, `Slice99_find`, etc.).
 
+Another use case of slice99 is zero-copy parsers. Ordinary C strings need to be null-terminated, in opposite to `Slice99`, which means that you can construct slices pointing to actual data without allocating a new memory area to append `'\0'` each time.
+
 ## Projects using slice99
 
  - [Hirrolot/smolrtsp](https://github.com/Hirrolot/smolrtsp) --  A small, portable, extensible RTSP 1.0 implementation in C99.
