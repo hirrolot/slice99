@@ -62,7 +62,7 @@ Enjoy!
 Normally, we pass a pointer to the first element of some array together with its length as separate arguments:
 
 ```c
-void foo(size_t len, int array[static len]) { /* ... */ }
+void foo(size_t len, uint8_t array[static len]) { /* ... */ }
 ```
 
 However, this approach is notoriously error-prone: the interface is easy to misuse, for example, by passing an invalid length. Moreover, sometimes programmers need to perform specific operations on `array` which are not exported by the standard library, leading to even more bugs and code clutter.
