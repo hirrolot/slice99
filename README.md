@@ -67,7 +67,7 @@ void foo(size_t len, int array[static len]) { /* ... */ }
 
 However, this approach is notoriously error-prone: the interface is easy to misuse, for example, by passing an invalid length. Moreover, sometimes programmers need to perform specific operations on `array` which are not exported by the standard library, leading to even more bugs and code clutter.
 
-This is what slice99 tries to fix.
+This is what slice99 tries to fix, though losing in type safety; if you want to stay type-safe, you can still pass a length and a pointer, convert them to `Slice99` by `Slice99_new` and use the multitude of functions it provides.
 
 ## Projects using slice99
 
