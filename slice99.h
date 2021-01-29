@@ -717,7 +717,7 @@ Slice99_find(Slice99 self, bool (*predicate)(const void *item, void *cx), void *
  *
  * @pre `f != NULL`
  */
-inline static void Slice99_for_each(Slice99 self, void (*f)(const void *item, void *cx), void *cx) {
+inline static void Slice99_for_each(Slice99 self, void (*f)(void *item, void *cx), void *cx) {
     SLICE99_ASSERT(f);
 
     for (size_t i = 0; i < self.len; i++) {

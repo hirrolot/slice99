@@ -742,7 +742,7 @@ typedef struct {
 
 static bool find_predicate(const void *item, void *cx) {
     (*(int *)cx)++;
-    return ((Foo *)item)->b == 9;
+    return ((const Foo *)item)->b == 9;
 }
 
 TEST(find) {
@@ -770,15 +770,15 @@ TEST(find) {
 // } (Slice99_find)
 
 // Slice99_for_each {
-static void visit(const void *item, void *cx) {
+static void visit(void *item, void *cx) {
     (*(int *)cx)++;
-    *(int *)item += 5;
+    *(size_t *)item += 5;
 }
 
 TEST(for_each) {
     Slice99 slice = Slice99_from_array((int[]){72, 0, 113, -13, 9});
 
-    int cx = 0;
+    size_t cx = 0;
     Slice99_for_each(slice, visit, &cx);
     assert(cx == slice.len);
 
