@@ -710,14 +710,17 @@ Slice99_find(Slice99 self, bool (*predicate)(const void *item, void *cx), void *
  * @param[in] self The slice which will be copied.
  * @param[in] out The memory area to which @p self and the null character will be copied.
  *
+ * @return The pointer @p out.
+ *
  * @pre `out != NULL`
  * @pre @p out must be capable of writing `Slice99_size(self) + 1` bytes.
  */
-inline static void Slice99_to_c_str(Slice99 self, char out[restrict]) {
+inline static char *Slice99_to_c_str(Slice99 self, char out[restrict]) {
     SLICE99_ASSERT(out);
 
     SLICE99_MEMCPY(out, self.ptr, Slice99_size(self));
     out[Slice99_size(self)] = '\0';
+    return out;
 }
 
 /**

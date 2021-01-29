@@ -771,10 +771,8 @@ TEST(find) {
 
 TEST(to_c_str) {
     Slice99 slice = Slice99_from_array((char[]){'a', 'b', 'c'});
-    char out[4];
 
-    Slice99_to_c_str(slice, out);
-    assert(strcmp(out, "abc") == 0);
+    assert(strcmp(Slice99_to_c_str(slice, (char[4]){0}), "abc") == 0);
 }
 
 TEST(maybe_just) {
