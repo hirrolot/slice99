@@ -612,6 +612,8 @@ Slice99_bsearch(Slice99 self, const void *key, int (*comparator)(const void *, c
  * counterpart (i.e. the indices can be negative).
  *
  * @pre `backup != NULL`
+ * @pre @p backup shall not overlap with `Slice99_get(self, lhs)` and `Slice99_get(self, rhs)`.
+ * @pre `Slice99_get(self, lhs)` and `Slice99_get(self, rhs)` shall not overlap.
  */
 #define Slice99_swap(self, lhs, rhs, backup)                                                       \
     do {                                                                                           \
@@ -631,6 +633,8 @@ Slice99_bsearch(Slice99 self, const void *key, int (*comparator)(const void *, c
  *
  * @pre `self.len == other.len`
  * @pre `self.item_size == other.item_size`
+ * @pre @p backup shall not overlap with @p self and @p other.
+ * @pre @p self and @p other shall not overlap.
  */
 inline static void Slice99_swap_with_slice(Slice99 self, Slice99 other, void *restrict backup) {
     SLICE99_ASSERT(self.len == other.len);
@@ -714,6 +718,7 @@ Slice99_find(Slice99 self, bool (*predicate)(const void *item, void *cx), void *
  *
  * @pre `out != NULL`
  * @pre @p out must be capable of writing `Slice99_size(self) + 1` bytes.
+ * @pre @p out shall not overlap with @p self.
  */
 inline static char *Slice99_c_str(Slice99 self, char out[restrict]) {
     SLICE99_ASSERT(out);
