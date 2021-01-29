@@ -709,6 +709,23 @@ Slice99_find(Slice99 self, bool (*predicate)(const void *item, void *cx), void *
 }
 
 /**
+ * Sequentially applies all the items in @p self to @p f.
+ *
+ * @param[in] self The slice whose items will be applied to @p f.
+ * @param[in] f The handler function.
+ * @param[in] cx The auxiliary value provided to @p f each time.
+ *
+ * @pre `f != NULL`
+ */
+inline static void Slice99_for_each(Slice99 self, void (*f)(const void *item, void *cx), void *cx) {
+    SLICE99_ASSERT(f);
+
+    for (size_t i = 0; i < self.len; i++) {
+        f(Slice99_get(self, i), cx);
+    }
+}
+
+/**
  * Copies @p self to @p out and appends '\0' to the end.
  *
  * @param[in] self The slice which will be copied.

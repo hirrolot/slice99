@@ -12,8 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - `Slice99_advance`, `Slice99_advance_cast_type`
  - `Slice99_update_ptr`, `Slice99_update_item_size`, `Slice99_update_len`
  - `Slice99Maybe`, `Slice99Maybe_just`, `Slice99Maybe_nothing`
- - `Slice99_to_c_str`
- - `Slice99_find`
+ - `Slice99_c_str`
+ - `Slice99_find`, `Slice99_for_each`
 
 ### Changed
 
