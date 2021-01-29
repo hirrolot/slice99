@@ -715,7 +715,7 @@ Slice99_find(Slice99 self, bool (*predicate)(const void *item, void *cx), void *
  * @pre `out != NULL`
  * @pre @p out must be capable of writing `Slice99_size(self) + 1` bytes.
  */
-inline static char *Slice99_to_c_str(Slice99 self, char out[restrict]) {
+inline static char *Slice99_c_str(Slice99 self, char out[restrict]) {
     SLICE99_ASSERT(out);
 
     SLICE99_MEMCPY(out, self.ptr, Slice99_size(self));
