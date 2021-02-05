@@ -114,6 +114,16 @@
     Slice99_new((void *)(__VA_ARGS__), sizeof((__VA_ARGS__)[0]), Slice99_array_len(__VA_ARGS__))
 
 /**
+ * Constructs a slice from a pointer of a non-`void` type and a length.
+ *
+ * It is equivalent to #Slice99_new but it automatically computes an item size as `sizeof(*ptr)`.
+ *
+ * @param[in] ptr The pointer of the resulting slice. Shall not point to `void`.
+ * @param[in] len The length of the resulting slice.
+ */
+#define Slice99_from_typed_ptr(ptr, len) Slice99_new(ptr, sizeof(*ptr), len)
+
+/**
  * A slice of some array.
  *
  * This structure should not be constructed manually; use #Slice99_new instead.

@@ -122,6 +122,20 @@ TEST(from_ptrdiff) {
     // clang-format on
 }
 
+TEST(from_typed_ptr) {
+    int data[] = {1, 2, 3, 4, 5};
+    Slice99 slice = Slice99_from_typed_ptr((int *)data, 5);
+
+    // clang-format off
+    ASSERT_SLICE(
+        slice,
+        PTR data,
+        ITEM_SIZE sizeof(int),
+        LEN 5
+    );
+    // clang-format on
+}
+
 TEST(update_ptr) {
     Slice99 slice = Slice99_from_str("abc");
     const char *new_str = "def";
@@ -812,6 +826,7 @@ int main(void) {
 
     test_from_str();
     test_from_ptrdiff();
+    test_from_typed_ptr();
     test_update_ptr();
     test_update_item_size();
     test_update_len();
