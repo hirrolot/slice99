@@ -118,7 +118,7 @@
  *
  * It is equivalent to #Slice99_new but it automatically computes an item size as `sizeof(*ptr)`.
  *
- * @param[in] ptr The pointer of the resulting slice. Shall not point to `void`.
+ * @param[in] ptr The pointer of the resulting slice. Must not point to `void`.
  * @param[in] len The length of the resulting slice.
  */
 #define Slice99_from_typed_ptr(ptr, len) Slice99_new(ptr, sizeof(*ptr), len)
@@ -128,8 +128,8 @@
  *
  * This structure should not be constructed manually; use #Slice99_new instead.
  *
- * @invariant #ptr shall not be `NULL`.
- * @invariant #item_size shall be strictly greater than 0.
+ * @invariant #ptr must not be `NULL`.
+ * @invariant #item_size must be strictly greater than 0.
  */
 typedef struct {
     /**
@@ -291,18 +291,13 @@ inline static size_t Slice99_size(Slice99 self) {
  * Computes a pointer to the @p i -indexed item.
  *
  * @param[in] self The slice upon which the pointer will be computed.
- * @param[in] i The index of a desired item.
+ * @param[in] i The index of a desired item. Can be negative.
  *
- * @note This subroutine is implemented as a macro due to the absence of a signed `size_t`
- * counterpart (i.e. the index can be negative).
+ * @pre `self.item_size` must be representable as `ptrdiff_t`.
  */
-#define Slice99_get(self, i) Slice99_get_cast_type(self, i, size_t)
-
-/**
- * The same as #Slice99_get but explicitly casts `(self).item_size` to @p T.
- */
-#define Slice99_get_cast_type(self, i, T)                                                          \
-    ((void *)((char *)(self).ptr + ((i) * (T)(self).item_size)))
+inline static void *Slice99_get(Slice99 self, ptrdiff_t i) {
+    return (void *)((char *)self.ptr + i * (ptrdiff_t)self.item_size);
+}
 
 /**
  * Computes a pointer to the first item.
@@ -317,9 +312,11 @@ inline static void *Slice99_first(Slice99 self) {
  * Computes a pointer to the last item.
  *
  * @param[in] self The slice upon which the pointer will be computed.
+ *
+ * @pre `self.len` must be representable as `ptrdiff_t`.
  */
 inline static void *Slice99_last(Slice99 self) {
-    return Slice99_get(self, self.len - 1);
+    return Slice99_get(self, (ptrdiff_t)self.len - 1);
 }
 
 /**
@@ -331,22 +328,14 @@ inline static void *Slice99_last(Slice99 self) {
  *
  * @return A slice with the aforementioned properties.
  *
- * @note This subroutine is implemented as a macro due to the absence of a signed `size_t`
- * counterpart (i.e. the indices can be negative).
- *
  * @pre `start_idx <= end_idx`
  */
-#define Slice99_sub(self, start_idx, end_idx)                                                      \
-    Slice99_sub_cast_type(self, start_idx, end_idx, size_t)
+inline static Slice99 Slice99_sub(Slice99 self, ptrdiff_t start_idx, ptrdiff_t end_idx) {
+    SLICE99_ASSERT(start_idx <= end_idx);
 
-/**
- * The same as #Slice99_sub but explicitly casts `(self).item_size` to @p T.
- */
-#define Slice99_sub_cast_type(self, start_idx, end_idx, T)                                         \
-    (SLICE99_ASSERT((start_idx) <= (end_idx)),                                                     \
-     Slice99_from_ptrdiff(                                                                         \
-         Slice99_get_cast_type((self), (start_idx), T),                                            \
-         Slice99_get_cast_type((self), (end_idx), T), (self).item_size))
+    return Slice99_from_ptrdiff(
+        Slice99_get(self, start_idx), Slice99_get(self, end_idx), self.item_size);
+}
 
 /**
  * Advances @p self by @p offset items.
@@ -356,19 +345,12 @@ inline static void *Slice99_last(Slice99 self) {
  *
  * @return A slice advanced by @p offset items.
  *
- * @note This subroutine is implemented as a macro due to the absence of a signed `size_t`
- * counterpart (i.e. the offset can be negative).
- *
  * @pre `offset <= (self).len`
+ * @pre `self.len` must be representable as `ptrdiff_t`.
  */
-#define Slice99_advance(self, offset) Slice99_advance_cast_type(self, offset, size_t, size_t)
-
-/**
- * The same as #Slice99_advance but explicitly casts `(self).item_size` to @p T and `(self).len` to
- * @p U.
- */
-#define Slice99_advance_cast_type(self, offset, T, U)                                              \
-    Slice99_sub_cast_type(self, offset, (U)(self).len, T)
+inline static Slice99 Slice99_advance(Slice99 self, ptrdiff_t offset) {
+    return Slice99_sub(self, offset, (ptrdiff_t)self.len);
+}
 
 /**
  * Performs a byte-by-byte comparison of @p lhs with @p rhs.
@@ -396,6 +378,7 @@ inline static bool Slice99_primitive_eq(Slice99 lhs, Slice99 rhs) {
  *
  * @pre `lhs.item_size == rhs.item_size`
  * @pre `comparator != NULL`
+ * @pre `lhs.len` and `rhs.len` must be representable as `ptrdiff_t`.
  */
 inline static bool
 Slice99_eq(Slice99 lhs, Slice99 rhs, int (*comparator)(const void *, const void *)) {
@@ -406,7 +389,7 @@ Slice99_eq(Slice99 lhs, Slice99 rhs, int (*comparator)(const void *, const void 
         return false;
     }
 
-    for (size_t i = 0; i < lhs.len; i++) {
+    for (ptrdiff_t i = 0; i < (ptrdiff_t)lhs.len; i++) {
         if (comparator(Slice99_get(lhs, i), Slice99_get(rhs, i)) != 0) {
             return false;
         }
@@ -422,11 +405,13 @@ Slice99_eq(Slice99 lhs, Slice99 rhs, int (*comparator)(const void *, const void 
  * @param[in] prefix The slice to be checked whether it is a prefix of @p self.
  *
  * @return `true` if @p prefix is a prefix of @p self, otherwise `false`.
+ *
+ * @pre `prefix.len` must be representable as `ptrdiff_t`.
  */
 inline static bool Slice99_primitive_starts_with(Slice99 self, Slice99 prefix) {
     return Slice99_size(self) < Slice99_size(prefix)
                ? false
-               : Slice99_primitive_eq(Slice99_sub(self, 0, prefix.len), prefix);
+               : Slice99_primitive_eq(Slice99_sub(self, 0, (ptrdiff_t)prefix.len), prefix);
 }
 
 /**
@@ -441,14 +426,16 @@ inline static bool Slice99_primitive_starts_with(Slice99 self, Slice99 prefix) {
  *
  * @pre `self.item_size == prefix.item_size`
  * @pre `comparator != NULL`
+ * @pre `prefix.len` must be representable as `ptrdiff_t`.
  */
 inline static bool
 Slice99_starts_with(Slice99 self, Slice99 prefix, int (*comparator)(const void *, const void *)) {
     SLICE99_ASSERT(self.item_size == prefix.item_size);
     SLICE99_ASSERT(comparator);
 
-    return self.len < prefix.len ? false
-                                 : Slice99_eq(Slice99_sub(self, 0, prefix.len), prefix, comparator);
+    return self.len < prefix.len
+               ? false
+               : Slice99_eq(Slice99_sub(self, 0, (ptrdiff_t)prefix.len), prefix, comparator);
 }
 
 /**
@@ -458,12 +445,16 @@ Slice99_starts_with(Slice99 self, Slice99 prefix, int (*comparator)(const void *
  * @param[in] postfix The slice to be checked whether it is a postfix of @p self.
  *
  * @return `true` if @p postfix is a postfix of @p self, otherwise `false`.
+ *
+ * @pre `self.len` and `postfix.len` must be representable as `ptrdiff_t`.
  */
 inline static bool Slice99_primitive_ends_with(Slice99 self, Slice99 postfix) {
     return Slice99_size(self) < Slice99_size(postfix)
                ? false
                : Slice99_primitive_eq(
-                     Slice99_sub(self, (self.len - postfix.len), self.len), postfix);
+                     Slice99_sub(
+                         self, (ptrdiff_t)self.len - (ptrdiff_t)postfix.len, (ptrdiff_t)self.len),
+                     postfix);
 }
 
 /**
@@ -478,6 +469,7 @@ inline static bool Slice99_primitive_ends_with(Slice99 self, Slice99 postfix) {
  *
  * @pre `self.item_size == postfix.item_size`
  * @pre `comparator != NULL`
+ * @pre `self.len` and `postfix.len` must be representable as `ptrdiff_t`.
  */
 inline static bool
 Slice99_ends_with(Slice99 self, Slice99 postfix, int (*comparator)(const void *, const void *)) {
@@ -487,7 +479,9 @@ Slice99_ends_with(Slice99 self, Slice99 postfix, int (*comparator)(const void *,
     return self.len < postfix.len
                ? false
                : Slice99_eq(
-                     Slice99_sub(self, self.len - postfix.len, self.len), postfix, comparator);
+                     Slice99_sub(
+                         self, (ptrdiff_t)self.len - (ptrdiff_t)postfix.len, (ptrdiff_t)self.len),
+                     postfix, comparator);
 }
 
 /**
@@ -501,9 +495,9 @@ inline static void Slice99_copy(Slice99 self, Slice99 other) {
 }
 
 /**
- * The same as #Slice99_copy except that @p self and @p other shall be non-overlapping.
+ * The same as #Slice99_copy except that @p self and @p other must be non-overlapping.
  *
- * @pre @p self and @p other shall be non-overlapping.
+ * @pre @p self and @p other must be non-overlapping.
  */
 inline static void Slice99_copy_non_overlapping(Slice99 self, Slice99 other) {
     SLICE99_MEMCPY(self.ptr, other.ptr, Slice99_size(other));
@@ -618,21 +612,17 @@ Slice99_bsearch(Slice99 self, const void *key, int (*comparator)(const void *, c
  * @param[in] rhs The index of the second item.
  * @param[out] backup The memory area of `self.item_size` bytes accessible for reading and writing.
  *
- * @note This subroutine is implemented as a macro due to the absence of a signed `size_t`
- * counterpart (i.e. the indices can be negative).
- *
  * @pre `backup != NULL`
- * @pre @p backup shall not overlap with `Slice99_get(self, lhs)` and `Slice99_get(self, rhs)`.
- * @pre `Slice99_get(self, lhs)` and `Slice99_get(self, rhs)` shall not overlap.
+ * @pre @p backup must not overlap with `Slice99_get(self, lhs)` and `Slice99_get(self, rhs)`.
+ * @pre `Slice99_get(self, lhs)` and `Slice99_get(self, rhs)` must not overlap.
  */
-#define Slice99_swap(self, lhs, rhs, backup)                                                       \
-    do {                                                                                           \
-        SLICE99_ASSERT(backup);                                                                    \
-                                                                                                   \
-        SLICE99_MEMCPY((backup), Slice99_get(self, lhs), (self).item_size);                        \
-        SLICE99_MEMCPY(Slice99_get(self, lhs), Slice99_get(self, rhs), (self).item_size);          \
-        SLICE99_MEMCPY(Slice99_get(self, rhs), (backup), (self).item_size);                        \
-    } while (0)
+inline static void Slice99_swap(Slice99 self, ptrdiff_t lhs, ptrdiff_t rhs, void *restrict backup) {
+    SLICE99_ASSERT(backup);
+
+    SLICE99_MEMCPY((backup), Slice99_get(self, lhs), (self).item_size);
+    SLICE99_MEMCPY(Slice99_get(self, lhs), Slice99_get(self, rhs), (self).item_size);
+    SLICE99_MEMCPY(Slice99_get(self, rhs), (backup), (self).item_size);
+}
 
 /**
  * Swaps all the items in @p self with those in @p other.
@@ -643,14 +633,15 @@ Slice99_bsearch(Slice99 self, const void *key, int (*comparator)(const void *, c
  *
  * @pre `self.len == other.len`
  * @pre `self.item_size == other.item_size`
- * @pre @p backup shall not overlap with @p self and @p other.
- * @pre @p self and @p other shall not overlap.
+ * @pre @p backup must not overlap with @p self and @p other.
+ * @pre @p self and @p other must not overlap.
+ * @pre `self.len` must be representable as `ptrdiff_t`.
  */
 inline static void Slice99_swap_with_slice(Slice99 self, Slice99 other, void *restrict backup) {
     SLICE99_ASSERT(self.len == other.len);
     SLICE99_ASSERT(self.item_size == other.item_size);
 
-    for (size_t i = 0; i < self.len; i++) {
+    for (ptrdiff_t i = 0; i < (ptrdiff_t)self.len; i++) {
         SLICE99_MEMCPY(backup, Slice99_get(self, i), self.item_size);
         SLICE99_MEMCPY(Slice99_get(self, i), Slice99_get(other, i), self.item_size);
         SLICE99_MEMCPY(Slice99_get(other, i), backup, self.item_size);
@@ -664,12 +655,13 @@ inline static void Slice99_swap_with_slice(Slice99 self, Slice99 other, void *re
  * @param[out] backup The memory area of `self.item_size` bytes accessible for reading and writing.
  *
  * @pre `backup != NULL`
+ * @pre `self.len` must be representable as `ptrdiff_t`.
  */
 inline static void Slice99_reverse(Slice99 self, void *restrict backup) {
     SLICE99_ASSERT(backup);
 
-    for (size_t i = 0; i < self.len / 2; i++) {
-        Slice99_swap(self, i, self.len - i - 1, backup);
+    for (ptrdiff_t i = 0; i < (ptrdiff_t)self.len / 2; i++) {
+        Slice99_swap(self, i, (ptrdiff_t)self.len - i - 1, backup);
     }
 }
 
@@ -684,6 +676,7 @@ inline static void Slice99_reverse(Slice99 self, void *restrict backup) {
  * @pre `i <= self.len`
  * @pre `lhs != NULL`
  * @pre `rhs != NULL`
+ * @pre `self.len` and @p i must be representable as `ptrdiff_t`.
  */
 inline static void
 Slice99_split_at(Slice99 self, size_t i, Slice99 *restrict lhs, Slice99 *restrict rhs) {
@@ -691,8 +684,8 @@ Slice99_split_at(Slice99 self, size_t i, Slice99 *restrict lhs, Slice99 *restric
     SLICE99_ASSERT(lhs);
     SLICE99_ASSERT(rhs);
 
-    *lhs = Slice99_sub(self, 0, i);
-    *rhs = Slice99_sub(self, i, self.len);
+    *lhs = Slice99_sub(self, 0, (ptrdiff_t)i);
+    *rhs = Slice99_sub(self, (ptrdiff_t)i, (ptrdiff_t)self.len);
 }
 
 /**
@@ -703,12 +696,13 @@ Slice99_split_at(Slice99 self, size_t i, Slice99 *restrict lhs, Slice99 *restric
  * @param[in] cx The auxiliary value provided to @p predicate each time.
  *
  * @pre `predicate != NULL`
+ * @pre `self.len` must be representable as `ptrdiff_t`.
  */
 inline static void *
 Slice99_find(Slice99 self, bool (*predicate)(const void *item, void *cx), void *cx) {
     SLICE99_ASSERT(predicate);
 
-    for (size_t i = 0; i < self.len; i++) {
+    for (ptrdiff_t i = 0; i < (ptrdiff_t)self.len; i++) {
         void *item = Slice99_get(self, i);
         if (predicate(item, cx)) {
             return item;
@@ -726,11 +720,12 @@ Slice99_find(Slice99 self, bool (*predicate)(const void *item, void *cx), void *
  * @param[in] cx The auxiliary value provided to @p f each time.
  *
  * @pre `f != NULL`
+ * @pre `self.len` must be representable as `ptrdiff_t`.
  */
 inline static void Slice99_for_each(Slice99 self, void (*f)(void *item, void *cx), void *cx) {
     SLICE99_ASSERT(f);
 
-    for (size_t i = 0; i < self.len; i++) {
+    for (ptrdiff_t i = 0; i < (ptrdiff_t)self.len; i++) {
         f(Slice99_get(self, i), cx);
     }
 }
@@ -745,7 +740,7 @@ inline static void Slice99_for_each(Slice99 self, void (*f)(void *item, void *cx
  *
  * @pre `out != NULL`
  * @pre @p out must be capable of writing `Slice99_size(self) + 1` bytes.
- * @pre @p out shall not overlap with @p self.
+ * @pre @p out must not overlap with @p self.
  */
 inline static char *Slice99_c_str(Slice99 self, char out[restrict]) {
     SLICE99_ASSERT(out);

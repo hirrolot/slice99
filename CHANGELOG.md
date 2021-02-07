@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
  - Rename `Slice99_copy` to `Slice99_copy_non_overlapping`.
+ - Use `ptrdiff_t` as an index. Reify the macros `Slice99_get` and `Slice99_get_cast_type`, `Slice99_sub` and `Slice99_sub_cast_type`, `Slice99_advance` and `Slice99_advance_cast_type`, `Slice99_swap` into corresponding functions: `Slice99_get`, `Slice99_sub`, `Slice99_advance`, `Slice99_swap`.
 
 ## [0.1.0] - 2020-01-02
 

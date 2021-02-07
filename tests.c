@@ -56,7 +56,7 @@ static Slice99 gen_int_slice(void) {
     const size_t len = rand() % (10);
     Slice99 data = Slice99_new(malloc(len * sizeof(int)), sizeof(int), len);
 
-    for (size_t i = 0; i < len; i++) {
+    for (ptrdiff_t i = 0; i < (ptrdiff_t)len; i++) {
         *(int *)Slice99_get(data, i) = rand() % INT_MAX;
     }
 
@@ -197,7 +197,7 @@ TEST(get) {
     assert(Slice99_get(slice, 2) == &data[2]);
 
     assert((int *)Slice99_get(slice, 3) - 1 == &data[2]);
-    assert((int *)Slice99_get_cast_type(slice, -1, int) + 1 == &data[0]);
+    assert((int *)Slice99_get(slice, -1) + 1 == &data[0]);
 }
 
 TEST(first) {
@@ -236,14 +236,14 @@ TEST(sub) {
     );
 
     ASSERT_SLICE(
-        Slice99_sub_cast_type(Slice99_new(data + 2, sizeof(int), 3), -2, 1, int),
+        Slice99_sub(Slice99_new(data + 2, sizeof(int), 3), -2, 1),
         PTR data,
         ITEM_SIZE sizeof(int),
         LEN 3
     );
 
     ASSERT_SLICE(
-        Slice99_sub_cast_type(Slice99_new(data + 3, sizeof(int), 2), -2, -1, int),
+        Slice99_sub(Slice99_new(data + 3, sizeof(int), 2), -2, -1),
         PTR data + 1,
         ITEM_SIZE sizeof(int),
         LEN 1
@@ -277,7 +277,7 @@ TEST(advance) {
     );
 
     ASSERT_SLICE(
-        Slice99_advance_cast_type(Slice99_new(data + 1, sizeof(int), 4), -1, int, int),
+        Slice99_advance(Slice99_new(data + 1, sizeof(int), 4), -1),
         PTR data,
         ITEM_SIZE sizeof(int),
         LEN 5
@@ -455,7 +455,7 @@ TEST(primitive_ends_with_basic) {
     Slice99 slice = Slice99_from_array((int[]){1, 2, 3, 4, 5});
 
     assert(Slice99_primitive_ends_with(slice, Slice99_sub(slice, 0, 0)));
-    assert(Slice99_primitive_ends_with(slice, Slice99_sub(slice, 3, slice.len)));
+    assert(Slice99_primitive_ends_with(slice, Slice99_sub(slice, 3, (ptrdiff_t)slice.len)));
 
     assert(!Slice99_primitive_ends_with(slice, Slice99_sub(slice, 1, 4)));
     assert(!Slice99_primitive_ends_with(slice, Slice99_sub(slice, 0, 3)));
@@ -502,7 +502,7 @@ TEST(ends_with_basic) {
     Slice99 slice = Slice99_from_array((int[]){1, 2, 3, 4, 5});
 
     assert(ENDS_WITH(slice, Slice99_sub(slice, 0, 0)));
-    assert(ENDS_WITH(slice, Slice99_sub(slice, 3, slice.len)));
+    assert(ENDS_WITH(slice, Slice99_sub(slice, 3, (ptrdiff_t)slice.len)));
 
     assert(!ENDS_WITH(slice, Slice99_sub(slice, 1, 4)));
     assert(!ENDS_WITH(slice, Slice99_sub(slice, 0, 3)));
@@ -564,7 +564,7 @@ TEST(copy) {
 TEST(copy_non_overlapping) {
     Slice99 slice = Slice99_from_array((int[]){1, 2, 3, 4, 5});
 
-    Slice99_copy(slice, Slice99_sub(slice, 1, slice.len));
+    Slice99_copy(slice, Slice99_sub(slice, 1, (ptrdiff_t)slice.len));
     assert(memcmp(slice.ptr, (const int[]){2, 3, 4, 5}, sizeof(int) * 4) == 0);
 
     // Check that copy occurs even if a destination slice is empty.
