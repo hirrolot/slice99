@@ -69,7 +69,7 @@ However, this approach is notoriously error-prone: the interface is easy to misu
 
 This is what slice99 tries to fix, though losing in type safety; if you want to stay type-safe, you can still pass a length and a pointer, convert them to `Slice99` by `Slice99_from_typed_ptr` and use the multitude of functions it provides (`Slice99_for_each`, `Slice99_bsearch`, `Slice99_find`, etc.).
 
-Another use case is zero-copy parsers: you can return slices from your parser that point to actual data -- no need to dynamically allocate new memory areas to append `'\0'` each time (slices need not be null-terminated).
+Another use case is zero-copy parsers: you can construct slices that point to actual data -- no need to dynamically allocate new memory areas to append `'\0'` each time (slices need not be null-terminated).
 
 ## Projects using slice99
 
