@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - `Slice99_advance`
  - Structure updating functions: `Slice99_update_ptr`, `Slice99_update_item_size`, `Slice99_update_len`.
  - An optional slice: `Slice99Maybe`, `Slice99Maybe_just`, `Slice99Maybe_nothing`.
+ - Tell a compiler to warn about an unused result of certain functions.
 
 ### Changed
 

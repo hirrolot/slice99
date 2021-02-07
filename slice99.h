@@ -99,6 +99,12 @@
 
 #endif // SLICE99_INCLUDE_BSEARCH
 
+#ifdef __GNUC__
+#define SLICE99_WARN_UNUSED_RESULT __attribute__((warn_unused_result))
+#else
+#define SLICE99_WARN_UNUSED_RESULT
+#endif // __GNU__
+
 /**
  * Computes a number of items in an array expression.
  */
@@ -173,7 +179,8 @@ typedef struct {
  * @pre `ptr != NULL`
  * @pre `item_size > 0`
  */
-inline static Slice99 Slice99_new(void *ptr, size_t item_size, size_t len) {
+inline static SLICE99_WARN_UNUSED_RESULT Slice99
+Slice99_new(void *ptr, size_t item_size, size_t len) {
     SLICE99_ASSERT(ptr);
     SLICE99_ASSERT(item_size > 0);
 
@@ -187,7 +194,7 @@ inline static Slice99 Slice99_new(void *ptr, size_t item_size, size_t len) {
  *
  * @pre `str != NULL`
  */
-inline static Slice99 Slice99_from_str(char *str) {
+inline static SLICE99_WARN_UNUSED_RESULT Slice99 Slice99_from_str(char *str) {
     SLICE99_ASSERT(str);
 
     return Slice99_new(str, sizeof(char), SLICE99_STRLEN(str));
@@ -205,7 +212,8 @@ inline static Slice99 Slice99_from_str(char *str) {
  * @pre `((char *)end - (char *)start) >= 0`
  * @pre `(((char *)end - (char *)start)) % item_size == 0`
  */
-inline static Slice99 Slice99_from_ptrdiff(void *start, void *end, size_t item_size) {
+inline static SLICE99_WARN_UNUSED_RESULT Slice99
+Slice99_from_ptrdiff(void *start, void *end, size_t item_size) {
     SLICE99_ASSERT(start);
     SLICE99_ASSERT(end);
 
@@ -224,7 +232,7 @@ inline static Slice99 Slice99_from_ptrdiff(void *start, void *end, size_t item_s
  *
  * @pre `item_size > 0`
  */
-inline static Slice99 Slice99_empty(size_t item_size) {
+inline static SLICE99_WARN_UNUSED_RESULT Slice99 Slice99_empty(size_t item_size) {
     SLICE99_ASSERT(item_size > 0);
     return Slice99_new("", item_size, 0);
 }
@@ -237,7 +245,7 @@ inline static Slice99 Slice99_empty(size_t item_size) {
  *
  * @pre `new_ptr != NULL`
  */
-inline static Slice99 Slice99_update_ptr(Slice99 self, void *new_ptr) {
+inline static SLICE99_WARN_UNUSED_RESULT Slice99 Slice99_update_ptr(Slice99 self, void *new_ptr) {
     SLICE99_ASSERT(new_ptr);
 
     return Slice99_new(new_ptr, self.item_size, self.len);
@@ -251,7 +259,8 @@ inline static Slice99 Slice99_update_ptr(Slice99 self, void *new_ptr) {
  *
  * @pre `new_item_size > 0`
  */
-inline static Slice99 Slice99_update_item_size(Slice99 self, size_t new_item_size) {
+inline static SLICE99_WARN_UNUSED_RESULT Slice99
+Slice99_update_item_size(Slice99 self, size_t new_item_size) {
     SLICE99_ASSERT(new_item_size > 0);
 
     return Slice99_new(self.ptr, new_item_size, self.len);
@@ -263,7 +272,7 @@ inline static Slice99 Slice99_update_item_size(Slice99 self, size_t new_item_siz
  * @param[in] self The slice whose length will be updated.
  * @param[in] new_len The new length.
  */
-inline static Slice99 Slice99_update_len(Slice99 self, size_t new_len) {
+inline static SLICE99_WARN_UNUSED_RESULT Slice99 Slice99_update_len(Slice99 self, size_t new_len) {
     return Slice99_new(self.ptr, self.item_size, new_len);
 }
 
@@ -274,7 +283,7 @@ inline static Slice99 Slice99_update_len(Slice99 self, size_t new_len) {
  *
  * @return `true` if @p self is empty, otherwise `false`.
  */
-inline static bool Slice99_is_empty(Slice99 self) {
+inline static SLICE99_WARN_UNUSED_RESULT bool Slice99_is_empty(Slice99 self) {
     return self.len == 0;
 }
 
@@ -283,7 +292,7 @@ inline static bool Slice99_is_empty(Slice99 self) {
  *
  * @param[in] self The slice whose size is to be computed.
  */
-inline static size_t Slice99_size(Slice99 self) {
+inline static SLICE99_WARN_UNUSED_RESULT size_t Slice99_size(Slice99 self) {
     return self.item_size * self.len;
 }
 
@@ -295,7 +304,7 @@ inline static size_t Slice99_size(Slice99 self) {
  *
  * @pre `self.item_size` must be representable as `ptrdiff_t`.
  */
-inline static void *Slice99_get(Slice99 self, ptrdiff_t i) {
+inline static SLICE99_WARN_UNUSED_RESULT void *Slice99_get(Slice99 self, ptrdiff_t i) {
     return (void *)((char *)self.ptr + i * (ptrdiff_t)self.item_size);
 }
 
@@ -304,7 +313,7 @@ inline static void *Slice99_get(Slice99 self, ptrdiff_t i) {
  *
  * @param[in] self The slice upon which the pointer will be computed.
  */
-inline static void *Slice99_first(Slice99 self) {
+inline static SLICE99_WARN_UNUSED_RESULT void *Slice99_first(Slice99 self) {
     return Slice99_get(self, 0);
 }
 
@@ -315,7 +324,7 @@ inline static void *Slice99_first(Slice99 self) {
  *
  * @pre `self.len` must be representable as `ptrdiff_t`.
  */
-inline static void *Slice99_last(Slice99 self) {
+inline static SLICE99_WARN_UNUSED_RESULT void *Slice99_last(Slice99 self) {
     return Slice99_get(self, (ptrdiff_t)self.len - 1);
 }
 
@@ -330,7 +339,8 @@ inline static void *Slice99_last(Slice99 self) {
  *
  * @pre `start_idx <= end_idx`
  */
-inline static Slice99 Slice99_sub(Slice99 self, ptrdiff_t start_idx, ptrdiff_t end_idx) {
+inline static SLICE99_WARN_UNUSED_RESULT Slice99
+Slice99_sub(Slice99 self, ptrdiff_t start_idx, ptrdiff_t end_idx) {
     SLICE99_ASSERT(start_idx <= end_idx);
 
     return Slice99_from_ptrdiff(
@@ -348,7 +358,7 @@ inline static Slice99 Slice99_sub(Slice99 self, ptrdiff_t start_idx, ptrdiff_t e
  * @pre `offset <= (self).len`
  * @pre `self.len` must be representable as `ptrdiff_t`.
  */
-inline static Slice99 Slice99_advance(Slice99 self, ptrdiff_t offset) {
+inline static SLICE99_WARN_UNUSED_RESULT Slice99 Slice99_advance(Slice99 self, ptrdiff_t offset) {
     return Slice99_sub(self, offset, (ptrdiff_t)self.len);
 }
 
@@ -360,7 +370,7 @@ inline static Slice99 Slice99_advance(Slice99 self, ptrdiff_t offset) {
  *
  * @return `true` if @p lhs and @p rhs are equal, `false` otherwise.
  */
-inline static bool Slice99_primitive_eq(Slice99 lhs, Slice99 rhs) {
+inline static SLICE99_WARN_UNUSED_RESULT bool Slice99_primitive_eq(Slice99 lhs, Slice99 rhs) {
     return Slice99_size(lhs) != Slice99_size(rhs)
                ? false
                : SLICE99_MEMCMP(lhs.ptr, rhs.ptr, Slice99_size(lhs)) == 0;
@@ -380,7 +390,7 @@ inline static bool Slice99_primitive_eq(Slice99 lhs, Slice99 rhs) {
  * @pre `comparator != NULL`
  * @pre `lhs.len` and `rhs.len` must be representable as `ptrdiff_t`.
  */
-inline static bool
+inline static SLICE99_WARN_UNUSED_RESULT bool
 Slice99_eq(Slice99 lhs, Slice99 rhs, int (*comparator)(const void *, const void *)) {
     SLICE99_ASSERT(lhs.item_size == rhs.item_size);
     SLICE99_ASSERT(comparator);
@@ -408,7 +418,8 @@ Slice99_eq(Slice99 lhs, Slice99 rhs, int (*comparator)(const void *, const void 
  *
  * @pre `prefix.len` must be representable as `ptrdiff_t`.
  */
-inline static bool Slice99_primitive_starts_with(Slice99 self, Slice99 prefix) {
+inline static SLICE99_WARN_UNUSED_RESULT bool
+Slice99_primitive_starts_with(Slice99 self, Slice99 prefix) {
     return Slice99_size(self) < Slice99_size(prefix)
                ? false
                : Slice99_primitive_eq(Slice99_sub(self, 0, (ptrdiff_t)prefix.len), prefix);
@@ -428,7 +439,7 @@ inline static bool Slice99_primitive_starts_with(Slice99 self, Slice99 prefix) {
  * @pre `comparator != NULL`
  * @pre `prefix.len` must be representable as `ptrdiff_t`.
  */
-inline static bool
+inline static SLICE99_WARN_UNUSED_RESULT bool
 Slice99_starts_with(Slice99 self, Slice99 prefix, int (*comparator)(const void *, const void *)) {
     SLICE99_ASSERT(self.item_size == prefix.item_size);
     SLICE99_ASSERT(comparator);
@@ -448,7 +459,8 @@ Slice99_starts_with(Slice99 self, Slice99 prefix, int (*comparator)(const void *
  *
  * @pre `self.len` and `postfix.len` must be representable as `ptrdiff_t`.
  */
-inline static bool Slice99_primitive_ends_with(Slice99 self, Slice99 postfix) {
+inline static SLICE99_WARN_UNUSED_RESULT bool
+Slice99_primitive_ends_with(Slice99 self, Slice99 postfix) {
     return Slice99_size(self) < Slice99_size(postfix)
                ? false
                : Slice99_primitive_eq(
@@ -471,7 +483,7 @@ inline static bool Slice99_primitive_ends_with(Slice99 self, Slice99 postfix) {
  * @pre `comparator != NULL`
  * @pre `self.len` and `postfix.len` must be representable as `ptrdiff_t`.
  */
-inline static bool
+inline static SLICE99_WARN_UNUSED_RESULT bool
 Slice99_ends_with(Slice99 self, Slice99 postfix, int (*comparator)(const void *, const void *)) {
     SLICE99_ASSERT(self.item_size == postfix.item_size);
     SLICE99_ASSERT(comparator);
@@ -595,7 +607,7 @@ inline static void Slice99_sort(Slice99 self, int (*comparator)(const void *, co
  *
  * @pre `comparator != NULL`
  */
-inline static void *
+inline static SLICE99_WARN_UNUSED_RESULT void *
 Slice99_bsearch(Slice99 self, const void *key, int (*comparator)(const void *, const void *)) {
     SLICE99_ASSERT(comparator);
 
@@ -698,7 +710,7 @@ Slice99_split_at(Slice99 self, size_t i, Slice99 *restrict lhs, Slice99 *restric
  * @pre `predicate != NULL`
  * @pre `self.len` must be representable as `ptrdiff_t`.
  */
-inline static void *
+inline static SLICE99_WARN_UNUSED_RESULT void *
 Slice99_find(Slice99 self, bool (*predicate)(const void *item, void *cx), void *cx) {
     SLICE99_ASSERT(predicate);
 
@@ -755,14 +767,14 @@ inline static char *Slice99_c_str(Slice99 self, char out[restrict]) {
  *
  * @param[in] slice The value of Slice99Maybe#slice.
  */
-inline static Slice99Maybe Slice99Maybe_just(Slice99 slice) {
+inline static SLICE99_WARN_UNUSED_RESULT Slice99Maybe Slice99Maybe_just(Slice99 slice) {
     return (Slice99Maybe){.exists = true, .slice = slice};
 }
 
 /**
  * Constructs an optional slice without a value.
  */
-inline static Slice99Maybe Slice99Maybe_nothing(void) {
+inline static SLICE99_WARN_UNUSED_RESULT Slice99Maybe Slice99Maybe_nothing(void) {
     return (Slice99Maybe){.exists = false, .slice = Slice99_empty(sizeof(char))};
 }
 
