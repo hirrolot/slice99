@@ -67,9 +67,9 @@ void foo(size_t len, uint8_t array[static len]) { /* ... */ }
 
 However, this approach is notoriously error-prone: the interface is easy to misuse, for example, by passing an invalid length. Moreover, sometimes programmers need to perform specific operations on `array` which are not exported by the standard library, leading to even more bugs and code clutter.
 
-This is what slice99 tries to fix, though losing in type safety; if you want to stay type-safe, you can still pass a length and a pointer, convert them to `Slice99` by `Slice99_new` and use the multitude of functions it provides (`Slice99_for_each`, `Slice99_bsearch`, `Slice99_find`, etc.).
+This is what slice99 tries to fix, though losing in type safety; if you want to stay type-safe, you can still pass a length and a pointer, convert them to `Slice99` by `Slice99_from_typed_ptr` and use the multitude of functions it provides (`Slice99_for_each`, `Slice99_bsearch`, `Slice99_find`, etc.).
 
-Another use case of slice99 is zero-copy parsers. The trick is that ordinary C strings need to be null-terminated, in opposite to `Slice99`, meaning that you can construct slices pointing to actual data without dynamically allocating new memory areas to append `'\0'` each time.
+Another use case is zero-copy parsers: you can construct slices that point to actual data -- no need to dynamically allocate new memory areas to append `'\0'` each time (slices need not be null-terminated).
 
 ## Projects using slice99
 
