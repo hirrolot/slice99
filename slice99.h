@@ -105,6 +105,18 @@
 #define SLICE99_WARN_UNUSED_RESULT
 #endif // __GNU__
 
+#if defined(__GNUC__) && !defined(__clang__)
+
+#define SLICE99_CONST __attribute__((const))
+#define SLICE99_PURE  __attribute__((pure))
+
+#else
+
+#define SLICE99_CONST
+#define SLICE99_PURE
+
+#endif
+
 /**
  * Computes a number of items in an array expression.
  */
@@ -283,7 +295,7 @@ inline static SLICE99_WARN_UNUSED_RESULT Slice99 Slice99_update_len(Slice99 self
  *
  * @return `true` if @p self is empty, otherwise `false`.
  */
-inline static SLICE99_WARN_UNUSED_RESULT bool Slice99_is_empty(Slice99 self) {
+inline static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST bool Slice99_is_empty(Slice99 self) {
     return self.len == 0;
 }
 
@@ -292,7 +304,7 @@ inline static SLICE99_WARN_UNUSED_RESULT bool Slice99_is_empty(Slice99 self) {
  *
  * @param[in] self The slice whose size is to be computed.
  */
-inline static SLICE99_WARN_UNUSED_RESULT size_t Slice99_size(Slice99 self) {
+inline static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST size_t Slice99_size(Slice99 self) {
     return self.item_size * self.len;
 }
 
@@ -304,7 +316,8 @@ inline static SLICE99_WARN_UNUSED_RESULT size_t Slice99_size(Slice99 self) {
  *
  * @pre `self.item_size` must be representable as `ptrdiff_t`.
  */
-inline static SLICE99_WARN_UNUSED_RESULT void *Slice99_get(Slice99 self, ptrdiff_t i) {
+inline static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST void *
+Slice99_get(Slice99 self, ptrdiff_t i) {
     return (void *)((char *)self.ptr + i * (ptrdiff_t)self.item_size);
 }
 
@@ -313,7 +326,7 @@ inline static SLICE99_WARN_UNUSED_RESULT void *Slice99_get(Slice99 self, ptrdiff
  *
  * @param[in] self The slice upon which the pointer will be computed.
  */
-inline static SLICE99_WARN_UNUSED_RESULT void *Slice99_first(Slice99 self) {
+inline static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST void *Slice99_first(Slice99 self) {
     return Slice99_get(self, 0);
 }
 
@@ -324,7 +337,7 @@ inline static SLICE99_WARN_UNUSED_RESULT void *Slice99_first(Slice99 self) {
  *
  * @pre `self.len` must be representable as `ptrdiff_t`.
  */
-inline static SLICE99_WARN_UNUSED_RESULT void *Slice99_last(Slice99 self) {
+inline static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST void *Slice99_last(Slice99 self) {
     return Slice99_get(self, (ptrdiff_t)self.len - 1);
 }
 
@@ -767,14 +780,15 @@ inline static char *Slice99_c_str(Slice99 self, char out[restrict]) {
  *
  * @param[in] slice The value of Slice99Maybe#slice.
  */
-inline static SLICE99_WARN_UNUSED_RESULT Slice99Maybe Slice99Maybe_just(Slice99 slice) {
+inline static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST Slice99Maybe
+Slice99Maybe_just(Slice99 slice) {
     return (Slice99Maybe){.exists = true, .slice = slice};
 }
 
 /**
  * Constructs an optional slice without a value.
  */
-inline static SLICE99_WARN_UNUSED_RESULT Slice99Maybe Slice99Maybe_nothing(void) {
+inline static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST Slice99Maybe Slice99Maybe_nothing(void) {
     return (Slice99Maybe){.exists = false, .slice = Slice99_empty(sizeof(char))};
 }
 
