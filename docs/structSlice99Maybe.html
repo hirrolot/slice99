@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>slice99: Slice99 Struct Reference</title>
+<title>slice99: Slice99Maybe Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,34 +63,34 @@ $(function() {
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">Slice99 Struct Reference</div>  </div>
+<div class="title">Slice99Maybe Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A slice of some array.  
- <a href="structSlice99.html#details">More...</a></p>
+<p>An optional slice.  
+ <a href="structSlice99Maybe.html#details">More...</a></p>
+<div class="dynheader">
+Collaboration diagram for Slice99Maybe:</div>
+<div class="dyncontent">
+<div class="center"><img src="structSlice99Maybe__coll__graph.png" border="0" usemap="#Slice99Maybe_coll__map" alt="Collaboration graph"/></div>
+<map name="Slice99Maybe_coll__map" id="Slice99Maybe_coll__map">
+<area shape="rect" id="node2" href="structSlice99.html" title="A slice of some array. " alt="" coords="25,5,90,32"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a1e583c6b18eb901fbe18a7872528c097"><td class="memItemLeft" align="right" valign="top"><a id="a1e583c6b18eb901fbe18a7872528c097"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSlice99.html#a1e583c6b18eb901fbe18a7872528c097">ptr</a></td></tr>
-<tr class="memdesc:a1e583c6b18eb901fbe18a7872528c097"><td class="mdescLeft">&#160;</td><td class="mdescRight">The pointer to data. <br /></td></tr>
-<tr class="separator:a1e583c6b18eb901fbe18a7872528c097"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ef1a9b7b6645499fb2e1047b1c0228b"><td class="memItemLeft" align="right" valign="top"><a id="a9ef1a9b7b6645499fb2e1047b1c0228b"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSlice99.html#a9ef1a9b7b6645499fb2e1047b1c0228b">item_size</a></td></tr>
-<tr class="memdesc:a9ef1a9b7b6645499fb2e1047b1c0228b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The size of each item in the array addressed by <a class="el" href="structSlice99.html#a1e583c6b18eb901fbe18a7872528c097" title="The pointer to data. ">ptr</a>. <br /></td></tr>
-<tr class="separator:a9ef1a9b7b6645499fb2e1047b1c0228b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8b9efd5077f389a79eb0e902868ca1b"><td class="memItemLeft" align="right" valign="top"><a id="af8b9efd5077f389a79eb0e902868ca1b"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSlice99.html#af8b9efd5077f389a79eb0e902868ca1b">len</a></td></tr>
-<tr class="memdesc:af8b9efd5077f389a79eb0e902868ca1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The count of items in the array addressed by <a class="el" href="structSlice99.html#a1e583c6b18eb901fbe18a7872528c097" title="The pointer to data. ">ptr</a>. <br /></td></tr>
-<tr class="separator:af8b9efd5077f389a79eb0e902868ca1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad06c3cffc465b875391bde793791561e"><td class="memItemLeft" align="right" valign="top"><a id="ad06c3cffc465b875391bde793791561e"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSlice99Maybe.html#ad06c3cffc465b875391bde793791561e">exists</a></td></tr>
+<tr class="memdesc:ad06c3cffc465b875391bde793791561e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether <a class="el" href="structSlice99Maybe.html#a3565d5dc973aadcab7046d43aae0c9f9" title="The slice of data. ">slice</a> exist or not. <br /></td></tr>
+<tr class="separator:ad06c3cffc465b875391bde793791561e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3565d5dc973aadcab7046d43aae0c9f9"><td class="memItemLeft" align="right" valign="top"><a id="a3565d5dc973aadcab7046d43aae0c9f9"></a>
+<a class="el" href="structSlice99.html">Slice99</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSlice99Maybe.html#a3565d5dc973aadcab7046d43aae0c9f9">slice</a></td></tr>
+<tr class="memdesc:a3565d5dc973aadcab7046d43aae0c9f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">The slice of data. <br /></td></tr>
+<tr class="separator:a3565d5dc973aadcab7046d43aae0c9f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A slice of some array. </p>
-<p>This structure should not be constructed manually; use <a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad" title="Constructs a slice. ">Slice99_new</a> instead.</p>
-<dl class="section invariant"><dt>Invariant</dt><dd><a class="el" href="structSlice99.html#a1e583c6b18eb901fbe18a7872528c097" title="The pointer to data. ">ptr</a> must not be <code>NULL</code>. </dd>
-<dd>
-<a class="el" href="structSlice99.html#a9ef1a9b7b6645499fb2e1047b1c0228b" title="The size of each item in the array addressed by ptr. ">item_size</a> must be strictly greater than 0. </dd></dl>
+<div class="textblock"><p>An optional slice. </p>
 </div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="slice99_8h_source.html">slice99.h</a></li>
 </ul>

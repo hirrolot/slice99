@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">slice99
-   &#160;<span id="projectnumber">0.1.0</span>
+   &#160;<span id="projectnumber">0.2.0</span>
    </div>
    <div id="projectbrief">Array slicing for C99</div>
   </td>
@@ -79,6 +79,9 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSlice99.html">Slice99</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A slice of some array.  <a href="structSlice99.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSlice99Maybe.html">Slice99Maybe</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An optional slice.  <a href="structSlice99Maybe.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -110,87 +113,93 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#aedee03b3135514dfcbdf244d01fa4d35">SLICE99_BSEARCH</a>&#160;&#160;&#160;bsearch</td></tr>
 <tr class="memdesc:aedee03b3135514dfcbdf244d01fa4d35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Like <code>bsearch</code>. <br /></td></tr>
 <tr class="separator:aedee03b3135514dfcbdf244d01fa4d35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e85222aed25f645d65a0c8e86e2916d"><td class="memItemLeft" align="right" valign="top"><a id="a9e85222aed25f645d65a0c8e86e2916d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SLICE99_WARN_UNUSED_RESULT</b></td></tr>
+<tr class="separator:a9e85222aed25f645d65a0c8e86e2916d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a393af859c337bbdac67f10233f9a6c5f"><td class="memItemLeft" align="right" valign="top"><a id="a393af859c337bbdac67f10233f9a6c5f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SLICE99_CONST</b></td></tr>
+<tr class="separator:a393af859c337bbdac67f10233f9a6c5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a367ec5df58f5059b6c233829de79e741"><td class="memItemLeft" align="right" valign="top"><a id="a367ec5df58f5059b6c233829de79e741"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>SLICE99_PURE</b></td></tr>
+<tr class="separator:a367ec5df58f5059b6c233829de79e741"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c76760ffa8f1b96400c17539684c6da"><td class="memItemLeft" align="right" valign="top"><a id="a2c76760ffa8f1b96400c17539684c6da"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a2c76760ffa8f1b96400c17539684c6da">Slice99_array_len</a>(...)&#160;&#160;&#160;(sizeof(__VA_ARGS__) / sizeof((__VA_ARGS__)[0]))</td></tr>
 <tr class="memdesc:a2c76760ffa8f1b96400c17539684c6da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a number of items in an array expression. <br /></td></tr>
 <tr class="separator:a2c76760ffa8f1b96400c17539684c6da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee899fa7bd6ee37b88c0bf229213d97e"><td class="memItemLeft" align="right" valign="top"><a id="aee899fa7bd6ee37b88c0bf229213d97e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#aee899fa7bd6ee37b88c0bf229213d97e">Slice99_from_array</a>(...)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a2b245f73d9eb540878d9b09c286c7a5d">Slice99_new</a>((void *)(__VA_ARGS__), sizeof((__VA_ARGS__)[0]), <a class="el" href="slice99_8h.html#a2c76760ffa8f1b96400c17539684c6da">Slice99_array_len</a>(__VA_ARGS__))</td></tr>
-<tr class="memdesc:aee899fa7bd6ee37b88c0bf229213d97e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a slice from an array expression. <br /></td></tr>
+<tr class="memitem:aee899fa7bd6ee37b88c0bf229213d97e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#aee899fa7bd6ee37b88c0bf229213d97e">Slice99_from_array</a>(...)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad">Slice99_new</a>((void *)(__VA_ARGS__), sizeof((__VA_ARGS__)[0]), <a class="el" href="slice99_8h.html#a2c76760ffa8f1b96400c17539684c6da">Slice99_array_len</a>(__VA_ARGS__))</td></tr>
+<tr class="memdesc:aee899fa7bd6ee37b88c0bf229213d97e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a slice from an array expression.  <a href="#aee899fa7bd6ee37b88c0bf229213d97e">More...</a><br /></td></tr>
 <tr class="separator:aee899fa7bd6ee37b88c0bf229213d97e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a907b544bdd92e9d7a7b3b50c69102fd6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a907b544bdd92e9d7a7b3b50c69102fd6">Slice99_get</a>(self,  i)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a80df197030d2e328a1856a68204b7c0b">Slice99_get_cast_type</a>(self, i, size_t)</td></tr>
-<tr class="memdesc:a907b544bdd92e9d7a7b3b50c69102fd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a pointer to the <code>i</code> -indexed item.  <a href="#a907b544bdd92e9d7a7b3b50c69102fd6">More...</a><br /></td></tr>
-<tr class="separator:a907b544bdd92e9d7a7b3b50c69102fd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80df197030d2e328a1856a68204b7c0b"><td class="memItemLeft" align="right" valign="top"><a id="a80df197030d2e328a1856a68204b7c0b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a80df197030d2e328a1856a68204b7c0b">Slice99_get_cast_type</a>(self,  i,  T)&#160;&#160;&#160;((void *)((char *)(self).ptr + ((i) * (T)(self).item_size)))</td></tr>
-<tr class="memdesc:a80df197030d2e328a1856a68204b7c0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The same as <a class="el" href="slice99_8h.html#a907b544bdd92e9d7a7b3b50c69102fd6" title="Computes a pointer to the i -indexed item. ">Slice99_get</a> but explicitly casts <code>(self).item_size</code> to <code>T</code>. <br /></td></tr>
-<tr class="separator:a80df197030d2e328a1856a68204b7c0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c941abce41d90462e745ef6729e8965"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a2c941abce41d90462e745ef6729e8965">Slice99_sub</a>(self,  start_idx,  end_idx)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#aff5368fbf40b74b98e7f24de59596e8c">Slice99_sub_cast_type</a>(self, start_idx, end_idx, size_t)</td></tr>
-<tr class="memdesc:a2c941abce41d90462e745ef6729e8965"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subslicing <code>self</code> with [<code>start_idx</code> <code>..</code> <code>end_idx</code>].  <a href="#a2c941abce41d90462e745ef6729e8965">More...</a><br /></td></tr>
-<tr class="separator:a2c941abce41d90462e745ef6729e8965"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff5368fbf40b74b98e7f24de59596e8c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#aff5368fbf40b74b98e7f24de59596e8c">Slice99_sub_cast_type</a>(self,  start_idx,  end_idx,  T)</td></tr>
-<tr class="memdesc:aff5368fbf40b74b98e7f24de59596e8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The same as <a class="el" href="slice99_8h.html#a2c941abce41d90462e745ef6729e8965" title="Subslicing self with [start_idx .. end_idx]. ">Slice99_sub</a> but explicitly casts <code>(self).item_size</code> to <code>T</code>.  <a href="#aff5368fbf40b74b98e7f24de59596e8c">More...</a><br /></td></tr>
-<tr class="separator:aff5368fbf40b74b98e7f24de59596e8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a094655c210fc792711c1c61f2d205404"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a094655c210fc792711c1c61f2d205404">Slice99_advance</a>(self,  offset)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a64f9dee756ecea6812d186e85f549917">Slice99_advance_cast_type</a>(self, offset, size_t, size_t)</td></tr>
-<tr class="memdesc:a094655c210fc792711c1c61f2d205404"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances <code>self</code> by <code>offset</code> items.  <a href="#a094655c210fc792711c1c61f2d205404">More...</a><br /></td></tr>
-<tr class="separator:a094655c210fc792711c1c61f2d205404"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64f9dee756ecea6812d186e85f549917"><td class="memItemLeft" align="right" valign="top"><a id="a64f9dee756ecea6812d186e85f549917"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a64f9dee756ecea6812d186e85f549917">Slice99_advance_cast_type</a>(self,  offset,  T,  U)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#aff5368fbf40b74b98e7f24de59596e8c">Slice99_sub_cast_type</a>(self, offset, (U)(self).len, T)</td></tr>
-<tr class="memdesc:a64f9dee756ecea6812d186e85f549917"><td class="mdescLeft">&#160;</td><td class="mdescRight">The same as <a class="el" href="slice99_8h.html#a094655c210fc792711c1c61f2d205404" title="Advances self by offset items. ">Slice99_advance</a> but explicitly casts <code>(self).item_size</code> to <code>T</code> and <code>(self).len</code> to <code>U</code>. <br /></td></tr>
-<tr class="separator:a64f9dee756ecea6812d186e85f549917"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd148e62b60b316dfba5be120ef54c8a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#acd148e62b60b316dfba5be120ef54c8a">Slice99_swap</a>(self,  lhs,  rhs,  backup)</td></tr>
-<tr class="memdesc:acd148e62b60b316dfba5be120ef54c8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps the <code>lhs</code> -indexed and <code>rhs</code> -indexed items.  <a href="#acd148e62b60b316dfba5be120ef54c8a">More...</a><br /></td></tr>
-<tr class="separator:acd148e62b60b316dfba5be120ef54c8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8c2fd6a232198b3c511c19f3546b41b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#af8c2fd6a232198b3c511c19f3546b41b">Slice99_from_typed_ptr</a>(ptr,  len)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad">Slice99_new</a>(ptr, sizeof(*ptr), len)</td></tr>
+<tr class="memdesc:af8c2fd6a232198b3c511c19f3546b41b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a slice from a pointer of a non-<code>void</code> type and a length.  <a href="#af8c2fd6a232198b3c511c19f3546b41b">More...</a><br /></td></tr>
+<tr class="separator:af8c2fd6a232198b3c511c19f3546b41b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a2b245f73d9eb540878d9b09c286c7a5d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structSlice99.html">Slice99</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a2b245f73d9eb540878d9b09c286c7a5d">Slice99_new</a> (void *ptr, size_t item_size, size_t len)</td></tr>
-<tr class="memdesc:a2b245f73d9eb540878d9b09c286c7a5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a slice.  <a href="#a2b245f73d9eb540878d9b09c286c7a5d">More...</a><br /></td></tr>
-<tr class="separator:a2b245f73d9eb540878d9b09c286c7a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a675d2dcf7501eddbc72e1863a230e11d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structSlice99.html">Slice99</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a675d2dcf7501eddbc72e1863a230e11d">Slice99_from_str</a> (char *str)</td></tr>
-<tr class="memdesc:a675d2dcf7501eddbc72e1863a230e11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a slice from <code>str</code>.  <a href="#a675d2dcf7501eddbc72e1863a230e11d">More...</a><br /></td></tr>
-<tr class="separator:a675d2dcf7501eddbc72e1863a230e11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd08534dacb5c17da008a55da5d438ad"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structSlice99.html">Slice99</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#acd08534dacb5c17da008a55da5d438ad">Slice99_from_ptrdiff</a> (void *start, void *end, size_t item_size)</td></tr>
-<tr class="memdesc:acd08534dacb5c17da008a55da5d438ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a slice residing between <code>start</code> (inclusively) and <code>end</code> (exclusively).  <a href="#acd08534dacb5c17da008a55da5d438ad">More...</a><br /></td></tr>
-<tr class="separator:acd08534dacb5c17da008a55da5d438ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3b1792fcd0cad249aeff742baa5cc65"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structSlice99.html">Slice99</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#ab3b1792fcd0cad249aeff742baa5cc65">Slice99_empty</a> (size_t item_size)</td></tr>
-<tr class="memdesc:ab3b1792fcd0cad249aeff742baa5cc65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an empty slice.  <a href="#ab3b1792fcd0cad249aeff742baa5cc65">More...</a><br /></td></tr>
-<tr class="separator:ab3b1792fcd0cad249aeff742baa5cc65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f206fba3f90bec4ac7d520023e7dd0b"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a9f206fba3f90bec4ac7d520023e7dd0b">Slice99_is_empty</a> (<a class="el" href="structSlice99.html">Slice99</a> self)</td></tr>
-<tr class="memdesc:a9f206fba3f90bec4ac7d520023e7dd0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether <code>self</code> is empty or not.  <a href="#a9f206fba3f90bec4ac7d520023e7dd0b">More...</a><br /></td></tr>
-<tr class="separator:a9f206fba3f90bec4ac7d520023e7dd0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a305e4878c540defdc9ed1ab987b4af98"><td class="memItemLeft" align="right" valign="top">static size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a305e4878c540defdc9ed1ab987b4af98">Slice99_size</a> (<a class="el" href="structSlice99.html">Slice99</a> self)</td></tr>
-<tr class="memdesc:a305e4878c540defdc9ed1ab987b4af98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a total size in bytes.  <a href="#a305e4878c540defdc9ed1ab987b4af98">More...</a><br /></td></tr>
-<tr class="separator:a305e4878c540defdc9ed1ab987b4af98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72d65ba55c6234dc8c1252ed323e0bbf"><td class="memItemLeft" align="right" valign="top">static void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a72d65ba55c6234dc8c1252ed323e0bbf">Slice99_first</a> (<a class="el" href="structSlice99.html">Slice99</a> self)</td></tr>
-<tr class="memdesc:a72d65ba55c6234dc8c1252ed323e0bbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a pointer to the first item.  <a href="#a72d65ba55c6234dc8c1252ed323e0bbf">More...</a><br /></td></tr>
-<tr class="separator:a72d65ba55c6234dc8c1252ed323e0bbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab09bf811b7dbd399d8f08fdc0196932e"><td class="memItemLeft" align="right" valign="top">static void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#ab09bf811b7dbd399d8f08fdc0196932e">Slice99_last</a> (<a class="el" href="structSlice99.html">Slice99</a> self)</td></tr>
-<tr class="memdesc:ab09bf811b7dbd399d8f08fdc0196932e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a pointer to the last item.  <a href="#ab09bf811b7dbd399d8f08fdc0196932e">More...</a><br /></td></tr>
-<tr class="separator:ab09bf811b7dbd399d8f08fdc0196932e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d0170af68a66bd469eff16c0fd5d503"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a6d0170af68a66bd469eff16c0fd5d503">Slice99_primitive_eq</a> (<a class="el" href="structSlice99.html">Slice99</a> lhs, <a class="el" href="structSlice99.html">Slice99</a> rhs)</td></tr>
-<tr class="memdesc:a6d0170af68a66bd469eff16c0fd5d503"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a byte-by-byte comparison of <code>lhs</code> with <code>rhs</code>.  <a href="#a6d0170af68a66bd469eff16c0fd5d503">More...</a><br /></td></tr>
-<tr class="separator:a6d0170af68a66bd469eff16c0fd5d503"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf32a71381185a03e3b50ed6179d7544"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#adf32a71381185a03e3b50ed6179d7544">Slice99_eq</a> (<a class="el" href="structSlice99.html">Slice99</a> lhs, <a class="el" href="structSlice99.html">Slice99</a> rhs, int(*comparator)(const void *, const void *))</td></tr>
-<tr class="memdesc:adf32a71381185a03e3b50ed6179d7544"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a comparison of <code>lhs</code> with <code>rhs</code> with a user-supplied comparator.  <a href="#adf32a71381185a03e3b50ed6179d7544">More...</a><br /></td></tr>
-<tr class="separator:adf32a71381185a03e3b50ed6179d7544"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f8c3986891a359399a136dfc7767254"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a5f8c3986891a359399a136dfc7767254">Slice99_primitive_starts_with</a> (<a class="el" href="structSlice99.html">Slice99</a> self, <a class="el" href="structSlice99.html">Slice99</a> prefix)</td></tr>
-<tr class="memdesc:a5f8c3986891a359399a136dfc7767254"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether <code>prefix</code> is a prefix of <code>self</code>, byte-by-byte.  <a href="#a5f8c3986891a359399a136dfc7767254">More...</a><br /></td></tr>
-<tr class="separator:a5f8c3986891a359399a136dfc7767254"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1eec4a0a37bb2369b81ca7c91717091d"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a1eec4a0a37bb2369b81ca7c91717091d">Slice99_starts_with</a> (<a class="el" href="structSlice99.html">Slice99</a> self, <a class="el" href="structSlice99.html">Slice99</a> prefix, int(*comparator)(const void *, const void *))</td></tr>
-<tr class="memdesc:a1eec4a0a37bb2369b81ca7c91717091d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether <code>prefix</code> is a prefix of <code>self</code> with a user-supplied comparator.  <a href="#a1eec4a0a37bb2369b81ca7c91717091d">More...</a><br /></td></tr>
-<tr class="separator:a1eec4a0a37bb2369b81ca7c91717091d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a809060f1ae79857828eb7e41ae1f07ee"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a809060f1ae79857828eb7e41ae1f07ee">Slice99_primitive_ends_with</a> (<a class="el" href="structSlice99.html">Slice99</a> self, <a class="el" href="structSlice99.html">Slice99</a> postfix)</td></tr>
-<tr class="memdesc:a809060f1ae79857828eb7e41ae1f07ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether <code>postfix</code> is a postfix of <code>self</code>, byte-by-byte.  <a href="#a809060f1ae79857828eb7e41ae1f07ee">More...</a><br /></td></tr>
-<tr class="separator:a809060f1ae79857828eb7e41ae1f07ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adcdfc64cdb2e3b1e0842d98d38ea6faf"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#adcdfc64cdb2e3b1e0842d98d38ea6faf">Slice99_ends_with</a> (<a class="el" href="structSlice99.html">Slice99</a> self, <a class="el" href="structSlice99.html">Slice99</a> postfix, int(*comparator)(const void *, const void *))</td></tr>
-<tr class="memdesc:adcdfc64cdb2e3b1e0842d98d38ea6faf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether <code>postfix</code> is a postfix of <code>self</code> with a user-supplied comparator.  <a href="#adcdfc64cdb2e3b1e0842d98d38ea6faf">More...</a><br /></td></tr>
-<tr class="separator:adcdfc64cdb2e3b1e0842d98d38ea6faf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45e1af2b78b1d2189eddd20214d3c0ad"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad">Slice99_new</a> (void *ptr, size_t item_size, size_t len)</td></tr>
+<tr class="memdesc:a45e1af2b78b1d2189eddd20214d3c0ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a slice.  <a href="#a45e1af2b78b1d2189eddd20214d3c0ad">More...</a><br /></td></tr>
+<tr class="separator:a45e1af2b78b1d2189eddd20214d3c0ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a827f21894eb4424d835b93de680caa9e"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a827f21894eb4424d835b93de680caa9e">Slice99_from_str</a> (char *str)</td></tr>
+<tr class="memdesc:a827f21894eb4424d835b93de680caa9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a slice from <code>str</code>.  <a href="#a827f21894eb4424d835b93de680caa9e">More...</a><br /></td></tr>
+<tr class="separator:a827f21894eb4424d835b93de680caa9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4ddbf9b09c12cee18c2546c0e08d657"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#af4ddbf9b09c12cee18c2546c0e08d657">Slice99_from_ptrdiff</a> (void *start, void *end, size_t item_size)</td></tr>
+<tr class="memdesc:af4ddbf9b09c12cee18c2546c0e08d657"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a slice residing between <code>start</code> (inclusively) and <code>end</code> (exclusively).  <a href="#af4ddbf9b09c12cee18c2546c0e08d657">More...</a><br /></td></tr>
+<tr class="separator:af4ddbf9b09c12cee18c2546c0e08d657"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab994ee5ddd723fb1f09f77d209466b05"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#ab994ee5ddd723fb1f09f77d209466b05">Slice99_empty</a> (size_t item_size)</td></tr>
+<tr class="memdesc:ab994ee5ddd723fb1f09f77d209466b05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an empty slice.  <a href="#ab994ee5ddd723fb1f09f77d209466b05">More...</a><br /></td></tr>
+<tr class="separator:ab994ee5ddd723fb1f09f77d209466b05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a5679da3af78e3cca0d7bf5f59793c9"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a7a5679da3af78e3cca0d7bf5f59793c9">Slice99_update_ptr</a> (<a class="el" href="structSlice99.html">Slice99</a> self, void *new_ptr)</td></tr>
+<tr class="memdesc:a7a5679da3af78e3cca0d7bf5f59793c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates <code>self</code> with the new pointer <code>new_ptr</code>.  <a href="#a7a5679da3af78e3cca0d7bf5f59793c9">More...</a><br /></td></tr>
+<tr class="separator:a7a5679da3af78e3cca0d7bf5f59793c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34105553a141a9c14eef7bf22552e19f"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a34105553a141a9c14eef7bf22552e19f">Slice99_update_item_size</a> (<a class="el" href="structSlice99.html">Slice99</a> self, size_t new_item_size)</td></tr>
+<tr class="memdesc:a34105553a141a9c14eef7bf22552e19f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates <code>self</code> with the new item size <code>new_item_size</code>.  <a href="#a34105553a141a9c14eef7bf22552e19f">More...</a><br /></td></tr>
+<tr class="separator:a34105553a141a9c14eef7bf22552e19f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b671c453b415d9ca3d231626bd73ba0"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a0b671c453b415d9ca3d231626bd73ba0">Slice99_update_len</a> (<a class="el" href="structSlice99.html">Slice99</a> self, size_t new_len)</td></tr>
+<tr class="memdesc:a0b671c453b415d9ca3d231626bd73ba0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates <code>self</code> with the new length <code>new_len</code>.  <a href="#a0b671c453b415d9ca3d231626bd73ba0">More...</a><br /></td></tr>
+<tr class="separator:a0b671c453b415d9ca3d231626bd73ba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad04282a1e8e5522a4b6fbb3f28492367"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#ad04282a1e8e5522a4b6fbb3f28492367">Slice99_is_empty</a> (<a class="el" href="structSlice99.html">Slice99</a> self)</td></tr>
+<tr class="memdesc:ad04282a1e8e5522a4b6fbb3f28492367"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether <code>self</code> is empty or not.  <a href="#ad04282a1e8e5522a4b6fbb3f28492367">More...</a><br /></td></tr>
+<tr class="separator:ad04282a1e8e5522a4b6fbb3f28492367"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c1981dc6bf18ca36407f2160846c816"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a2c1981dc6bf18ca36407f2160846c816">Slice99_size</a> (<a class="el" href="structSlice99.html">Slice99</a> self)</td></tr>
+<tr class="memdesc:a2c1981dc6bf18ca36407f2160846c816"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a total size in bytes.  <a href="#a2c1981dc6bf18ca36407f2160846c816">More...</a><br /></td></tr>
+<tr class="separator:a2c1981dc6bf18ca36407f2160846c816"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a844a37ba514d3fc0382972a2fa2a3419"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a844a37ba514d3fc0382972a2fa2a3419">Slice99_get</a> (<a class="el" href="structSlice99.html">Slice99</a> self, ptrdiff_t i)</td></tr>
+<tr class="memdesc:a844a37ba514d3fc0382972a2fa2a3419"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a pointer to the <code>i</code> -indexed item.  <a href="#a844a37ba514d3fc0382972a2fa2a3419">More...</a><br /></td></tr>
+<tr class="separator:a844a37ba514d3fc0382972a2fa2a3419"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3efecbb56ae6ddf66db72c5fc12c335"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#ab3efecbb56ae6ddf66db72c5fc12c335">Slice99_first</a> (<a class="el" href="structSlice99.html">Slice99</a> self)</td></tr>
+<tr class="memdesc:ab3efecbb56ae6ddf66db72c5fc12c335"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a pointer to the first item.  <a href="#ab3efecbb56ae6ddf66db72c5fc12c335">More...</a><br /></td></tr>
+<tr class="separator:ab3efecbb56ae6ddf66db72c5fc12c335"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a273087c5c7b3bd025dd393f1246143b7"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a273087c5c7b3bd025dd393f1246143b7">Slice99_last</a> (<a class="el" href="structSlice99.html">Slice99</a> self)</td></tr>
+<tr class="memdesc:a273087c5c7b3bd025dd393f1246143b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a pointer to the last item.  <a href="#a273087c5c7b3bd025dd393f1246143b7">More...</a><br /></td></tr>
+<tr class="separator:a273087c5c7b3bd025dd393f1246143b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa7fd2226d3ed730fb6be0381ca3b4fe"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#afa7fd2226d3ed730fb6be0381ca3b4fe">Slice99_sub</a> (<a class="el" href="structSlice99.html">Slice99</a> self, ptrdiff_t start_idx, ptrdiff_t end_idx)</td></tr>
+<tr class="memdesc:afa7fd2226d3ed730fb6be0381ca3b4fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subslicing <code>self</code> with [<code>start_idx</code> <code>..</code> <code>end_idx</code>].  <a href="#afa7fd2226d3ed730fb6be0381ca3b4fe">More...</a><br /></td></tr>
+<tr class="separator:afa7fd2226d3ed730fb6be0381ca3b4fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab364d098941c1f0d6c9316dd845198d3"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#ab364d098941c1f0d6c9316dd845198d3">Slice99_advance</a> (<a class="el" href="structSlice99.html">Slice99</a> self, ptrdiff_t offset)</td></tr>
+<tr class="memdesc:ab364d098941c1f0d6c9316dd845198d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Advances <code>self</code> by <code>offset</code> items.  <a href="#ab364d098941c1f0d6c9316dd845198d3">More...</a><br /></td></tr>
+<tr class="separator:ab364d098941c1f0d6c9316dd845198d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a776f924703cf8a4f30804bb2dd82f91e"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a776f924703cf8a4f30804bb2dd82f91e">Slice99_primitive_eq</a> (<a class="el" href="structSlice99.html">Slice99</a> lhs, <a class="el" href="structSlice99.html">Slice99</a> rhs)</td></tr>
+<tr class="memdesc:a776f924703cf8a4f30804bb2dd82f91e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a byte-by-byte comparison of <code>lhs</code> with <code>rhs</code>.  <a href="#a776f924703cf8a4f30804bb2dd82f91e">More...</a><br /></td></tr>
+<tr class="separator:a776f924703cf8a4f30804bb2dd82f91e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8105b708b139c6dd0385550b3f4cdd11"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a8105b708b139c6dd0385550b3f4cdd11">Slice99_eq</a> (<a class="el" href="structSlice99.html">Slice99</a> lhs, <a class="el" href="structSlice99.html">Slice99</a> rhs, int(*comparator)(const void *, const void *))</td></tr>
+<tr class="memdesc:a8105b708b139c6dd0385550b3f4cdd11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a comparison of <code>lhs</code> with <code>rhs</code> with a user-supplied comparator.  <a href="#a8105b708b139c6dd0385550b3f4cdd11">More...</a><br /></td></tr>
+<tr class="separator:a8105b708b139c6dd0385550b3f4cdd11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5089ecf9f17b19a9a5f6d4d587721ca1"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a5089ecf9f17b19a9a5f6d4d587721ca1">Slice99_primitive_starts_with</a> (<a class="el" href="structSlice99.html">Slice99</a> self, <a class="el" href="structSlice99.html">Slice99</a> prefix)</td></tr>
+<tr class="memdesc:a5089ecf9f17b19a9a5f6d4d587721ca1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether <code>prefix</code> is a prefix of <code>self</code>, byte-by-byte.  <a href="#a5089ecf9f17b19a9a5f6d4d587721ca1">More...</a><br /></td></tr>
+<tr class="separator:a5089ecf9f17b19a9a5f6d4d587721ca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa961f073e3625eb2d7f520953d8064e"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#aaa961f073e3625eb2d7f520953d8064e">Slice99_starts_with</a> (<a class="el" href="structSlice99.html">Slice99</a> self, <a class="el" href="structSlice99.html">Slice99</a> prefix, int(*comparator)(const void *, const void *))</td></tr>
+<tr class="memdesc:aaa961f073e3625eb2d7f520953d8064e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether <code>prefix</code> is a prefix of <code>self</code> with a user-supplied comparator.  <a href="#aaa961f073e3625eb2d7f520953d8064e">More...</a><br /></td></tr>
+<tr class="separator:aaa961f073e3625eb2d7f520953d8064e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9bf868bf051593e87c7d163a09e7a7b"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#ab9bf868bf051593e87c7d163a09e7a7b">Slice99_primitive_ends_with</a> (<a class="el" href="structSlice99.html">Slice99</a> self, <a class="el" href="structSlice99.html">Slice99</a> postfix)</td></tr>
+<tr class="memdesc:ab9bf868bf051593e87c7d163a09e7a7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether <code>postfix</code> is a postfix of <code>self</code>, byte-by-byte.  <a href="#ab9bf868bf051593e87c7d163a09e7a7b">More...</a><br /></td></tr>
+<tr class="separator:ab9bf868bf051593e87c7d163a09e7a7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2536d7ef64482c5b64bd61fe4f5ad9e5"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a2536d7ef64482c5b64bd61fe4f5ad9e5">Slice99_ends_with</a> (<a class="el" href="structSlice99.html">Slice99</a> self, <a class="el" href="structSlice99.html">Slice99</a> postfix, int(*comparator)(const void *, const void *))</td></tr>
+<tr class="memdesc:a2536d7ef64482c5b64bd61fe4f5ad9e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether <code>postfix</code> is a postfix of <code>self</code> with a user-supplied comparator.  <a href="#a2536d7ef64482c5b64bd61fe4f5ad9e5">More...</a><br /></td></tr>
+<tr class="separator:a2536d7ef64482c5b64bd61fe4f5ad9e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0633af9b428c3c28e0476c65c4bb5dc"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#af0633af9b428c3c28e0476c65c4bb5dc">Slice99_copy</a> (<a class="el" href="structSlice99.html">Slice99</a> self, <a class="el" href="structSlice99.html">Slice99</a> other)</td></tr>
 <tr class="memdesc:af0633af9b428c3c28e0476c65c4bb5dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies <code>other</code> to the beginning of <code>self</code>, byte-by-byte.  <a href="#af0633af9b428c3c28e0476c65c4bb5dc">More...</a><br /></td></tr>
 <tr class="separator:af0633af9b428c3c28e0476c65c4bb5dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6e9856494623751a31202d2f1d94409"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#ab6e9856494623751a31202d2f1d94409">Slice99_copy_non_overlapping</a> (<a class="el" href="structSlice99.html">Slice99</a> self, <a class="el" href="structSlice99.html">Slice99</a> other)</td></tr>
-<tr class="memdesc:ab6e9856494623751a31202d2f1d94409"><td class="mdescLeft">&#160;</td><td class="mdescRight">The same as <a class="el" href="slice99_8h.html#af0633af9b428c3c28e0476c65c4bb5dc" title="Copies other to the beginning of self, byte-by-byte. ">Slice99_copy</a> except that <code>self</code> and <code>other</code> shall be non-overlapping.  <a href="#ab6e9856494623751a31202d2f1d94409">More...</a><br /></td></tr>
+<tr class="memdesc:ab6e9856494623751a31202d2f1d94409"><td class="mdescLeft">&#160;</td><td class="mdescRight">The same as <a class="el" href="slice99_8h.html#af0633af9b428c3c28e0476c65c4bb5dc" title="Copies other to the beginning of self, byte-by-byte. ">Slice99_copy</a> except that <code>self</code> and <code>other</code> must be non-overlapping.  <a href="#ab6e9856494623751a31202d2f1d94409">More...</a><br /></td></tr>
 <tr class="separator:ab6e9856494623751a31202d2f1d94409"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a314b3e238e23ad7486841d8a8ceb9e9e"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a314b3e238e23ad7486841d8a8ceb9e9e">Slice99_fwrite</a> (<a class="el" href="structSlice99.html">Slice99</a> self, FILE *stream)</td></tr>
 <tr class="memdesc:a314b3e238e23ad7486841d8a8ceb9e9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes <code>self</code> to <code>stream</code>, byte-by-byte.  <a href="#a314b3e238e23ad7486841d8a8ceb9e9e">More...</a><br /></td></tr>
@@ -207,9 +216,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a92fa3f03cef49b60206d43abd5d02946"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a92fa3f03cef49b60206d43abd5d02946">Slice99_sort</a> (<a class="el" href="structSlice99.html">Slice99</a> self, int(*comparator)(const void *, const void *))</td></tr>
 <tr class="memdesc:a92fa3f03cef49b60206d43abd5d02946"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sorts the items in <code>self</code>.  <a href="#a92fa3f03cef49b60206d43abd5d02946">More...</a><br /></td></tr>
 <tr class="separator:a92fa3f03cef49b60206d43abd5d02946"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acdc649fac630f1f611482f2d114f5a7e"><td class="memItemLeft" align="right" valign="top">static void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#acdc649fac630f1f611482f2d114f5a7e">Slice99_bsearch</a> (<a class="el" href="structSlice99.html">Slice99</a> self, const void *key, int(*comparator)(const void *, const void *))</td></tr>
-<tr class="memdesc:acdc649fac630f1f611482f2d114f5a7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a binary search in <code>self</code>.  <a href="#acdc649fac630f1f611482f2d114f5a7e">More...</a><br /></td></tr>
-<tr class="separator:acdc649fac630f1f611482f2d114f5a7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe3e8f164eeded22a7456138e3327a1a"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#afe3e8f164eeded22a7456138e3327a1a">Slice99_bsearch</a> (<a class="el" href="structSlice99.html">Slice99</a> self, const void *key, int(*comparator)(const void *, const void *))</td></tr>
+<tr class="memdesc:afe3e8f164eeded22a7456138e3327a1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a binary search in <code>self</code>.  <a href="#afe3e8f164eeded22a7456138e3327a1a">More...</a><br /></td></tr>
+<tr class="separator:afe3e8f164eeded22a7456138e3327a1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20fcf4b3348c53d782cc5ca280c19105"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a20fcf4b3348c53d782cc5ca280c19105">Slice99_swap</a> (<a class="el" href="structSlice99.html">Slice99</a> self, ptrdiff_t lhs, ptrdiff_t rhs, void *restrict backup)</td></tr>
+<tr class="memdesc:a20fcf4b3348c53d782cc5ca280c19105"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps the <code>lhs</code> -indexed and <code>rhs</code> -indexed items.  <a href="#a20fcf4b3348c53d782cc5ca280c19105">More...</a><br /></td></tr>
+<tr class="separator:a20fcf4b3348c53d782cc5ca280c19105"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64763843fbfeea0099a7bae8a3fcd941"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a64763843fbfeea0099a7bae8a3fcd941">Slice99_swap_with_slice</a> (<a class="el" href="structSlice99.html">Slice99</a> self, <a class="el" href="structSlice99.html">Slice99</a> other, void *restrict backup)</td></tr>
 <tr class="memdesc:a64763843fbfeea0099a7bae8a3fcd941"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps all the items in <code>self</code> with those in <code>other</code>.  <a href="#a64763843fbfeea0099a7bae8a3fcd941">More...</a><br /></td></tr>
 <tr class="separator:a64763843fbfeea0099a7bae8a3fcd941"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -219,35 +231,119 @@ Functions</h2></td></tr>
 <tr class="memitem:a292232b30f8add259cc03a87e5c96d86"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a292232b30f8add259cc03a87e5c96d86">Slice99_split_at</a> (<a class="el" href="structSlice99.html">Slice99</a> self, size_t i, <a class="el" href="structSlice99.html">Slice99</a> *restrict lhs, <a class="el" href="structSlice99.html">Slice99</a> *restrict rhs)</td></tr>
 <tr class="memdesc:a292232b30f8add259cc03a87e5c96d86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits <code>self</code> into two parts.  <a href="#a292232b30f8add259cc03a87e5c96d86">More...</a><br /></td></tr>
 <tr class="separator:a292232b30f8add259cc03a87e5c96d86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee124789b351694f4697e4472c679faf"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#aee124789b351694f4697e4472c679faf">Slice99_find</a> (<a class="el" href="structSlice99.html">Slice99</a> self, bool(*predicate)(const void *item, void *cx), void *cx)</td></tr>
+<tr class="memdesc:aee124789b351694f4697e4472c679faf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurence of an item for which <code>predicate</code> holds.  <a href="#aee124789b351694f4697e4472c679faf">More...</a><br /></td></tr>
+<tr class="separator:aee124789b351694f4697e4472c679faf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a916a8f73c497bbd2d9c3b8cb3ada1b18"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a916a8f73c497bbd2d9c3b8cb3ada1b18">Slice99_for_each</a> (<a class="el" href="structSlice99.html">Slice99</a> self, void(*f)(void *item, void *cx), void *cx)</td></tr>
+<tr class="memdesc:a916a8f73c497bbd2d9c3b8cb3ada1b18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sequentially applies all the items in <code>self</code> to <code>f</code>.  <a href="#a916a8f73c497bbd2d9c3b8cb3ada1b18">More...</a><br /></td></tr>
+<tr class="separator:a916a8f73c497bbd2d9c3b8cb3ada1b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab40720954fa063663c72d2d0e1cc61f3"><td class="memItemLeft" align="right" valign="top">static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#ab40720954fa063663c72d2d0e1cc61f3">Slice99_c_str</a> (<a class="el" href="structSlice99.html">Slice99</a> self, char out[restrict])</td></tr>
+<tr class="memdesc:ab40720954fa063663c72d2d0e1cc61f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies <code>self</code> to <code>out</code> and appends '\0' to the end.  <a href="#ab40720954fa063663c72d2d0e1cc61f3">More...</a><br /></td></tr>
+<tr class="separator:ab40720954fa063663c72d2d0e1cc61f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e582115f4f15bafc13a2615c39022b5"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST <a class="el" href="structSlice99Maybe.html">Slice99Maybe</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a9e582115f4f15bafc13a2615c39022b5">Slice99Maybe_just</a> (<a class="el" href="structSlice99.html">Slice99</a> slice)</td></tr>
+<tr class="memdesc:a9e582115f4f15bafc13a2615c39022b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an optional slice with some value.  <a href="#a9e582115f4f15bafc13a2615c39022b5">More...</a><br /></td></tr>
+<tr class="separator:a9e582115f4f15bafc13a2615c39022b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7852cf0fbbb3e9c1cc15056155fed2d"><td class="memItemLeft" align="right" valign="top"><a id="ac7852cf0fbbb3e9c1cc15056155fed2d"></a>
+static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST <a class="el" href="structSlice99Maybe.html">Slice99Maybe</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#ac7852cf0fbbb3e9c1cc15056155fed2d">Slice99Maybe_nothing</a> (void)</td></tr>
+<tr class="memdesc:ac7852cf0fbbb3e9c1cc15056155fed2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an optional slice without a value. <br /></td></tr>
+<tr class="separator:ac7852cf0fbbb3e9c1cc15056155fed2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A slice of some array. </p>
 <p>The macros <a class="el" href="slice99_8h.html#a29d489b28cf4d2cf56a17a2617990fee" title="Like assert. ">SLICE99_ASSERT</a>, <a class="el" href="slice99_8h.html#a4ad6e85e51121b718c704bc6f7c16cd7" title="Like memcmp. ">SLICE99_MEMCMP</a>, <a class="el" href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c" title="Like memcpy. ">SLICE99_MEMCPY</a>, <a class="el" href="slice99_8h.html#afa5c9f55ad339be88c60744fadb239f6" title="Like memmove. ">SLICE99_MEMMOVE</a>, <a class="el" href="slice99_8h.html#a74ab39995ce273807783bb0006d9d85d" title="Like strlen. ">SLICE99_STRLEN</a>, <a class="el" href="slice99_8h.html#af75364d1b179202146fcf2953356d01a" title="Like qsort. ">SLICE99_QSORT</a>, and <a class="el" href="slice99_8h.html#aedee03b3135514dfcbdf244d01fa4d35" title="Like bsearch. ">SLICE99_BSEARCH</a> are automatically defined in case they have not been defined before including this header file. They represent the corresponding standard library's functions, though actual implementations can differ. If you develop software for a freestanding environment, these macros might need to be defined beforehand. Note that <a class="el" href="slice99_8h.html#af75364d1b179202146fcf2953356d01a" title="Like qsort. ">SLICE99_QSORT</a> and <a class="el" href="slice99_8h.html#aedee03b3135514dfcbdf244d01fa4d35" title="Like bsearch. ">SLICE99_BSEARCH</a> might need to be provided only if you define <code>SLICE99_INCLUDE_SORT</code> and <code>SLICE99_INCLUDE_BSEARCH</code>, respectively. </p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a094655c210fc792711c1c61f2d205404"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a094655c210fc792711c1c61f2d205404">&#9670;&nbsp;</a></span>Slice99_advance</h2>
+<a id="aee899fa7bd6ee37b88c0bf229213d97e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee899fa7bd6ee37b88c0bf229213d97e">&#9670;&nbsp;</a></span>Slice99_from_array</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define Slice99_advance</td>
+          <td class="memname">#define Slice99_from_array</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">self, </td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad">Slice99_new</a>((void *)(__VA_ARGS__), sizeof((__VA_ARGS__)[0]), <a class="el" href="slice99_8h.html#a2c76760ffa8f1b96400c17539684c6da">Slice99_array_len</a>(__VA_ARGS__))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructs a slice from an array expression. </p>
+<p>The resulting slice will have <a class="el" href="structSlice99.html#af8b9efd5077f389a79eb0e902868ca1b" title="The count of items in the array addressed by ptr. ">Slice99.len</a> equal to the number of items in the array, and <a class="el" href="structSlice99.html#a9ef1a9b7b6645499fb2e1047b1c0228b" title="The size of each item in the array addressed by ptr. ">Slice99.item_size</a> equal to the size of each item. </p>
+
+</div>
+</div>
+<a id="af8c2fd6a232198b3c511c19f3546b41b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8c2fd6a232198b3c511c19f3546b41b">&#9670;&nbsp;</a></span>Slice99_from_typed_ptr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define Slice99_from_typed_ptr</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">ptr, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">offset&#160;</td>
+          <td class="paramname">len&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a64f9dee756ecea6812d186e85f549917">Slice99_advance_cast_type</a>(self, offset, size_t, size_t)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad">Slice99_new</a>(ptr, sizeof(*ptr), len)</td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+<p>Constructs a slice from a pointer of a non-<code>void</code> type and a length. </p>
+<p>It is equivalent to <a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad" title="Constructs a slice. ">Slice99_new</a> but it automatically computes an item size as <code>sizeof(*ptr)</code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ptr</td><td>The pointer of the resulting slice. Must not point to <code>void</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">len</td><td>The length of the resulting slice. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ab364d098941c1f0d6c9316dd845198d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab364d098941c1f0d6c9316dd845198d3">&#9670;&nbsp;</a></span>Slice99_advance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a> Slice99_advance </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ptrdiff_t&#160;</td>
+          <td class="paramname"><em>offset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Advances <code>self</code> by <code>offset</code> items. </p>
@@ -259,198 +355,14 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A slice advanced by <code>offset</code> items.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This subroutine is implemented as a macro due to the absence of a signed <code>size_t</code> counterpart (i.e. the offset can be negative).</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd><code>offset &lt;= (self).len</code> </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>offset &lt;= (self).len</code> </dd>
+<dd>
+<code>self.len</code> must be representable as <code>ptrdiff_t</code>. </dd></dl>
 
 </div>
 </div>
-<a id="a907b544bdd92e9d7a7b3b50c69102fd6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a907b544bdd92e9d7a7b3b50c69102fd6">&#9670;&nbsp;</a></span>Slice99_get</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define Slice99_get</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">self, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">i&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a80df197030d2e328a1856a68204b7c0b">Slice99_get_cast_type</a>(self, i, size_t)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Computes a pointer to the <code>i</code> -indexed item. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice upon which the pointer will be computed. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">i</td><td>The index of a desired item.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>This subroutine is implemented as a macro due to the absence of a signed <code>size_t</code> counterpart (i.e. the index can be negative). </dd></dl>
-
-</div>
-</div>
-<a id="a2c941abce41d90462e745ef6729e8965"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c941abce41d90462e745ef6729e8965">&#9670;&nbsp;</a></span>Slice99_sub</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define Slice99_sub</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">self, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">start_idx, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">end_idx&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="slice99_8h.html#aff5368fbf40b74b98e7f24de59596e8c">Slice99_sub_cast_type</a>(self, start_idx, end_idx, size_t)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Subslicing <code>self</code> with [<code>start_idx</code> <code>..</code> <code>end_idx</code>]. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The original slice. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">start_idx</td><td>The index at which a new slice will reside, inclusively. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">end_idx</td><td>The index at which a new slice will end, exclusively.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A slice with the aforementioned properties.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>This subroutine is implemented as a macro due to the absence of a signed <code>size_t</code> counterpart (i.e. the indices can be negative).</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd><code>start_idx &lt;= end_idx</code> </dd></dl>
-
-</div>
-</div>
-<a id="aff5368fbf40b74b98e7f24de59596e8c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff5368fbf40b74b98e7f24de59596e8c">&#9670;&nbsp;</a></span>Slice99_sub_cast_type</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define Slice99_sub_cast_type</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">self, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">start_idx, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">end_idx, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">T&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code" href="slice99_8h.html#a29d489b28cf4d2cf56a17a2617990fee">SLICE99_ASSERT</a>((start_idx) &lt;= (end_idx)),                                                     \</div><div class="line">     Slice99_from_ptrdiff(                                                                         \</div><div class="line">         <a class="code" href="slice99_8h.html#a80df197030d2e328a1856a68204b7c0b">Slice99_get_cast_type</a>((<span class="keyword">self</span>), (start_idx), T),                                            \</div><div class="line">         <a class="code" href="slice99_8h.html#a80df197030d2e328a1856a68204b7c0b">Slice99_get_cast_type</a>((<span class="keyword">self</span>), (end_idx), T), (<span class="keyword">self</span>).item_size))</div><div class="ttc" id="slice99_8h_html_a29d489b28cf4d2cf56a17a2617990fee"><div class="ttname"><a href="slice99_8h.html#a29d489b28cf4d2cf56a17a2617990fee">SLICE99_ASSERT</a></div><div class="ttdeci">#define SLICE99_ASSERT</div><div class="ttdoc">Like assert. </div><div class="ttdef"><b>Definition:</b> slice99.h:55</div></div>
-<div class="ttc" id="slice99_8h_html_a80df197030d2e328a1856a68204b7c0b"><div class="ttname"><a href="slice99_8h.html#a80df197030d2e328a1856a68204b7c0b">Slice99_get_cast_type</a></div><div class="ttdeci">#define Slice99_get_cast_type(self, i, T)</div><div class="ttdoc">The same as Slice99_get but explicitly casts (self).item_size to T. </div><div class="ttdef"><b>Definition:</b> slice99.h:238</div></div>
-</div><!-- fragment -->
-<p>The same as <a class="el" href="slice99_8h.html#a2c941abce41d90462e745ef6729e8965" title="Subslicing self with [start_idx .. end_idx]. ">Slice99_sub</a> but explicitly casts <code>(self).item_size</code> to <code>T</code>. </p>
-
-</div>
-</div>
-<a id="acd148e62b60b316dfba5be120ef54c8a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd148e62b60b316dfba5be120ef54c8a">&#9670;&nbsp;</a></span>Slice99_swap</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define Slice99_swap</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">self, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">lhs, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">rhs, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">backup&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">do</span> {                                                                                           \</div><div class="line">        SLICE99_ASSERT(backup);                                                                    <a class="code" href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c">\</a></div><div class="line"><a class="code" href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c">                                                                                                   \</a></div><div class="line"><a class="code" href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c">        SLICE99_MEMCPY</a>((backup), <a class="code" href="slice99_8h.html#a907b544bdd92e9d7a7b3b50c69102fd6">Slice99_get</a>(<span class="keyword">self</span>, lhs), (<span class="keyword">self</span>).item_size);                        \</div><div class="line">        SLICE99_MEMCPY(<a class="code" href="slice99_8h.html#a907b544bdd92e9d7a7b3b50c69102fd6">Slice99_get</a>(<span class="keyword">self</span>, lhs), <a class="code" href="slice99_8h.html#a907b544bdd92e9d7a7b3b50c69102fd6">Slice99_get</a>(<span class="keyword">self</span>, rhs), (<span class="keyword">self</span>).item_size);          \</div><div class="line">        SLICE99_MEMCPY(<a class="code" href="slice99_8h.html#a907b544bdd92e9d7a7b3b50c69102fd6">Slice99_get</a>(<span class="keyword">self</span>, rhs), (backup), (<span class="keyword">self</span>).item_size);                        \</div><div class="line">    } <span class="keywordflow">while</span> (0)</div><div class="ttc" id="slice99_8h_html_a7306a32a97b3b8a5f05c7b052618930c"><div class="ttname"><a href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c">SLICE99_MEMCPY</a></div><div class="ttdeci">#define SLICE99_MEMCPY</div><div class="ttdoc">Like memcpy. </div><div class="ttdef"><b>Definition:</b> slice99.h:67</div></div>
-<div class="ttc" id="slice99_8h_html_a907b544bdd92e9d7a7b3b50c69102fd6"><div class="ttname"><a href="slice99_8h.html#a907b544bdd92e9d7a7b3b50c69102fd6">Slice99_get</a></div><div class="ttdeci">#define Slice99_get(self, i)</div><div class="ttdoc">Computes a pointer to the i -indexed item. </div><div class="ttdef"><b>Definition:</b> slice99.h:233</div></div>
-</div><!-- fragment -->
-<p>Swaps the <code>lhs</code> -indexed and <code>rhs</code> -indexed items. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">self</td><td>The slice in which <code>lhs</code> and <code>rhs</code> will be swapped. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">lhs</td><td>The index of the first item. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">rhs</td><td>The index of the second item. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">backup</td><td>The memory area of <code>self.item_size</code> bytes accessible for reading and writing.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>This subroutine is implemented as a macro due to the absence of a signed <code>size_t</code> counterpart (i.e. the indices can be negative).</dd></dl>
-<dl class="section pre"><dt>Precondition</dt><dd><code>backup != NULL</code> </dd></dl>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="acdc649fac630f1f611482f2d114f5a7e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acdc649fac630f1f611482f2d114f5a7e">&#9670;&nbsp;</a></span>Slice99_bsearch()</h2>
+<a id="afe3e8f164eeded22a7456138e3327a1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe3e8f164eeded22a7456138e3327a1a">&#9670;&nbsp;</a></span>Slice99_bsearch()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -459,7 +371,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void* Slice99_bsearch </td>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT void* Slice99_bsearch </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -501,6 +413,57 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to an element in <code>self</code> that compares equal to <code>key</code>. If it does not exist, <code>NULL</code>.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Included only if <code>SLICE99_INCLUDE_BSEARCH</code> is defined.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd><code>comparator != NULL</code> </dd></dl>
+
+</div>
+</div>
+<a id="ab40720954fa063663c72d2d0e1cc61f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab40720954fa063663c72d2d0e1cc61f3">&#9670;&nbsp;</a></span>Slice99_c_str()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static char* Slice99_c_str </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>out</em>[restrict]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copies <code>self</code> to <code>out</code> and appends '\0' to the end. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice which will be copied. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">out</td><td>The memory area to which <code>self</code> and the null character will be copied.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The pointer <code>out</code>.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>out != NULL</code> </dd>
+<dd>
+<code>out</code> must be capable of writing <code>Slice99_size(self) + 1</code> bytes. </dd>
+<dd>
+<code>out</code> must not overlap with <code>self</code>. </dd></dl>
 
 </div>
 </div>
@@ -583,13 +546,13 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>The same as <a class="el" href="slice99_8h.html#af0633af9b428c3c28e0476c65c4bb5dc" title="Copies other to the beginning of self, byte-by-byte. ">Slice99_copy</a> except that <code>self</code> and <code>other</code> shall be non-overlapping. </p>
-<dl class="section pre"><dt>Precondition</dt><dd><code>self</code> and <code>other</code> shall be non-overlapping. </dd></dl>
+<p>The same as <a class="el" href="slice99_8h.html#af0633af9b428c3c28e0476c65c4bb5dc" title="Copies other to the beginning of self, byte-by-byte. ">Slice99_copy</a> except that <code>self</code> and <code>other</code> must be non-overlapping. </p>
+<dl class="section pre"><dt>Precondition</dt><dd><code>self</code> and <code>other</code> must be non-overlapping. </dd></dl>
 
 </div>
 </div>
-<a id="ab3b1792fcd0cad249aeff742baa5cc65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3b1792fcd0cad249aeff742baa5cc65">&#9670;&nbsp;</a></span>Slice99_empty()</h2>
+<a id="ab994ee5ddd723fb1f09f77d209466b05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab994ee5ddd723fb1f09f77d209466b05">&#9670;&nbsp;</a></span>Slice99_empty()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -598,7 +561,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="structSlice99.html">Slice99</a> Slice99_empty </td>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a> Slice99_empty </td>
           <td>(</td>
           <td class="paramtype">size_t&#160;</td>
           <td class="paramname"><em>item_size</em></td><td>)</td>
@@ -623,8 +586,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="adcdfc64cdb2e3b1e0842d98d38ea6faf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adcdfc64cdb2e3b1e0842d98d38ea6faf">&#9670;&nbsp;</a></span>Slice99_ends_with()</h2>
+<a id="a2536d7ef64482c5b64bd61fe4f5ad9e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2536d7ef64482c5b64bd61fe4f5ad9e5">&#9670;&nbsp;</a></span>Slice99_ends_with()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -633,7 +596,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool Slice99_ends_with </td>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT bool Slice99_ends_with </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -675,12 +638,14 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>postfix</code> is a postfix of <code>self</code>, otherwise <code>false</code>.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd><code>self.item_size == postfix.item_size</code> </dd>
 <dd>
-<code>comparator != NULL</code> </dd></dl>
+<code>comparator != NULL</code> </dd>
+<dd>
+<code>self.len</code> and <code>postfix.len</code> must be representable as <code>ptrdiff_t</code>. </dd></dl>
 
 </div>
 </div>
-<a id="adf32a71381185a03e3b50ed6179d7544"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf32a71381185a03e3b50ed6179d7544">&#9670;&nbsp;</a></span>Slice99_eq()</h2>
+<a id="a8105b708b139c6dd0385550b3f4cdd11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8105b708b139c6dd0385550b3f4cdd11">&#9670;&nbsp;</a></span>Slice99_eq()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -689,7 +654,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool Slice99_eq </td>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT bool Slice99_eq </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
           <td class="paramname"><em>lhs</em>, </td>
@@ -731,12 +696,14 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>lhs</code> and <code>rhs</code> are equal, <code>false</code> otherwise.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd><code>lhs.item_size == rhs.item_size</code> </dd>
 <dd>
-<code>comparator != NULL</code> </dd></dl>
+<code>comparator != NULL</code> </dd>
+<dd>
+<code>lhs.len</code> and <code>rhs.len</code> must be representable as <code>ptrdiff_t</code>. </dd></dl>
 
 </div>
 </div>
-<a id="a72d65ba55c6234dc8c1252ed323e0bbf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72d65ba55c6234dc8c1252ed323e0bbf">&#9670;&nbsp;</a></span>Slice99_first()</h2>
+<a id="aee124789b351694f4697e4472c679faf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee124789b351694f4697e4472c679faf">&#9670;&nbsp;</a></span>Slice99_find()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -745,7 +712,62 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void* Slice99_first </td>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT void* Slice99_find </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool(*)(const void *item, void *cx)&#160;</td>
+          <td class="paramname"><em>predicate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>cx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Finds the first occurence of an item for which <code>predicate</code> holds. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice which will be searched for an item. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">predicate</td><td>The predicate on an item. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cx</td><td>The auxiliary value provided to <code>predicate</code> each time.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>predicate != NULL</code> </dd>
+<dd>
+<code>self.len</code> must be representable as <code>ptrdiff_t</code>. </dd></dl>
+
+</div>
+</div>
+<a id="ab3efecbb56ae6ddf66db72c5fc12c335"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3efecbb56ae6ddf66db72c5fc12c335">&#9670;&nbsp;</a></span>Slice99_first()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST void* Slice99_first </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
           <td class="paramname"><em>self</em></td><td>)</td>
@@ -769,8 +791,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="acd08534dacb5c17da008a55da5d438ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd08534dacb5c17da008a55da5d438ad">&#9670;&nbsp;</a></span>Slice99_from_ptrdiff()</h2>
+<a id="a916a8f73c497bbd2d9c3b8cb3ada1b18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a916a8f73c497bbd2d9c3b8cb3ada1b18">&#9670;&nbsp;</a></span>Slice99_for_each()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -779,7 +801,62 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="structSlice99.html">Slice99</a> Slice99_from_ptrdiff </td>
+          <td class="memname">static void Slice99_for_each </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void(*)(void *item, void *cx)&#160;</td>
+          <td class="paramname"><em>f</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>cx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sequentially applies all the items in <code>self</code> to <code>f</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice whose items will be applied to <code>f</code>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">f</td><td>The handler function. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cx</td><td>The auxiliary value provided to <code>f</code> each time.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>f != NULL</code> </dd>
+<dd>
+<code>self.len</code> must be representable as <code>ptrdiff_t</code>. </dd></dl>
+
+</div>
+</div>
+<a id="af4ddbf9b09c12cee18c2546c0e08d657"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4ddbf9b09c12cee18c2546c0e08d657">&#9670;&nbsp;</a></span>Slice99_from_ptrdiff()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a> Slice99_from_ptrdiff </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>start</em>, </td>
@@ -828,8 +905,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a675d2dcf7501eddbc72e1863a230e11d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a675d2dcf7501eddbc72e1863a230e11d">&#9670;&nbsp;</a></span>Slice99_from_str()</h2>
+<a id="a827f21894eb4424d835b93de680caa9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a827f21894eb4424d835b93de680caa9e">&#9670;&nbsp;</a></span>Slice99_from_str()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -838,7 +915,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="structSlice99.html">Slice99</a> Slice99_from_str </td>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a> Slice99_from_str </td>
           <td>(</td>
           <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>
@@ -955,8 +1032,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a9f206fba3f90bec4ac7d520023e7dd0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f206fba3f90bec4ac7d520023e7dd0b">&#9670;&nbsp;</a></span>Slice99_is_empty()</h2>
+<a id="a844a37ba514d3fc0382972a2fa2a3419"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a844a37ba514d3fc0382972a2fa2a3419">&#9670;&nbsp;</a></span>Slice99_get()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -965,7 +1042,53 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool Slice99_is_empty </td>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST void* Slice99_get </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ptrdiff_t&#160;</td>
+          <td class="paramname"><em>i</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Computes a pointer to the <code>i</code> -indexed item. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice upon which the pointer will be computed. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">i</td><td>The index of a desired item. Can be negative.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>self.item_size</code> must be representable as <code>ptrdiff_t</code>. </dd></dl>
+
+</div>
+</div>
+<a id="ad04282a1e8e5522a4b6fbb3f28492367"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad04282a1e8e5522a4b6fbb3f28492367">&#9670;&nbsp;</a></span>Slice99_is_empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST bool Slice99_is_empty </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
           <td class="paramname"><em>self</em></td><td>)</td>
@@ -990,8 +1113,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab09bf811b7dbd399d8f08fdc0196932e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab09bf811b7dbd399d8f08fdc0196932e">&#9670;&nbsp;</a></span>Slice99_last()</h2>
+<a id="a273087c5c7b3bd025dd393f1246143b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a273087c5c7b3bd025dd393f1246143b7">&#9670;&nbsp;</a></span>Slice99_last()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1000,7 +1123,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void* Slice99_last </td>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST void* Slice99_last </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
           <td class="paramname"><em>self</em></td><td>)</td>
@@ -1017,15 +1140,16 @@ Functions</h2></td></tr>
 <p>Computes a pointer to the last item. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice upon which the pointer will be computed. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice upon which the pointer will be computed.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>self.len</code> must be representable as <code>ptrdiff_t</code>. </dd></dl>
 
 </div>
 </div>
-<a id="a2b245f73d9eb540878d9b09c286c7a5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b245f73d9eb540878d9b09c286c7a5d">&#9670;&nbsp;</a></span>Slice99_new()</h2>
+<a id="a45e1af2b78b1d2189eddd20214d3c0ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45e1af2b78b1d2189eddd20214d3c0ad">&#9670;&nbsp;</a></span>Slice99_new()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1034,7 +1158,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="structSlice99.html">Slice99</a> Slice99_new </td>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a> Slice99_new </td>
           <td>(</td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>ptr</em>, </td>
@@ -1079,8 +1203,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a809060f1ae79857828eb7e41ae1f07ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a809060f1ae79857828eb7e41ae1f07ee">&#9670;&nbsp;</a></span>Slice99_primitive_ends_with()</h2>
+<a id="ab9bf868bf051593e87c7d163a09e7a7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9bf868bf051593e87c7d163a09e7a7b">&#9670;&nbsp;</a></span>Slice99_primitive_ends_with()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1089,7 +1213,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool Slice99_primitive_ends_with </td>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT bool Slice99_primitive_ends_with </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -1121,12 +1245,13 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>postfix</code> is a postfix of <code>self</code>, otherwise <code>false</code>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>postfix</code> is a postfix of <code>self</code>, otherwise <code>false</code>.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>self.len</code> and <code>postfix.len</code> must be representable as <code>ptrdiff_t</code>. </dd></dl>
 
 </div>
 </div>
-<a id="a6d0170af68a66bd469eff16c0fd5d503"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d0170af68a66bd469eff16c0fd5d503">&#9670;&nbsp;</a></span>Slice99_primitive_eq()</h2>
+<a id="a776f924703cf8a4f30804bb2dd82f91e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a776f924703cf8a4f30804bb2dd82f91e">&#9670;&nbsp;</a></span>Slice99_primitive_eq()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1135,7 +1260,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool Slice99_primitive_eq </td>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT bool Slice99_primitive_eq </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
           <td class="paramname"><em>lhs</em>, </td>
@@ -1171,8 +1296,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5f8c3986891a359399a136dfc7767254"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f8c3986891a359399a136dfc7767254">&#9670;&nbsp;</a></span>Slice99_primitive_starts_with()</h2>
+<a id="a5089ecf9f17b19a9a5f6d4d587721ca1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5089ecf9f17b19a9a5f6d4d587721ca1">&#9670;&nbsp;</a></span>Slice99_primitive_starts_with()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1181,7 +1306,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool Slice99_primitive_starts_with </td>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT bool Slice99_primitive_starts_with </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -1213,7 +1338,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>prefix</code> is a prefix of <code>self</code>, otherwise <code>false</code>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>prefix</code> is a prefix of <code>self</code>, otherwise <code>false</code>.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>prefix.len</code> must be representable as <code>ptrdiff_t</code>. </dd></dl>
 
 </div>
 </div>
@@ -1259,12 +1385,14 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section pre"><dt>Precondition</dt><dd><code>backup != NULL</code> </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>backup != NULL</code> </dd>
+<dd>
+<code>self.len</code> must be representable as <code>ptrdiff_t</code>. </dd></dl>
 
 </div>
 </div>
-<a id="a305e4878c540defdc9ed1ab987b4af98"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a305e4878c540defdc9ed1ab987b4af98">&#9670;&nbsp;</a></span>Slice99_size()</h2>
+<a id="a2c1981dc6bf18ca36407f2160846c816"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c1981dc6bf18ca36407f2160846c816">&#9670;&nbsp;</a></span>Slice99_size()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1273,7 +1401,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static size_t Slice99_size </td>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST size_t Slice99_size </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
           <td class="paramname"><em>self</em></td><td>)</td>
@@ -1404,12 +1532,14 @@ Functions</h2></td></tr>
 <dd>
 <code>lhs != NULL</code> </dd>
 <dd>
-<code>rhs != NULL</code> </dd></dl>
+<code>rhs != NULL</code> </dd>
+<dd>
+<code>self.len</code> and <code>i</code> must be representable as <code>ptrdiff_t</code>. </dd></dl>
 
 </div>
 </div>
-<a id="a1eec4a0a37bb2369b81ca7c91717091d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1eec4a0a37bb2369b81ca7c91717091d">&#9670;&nbsp;</a></span>Slice99_starts_with()</h2>
+<a id="aaa961f073e3625eb2d7f520953d8064e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa961f073e3625eb2d7f520953d8064e">&#9670;&nbsp;</a></span>Slice99_starts_with()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1418,7 +1548,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool Slice99_starts_with </td>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT bool Slice99_starts_with </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -1460,7 +1590,127 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>prefix</code> is a prefix of <code>self</code>, otherwise <code>false</code>.</dd></dl>
 <dl class="section pre"><dt>Precondition</dt><dd><code>self.item_size == prefix.item_size</code> </dd>
 <dd>
-<code>comparator != NULL</code> </dd></dl>
+<code>comparator != NULL</code> </dd>
+<dd>
+<code>prefix.len</code> must be representable as <code>ptrdiff_t</code>. </dd></dl>
+
+</div>
+</div>
+<a id="afa7fd2226d3ed730fb6be0381ca3b4fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa7fd2226d3ed730fb6be0381ca3b4fe">&#9670;&nbsp;</a></span>Slice99_sub()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a> Slice99_sub </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ptrdiff_t&#160;</td>
+          <td class="paramname"><em>start_idx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ptrdiff_t&#160;</td>
+          <td class="paramname"><em>end_idx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Subslicing <code>self</code> with [<code>start_idx</code> <code>..</code> <code>end_idx</code>]. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The original slice. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">start_idx</td><td>The index at which a new slice will reside, inclusively. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">end_idx</td><td>The index at which a new slice will end, exclusively.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A slice with the aforementioned properties.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>start_idx &lt;= end_idx</code> </dd></dl>
+
+</div>
+</div>
+<a id="a20fcf4b3348c53d782cc5ca280c19105"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20fcf4b3348c53d782cc5ca280c19105">&#9670;&nbsp;</a></span>Slice99_swap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void Slice99_swap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ptrdiff_t&#160;</td>
+          <td class="paramname"><em>lhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ptrdiff_t&#160;</td>
+          <td class="paramname"><em>rhs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *restrict&#160;</td>
+          <td class="paramname"><em>backup</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Swaps the <code>lhs</code> -indexed and <code>rhs</code> -indexed items. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">self</td><td>The slice in which <code>lhs</code> and <code>rhs</code> will be swapped. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lhs</td><td>The index of the first item. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rhs</td><td>The index of the second item. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">backup</td><td>The memory area of <code>self.item_size</code> bytes accessible for reading and writing.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>backup != NULL</code> </dd>
+<dd>
+<code>backup</code> must not overlap with <code>Slice99_get(self, lhs)</code> and <code>Slice99_get(self, rhs)</code>. </dd>
+<dd>
+<code>Slice99_get(self, lhs)</code> and <code>Slice99_get(self, rhs)</code> must not overlap. </dd></dl>
 
 </div>
 </div>
@@ -1515,7 +1765,150 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section pre"><dt>Precondition</dt><dd><code>self.len == other.len</code> </dd>
 <dd>
-<code>self.item_size == other.item_size</code> </dd></dl>
+<code>self.item_size == other.item_size</code> </dd>
+<dd>
+<code>backup</code> must not overlap with <code>self</code> and <code>other</code>. </dd>
+<dd>
+<code>self</code> and <code>other</code> must not overlap. </dd>
+<dd>
+<code>self.len</code> must be representable as <code>ptrdiff_t</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a34105553a141a9c14eef7bf22552e19f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34105553a141a9c14eef7bf22552e19f">&#9670;&nbsp;</a></span>Slice99_update_item_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a> Slice99_update_item_size </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>new_item_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates <code>self</code> with the new item size <code>new_item_size</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice whose item size will be updated. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">new_item_size</td><td>The new item size.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>new_item_size &gt; 0</code> </dd></dl>
+
+</div>
+</div>
+<a id="a0b671c453b415d9ca3d231626bd73ba0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b671c453b415d9ca3d231626bd73ba0">&#9670;&nbsp;</a></span>Slice99_update_len()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a> Slice99_update_len </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>new_len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates <code>self</code> with the new length <code>new_len</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice whose length will be updated. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">new_len</td><td>The new length. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7a5679da3af78e3cca0d7bf5f59793c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a5679da3af78e3cca0d7bf5f59793c9">&#9670;&nbsp;</a></span>Slice99_update_ptr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a> Slice99_update_ptr </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>new_ptr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates <code>self</code> with the new pointer <code>new_ptr</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice whose pointer to data will be updated. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">new_ptr</td><td>The new pointer to data.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>new_ptr != NULL</code> </dd></dl>
 
 </div>
 </div>
@@ -1586,6 +1979,40 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>Included only if <code>SLICE99_INCLUDE_IO</code> is defined. </dd></dl>
+
+</div>
+</div>
+<a id="a9e582115f4f15bafc13a2615c39022b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e582115f4f15bafc13a2615c39022b5">&#9670;&nbsp;</a></span>Slice99Maybe_just()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST <a class="el" href="structSlice99Maybe.html">Slice99Maybe</a> Slice99Maybe_just </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
+          <td class="paramname"><em>slice</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructs an optional slice with some value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">slice</td><td>The value of <a class="el" href="structSlice99Maybe.html#a3565d5dc973aadcab7046d43aae0c9f9" title="The slice of data. ">Slice99Maybe::slice</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [0.2.0] - 2020-02-11
 
 ### Added
 
@@ -16,7 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - `Slice99_advance`
  - Structure updating functions: `Slice99_update_ptr`, `Slice99_update_item_size`, `Slice99_update_len`.
  - An optional slice: `Slice99Maybe`, `Slice99Maybe_just`, `Slice99Maybe_nothing`.
- - Tell a compiler to warn about an unused result of certain functions.
+ - Tell a compiler to warn about an unused result of certain functions (`SLICE99_WARN_UNUSED_RESULT`).
+ - Tell a compiler that certain functions are constant (`SLICE99_CONST`).
 
 ### Changed
 

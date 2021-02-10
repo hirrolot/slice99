@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ptr',['ptr',['../structSlice99.html#a1e583c6b18eb901fbe18a7872528c097',1,'Slice99']]]
+  ['len',['len',['../structSlice99.html#af8b9efd5077f389a79eb0e902868ca1b',1,'Slice99']]]
 ];
