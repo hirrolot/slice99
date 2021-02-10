@@ -1,4 +1,4 @@
-# slice99
+# Slice99
 [![CI](https://github.com/Hirrolot/slice99/workflows/C/C++%20CI/badge.svg)](https://github.com/Hirrolot/slice99/actions)
 [![docs](https://img.shields.io/badge/docs-github.io-blue)](https://hirrolot.github.io/slice99/slice99_8h.html)
 
@@ -50,7 +50,7 @@ int main(void) {
 
 The main type is [`Slice99`]. It represents a pointer to some array accompanied with an array item size and its length. The utilities `Slice99_*` are used to manipulate this type.
 
-To install slice99, just copy [`slice99.h`](slice99.h) to your code base (or use [Git submodules]) and then `#include <slice99.h>` where necessary.
+To install Slice99, just copy [`slice99.h`](slice99.h) to your code base (or use [Git submodules]) and then `#include <slice99.h>` where necessary.
 
 Enjoy!
 
@@ -67,11 +67,11 @@ void foo(size_t len, uint8_t array[static len]) { /* ... */ }
 
 However, this approach is notoriously error-prone: the interface is easy to misuse, for example, by passing an invalid length. Moreover, sometimes programmers need to perform specific operations on `array` which are not exported by the standard library, leading to even more bugs and code clutter.
 
-This is what slice99 tries to fix, though losing in type safety; if you want to stay type-safe, you can still pass a length and a pointer, convert them to `Slice99` by `Slice99_from_typed_ptr` and use the multitude of functions it provides (`Slice99_for_each`, `Slice99_bsearch`, `Slice99_find`, etc.).
+This is what Slice99 tries to fix, though losing in type safety; if you want to stay type-safe, you can still pass a length and a pointer, convert them to `Slice99` by `Slice99_from_typed_ptr` and use the multitude of functions it provides (`Slice99_for_each`, `Slice99_bsearch`, `Slice99_find`, etc.).
 
 Another use case is zero-copy parsers: you can construct slices that point to actual data -- no need to dynamically allocate new memory areas to append `'\0'` each time (slices need not be null-terminated).
 
-## Projects using slice99
+## Projects using Slice99
 
  - [Hirrolot/smolrtsp](https://github.com/Hirrolot/smolrtsp) --  A small, portable, extensible RTSP 1.0 implementation in C99.
 
