@@ -48,6 +48,7 @@
 
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdint.h>
 
 #ifndef SLICE99_ASSERT
 #include <assert.h>
@@ -774,6 +775,94 @@ inline static char *Slice99_c_str(Slice99 self, char out[restrict]) {
     out[Slice99_size(self)] = '\0';
     return out;
 }
+
+// Check whether uint8_t is defined.
+#ifdef UINT8_MAX
+
+/**
+ * Packs @p self to `uint8_t`.
+ *
+ * @param[in] self The slice to be packed.
+ *
+ * @pre `Slice99_size(self) == sizeof(uint8_t)`
+ *
+ * @note This function is defined only if `uint8_t` is supported.
+ */
+inline static uint8_t SLICE99_PURE Slice99_pack_to_u8(Slice99 self) {
+    SLICE99_ASSERT(Slice99_size(self) == sizeof(uint8_t));
+
+    uint8_t n;
+    SLICE99_MEMCPY(&n, self.ptr, sizeof(uint8_t));
+    return n;
+}
+
+#endif // UINT8_MAX
+
+// Check whether uint16_t is defined.
+#ifdef UINT16_MAX
+
+/**
+ * Packs @p self to `uint16_t`.
+ *
+ * @param[in] self The slice to be packed.
+ *
+ * @pre `Slice99_size(self) == sizeof(uint16_t)`
+ *
+ * @note This function is defined only if `uint16_t` is supported.
+ */
+inline static uint16_t SLICE99_PURE Slice99_pack_to_u16(Slice99 self) {
+    SLICE99_ASSERT(Slice99_size(self) == sizeof(uint16_t));
+
+    uint16_t n;
+    SLICE99_MEMCPY(&n, self.ptr, sizeof(uint16_t));
+    return n;
+}
+
+#endif // UINT16_MAX
+
+// Check whether uint32_t is defined.
+#ifdef UINT32_MAX
+
+/**
+ * Packs @p self to `uint32_t`.
+ *
+ * @param[in] self The slice to be packed.
+ *
+ * @pre `Slice99_size(self) == sizeof(uint32_t)`
+ *
+ * @note This function is defined only if `uint32_t` is supported.
+ */
+inline static uint32_t SLICE99_PURE Slice99_pack_to_u32(Slice99 self) {
+    SLICE99_ASSERT(Slice99_size(self) == sizeof(uint32_t));
+
+    uint32_t n;
+    SLICE99_MEMCPY(&n, self.ptr, sizeof(uint32_t));
+    return n;
+}
+
+#endif // UINT32_MAX
+
+// Check whether uint64_t is defined.
+#ifdef UINT64_MAX
+
+/**
+ * Packs @p self to `uint64_t`.
+ *
+ * @param[in] self The slice to be packed.
+ *
+ * @pre `Slice99_size(self) == sizeof(uint64_t)`
+ *
+ * @note This function is defined only if `uint64_t` is supported.
+ */
+inline static uint64_t SLICE99_PURE Slice99_pack_to_u64(Slice99 self) {
+    SLICE99_ASSERT(Slice99_size(self) == sizeof(uint64_t));
+
+    uint64_t n;
+    SLICE99_MEMCPY(&n, self.ptr, sizeof(uint64_t));
+    return n;
+}
+
+#endif // UINT64_MAX
 
 /**
  * Constructs an optional slice with some value.

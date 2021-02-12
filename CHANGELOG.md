@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+
+### Added
+
+ - `Slice99_pack_to_u8`, `Slice99_pack_to_u16`, `Slice99_pack_to_u32`, `Slice99_pack_to_u64`
+
 ## [0.2.0] - 2020-02-11
 
 ### Added

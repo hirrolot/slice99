@@ -807,6 +807,34 @@ TEST(to_c_str) {
     assert(strcmp(Slice99_c_str(slice, (char[4]){0}), "abc") == 0);
 }
 
+TEST(pack_to_u8) {
+    uint8_t n = UINT8_MAX;
+    Slice99 slice = Slice99_from_array((uint8_t[]){n});
+
+    assert(Slice99_pack_to_u8(slice) == n);
+}
+
+TEST(pack_to_u16) {
+    uint16_t n = UINT16_MAX;
+    Slice99 slice = Slice99_from_array((uint16_t[]){n});
+
+    assert(Slice99_pack_to_u16(slice) == n);
+}
+
+TEST(pack_to_u32) {
+    uint32_t n = UINT32_MAX;
+    Slice99 slice = Slice99_from_array((uint32_t[]){n});
+
+    assert(Slice99_pack_to_u32(slice) == n);
+}
+
+TEST(pack_to_u64) {
+    uint64_t n = UINT64_MAX;
+    Slice99 slice = Slice99_from_array((uint64_t[]){n});
+
+    assert(Slice99_pack_to_u64(slice) == n);
+}
+
 TEST(maybe_just) {
     Slice99 slice = Slice99_from_str("abc");
     Slice99Maybe maybe = Slice99Maybe_just(slice);
@@ -854,6 +882,10 @@ int main(void) {
     test_find();
     test_for_each();
     test_to_c_str();
+    test_pack_to_u8();
+    test_pack_to_u16();
+    test_pack_to_u32();
+    test_pack_to_u64();
 
     test_maybe_just();
     test_maybe_nothing();
