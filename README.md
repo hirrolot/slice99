@@ -59,7 +59,7 @@ Enjoy!
 
 ## Motivation
 
-Normally, we pass a pointer to the first element of some array together with its length as separate arguments:
+Normally, we pass a data pointer with its length as separate arguments:
 
 ```c
 void foo(size_t len, uint8_t buffer[static len]) { /* ... */ }
@@ -73,7 +73,7 @@ buffer += HEADER_SIZE;
 len -= HEADER_SIZE;
 ```
 
-This is what Slice99 tries to fix. For example, the above code can be rewritten like this:
+Slice99 reifies such patterns into functions (`Slice99_advance` below), thus increasing code safety and clarity:
 
 ```c
 void foo(Slice99 buffer) {
@@ -83,7 +83,7 @@ void foo(Slice99 buffer) {
 }
 ```
 
-Another use case of Slice99 is zero-copy parsers: you can return slices pointing to actual data provided to your parser -- no need to use `malloc` just to append `'\0'` each time; thus, slices need not be null-terminated.
+Another use case of Slice99 is zero-copy parsers: you can return slices pointing to actual data provided to your parser -- no need to use `malloc` just to append `'\0'` each time (slices need not be null-terminated).
 
 ## Projects using Slice99
 
