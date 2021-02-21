@@ -97,4 +97,6 @@ A: Yes, see the [docs](https://hirrolot.github.io/slice99/slice99_8h.html#detail
 
 ### Q: What about type safety?
 
-A: `Slice99` just holds `void *` to access data. If you want to stay type-safe, you can still accept a length and a properly typed pointer, convert them to `Slice99` by `Slice99_from_typed_ptr(ptr, len)` and use the multitude of functions it provides (`Slice99_advance`, `Slice99_last`, `Slice99_find`, etc.). Note that if you anyway deal with something like `uint8_t *buffer`, you do **not** lose in type safety for obvious reasons.
+A: `Slice99` just holds `void *` to access data. If you want to stay type-safe, you can still accept a length and a properly typed pointer, convert them to `Slice99` by `Slice99_from_typed_ptr(ptr, len)` and use the multitude of functions it provides (`Slice99_advance`, `Slice99_last`, `Slice99_find`, etc.).
+
+Note that if you anyway deal with something like `uint8_t *buffer`, you do **not** lose in type safety with `Slice99 buffer` for obvious reasons.
