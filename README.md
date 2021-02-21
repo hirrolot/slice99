@@ -62,14 +62,28 @@ Enjoy!
 Normally, we pass a pointer to the first element of some array together with its length as separate arguments:
 
 ```c
-void foo(size_t len, uint8_t array[static len]) { /* ... */ }
+void foo(size_t len, uint8_t buffer[static len]) { /* ... */ }
 ```
 
-However, this approach is notoriously error-prone: the interface is easy to misuse, for example, by passing an invalid length. Moreover, sometimes programmers need to perform specific operations on `array` which are not exported by the standard library, leading to even more bugs and code clutter.
+However, this interface is notoriously easy to misuse. Moreover, sometimes programmers need to perform specific operations on `buffer` which are not exported by the standard library, leading to even more bugs and code clutter:
 
-This is what Slice99 tries to fix, though losing in type safety; if you want to stay type-safe, you can still pass a length and a pointer, convert them to `Slice99` by `Slice99_from_typed_ptr` and use the multitude of functions it provides (`Slice99_for_each`, `Slice99_bsearch`, `Slice99_find`, etc.).
+```c
+// Advance the buffer by HEADER_SIZE.
+buffer += HEADER_SIZE;
+len -= HEADER_SIZE;
+```
 
-Another use case is zero-copy parsers: you can construct slices that point to actual data -- no need to dynamically allocate new memory areas to append `'\0'` each time (slices need not be null-terminated).
+This is what Slice99 tries to fix. For example, the above code can be rewritten like this:
+
+```c
+void foo(Slice99 buffer) {
+    // ...
+    buffer = Slice99_advance(buffer, HEADER_SIZE);
+    // ...
+}
+```
+
+Another use case is zero-copy parsers: you can return slices that point to data provided to your parser -- no need to dynamically allocate new memory areas to append `'\0'` each time (slices need not be null-terminated).
 
 ## Projects using Slice99
 
@@ -80,3 +94,7 @@ Another use case is zero-copy parsers: you can construct slices that point to ac
 ### Q: Can I use this library to develop bare-metal software?
 
 A: Yes, see the [docs](https://hirrolot.github.io/slice99/slice99_8h.html#details).
+
+### Q: What about type safety?
+
+A: `Slice99` just holds `void *` to access data. If you want to stay type-safe, you can still accept a length and a properly typed pointer, convert them to `Slice99` by `Slice99_from_typed_ptr` and use the multitude of functions it provides (`Slice99_for_each`, `Slice99_bsearch`, `Slice99_find`, etc.). Note that if you anyway deal with something like `uint8_t *buffer`, you do **not** lose in type safety for obvious reasons.
