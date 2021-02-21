@@ -65,7 +65,7 @@ Normally, we pass a pointer to the first element of some array together with its
 void foo(size_t len, uint8_t buffer[static len]) { /* ... */ }
 ```
 
-This interface is notoriously easy to misuse. Moreover, programmers frequently tend to perform specific operations on `buffer` and `len`, leading to even more bugs and code clutter:
+However, this interface is notoriously easy to misuse, for instance, by passing an invalid length or a null pointer for `buffer`. Moreover, programmers frequently tend to perform specific operations on `buffer` and `len`, leading to even more bugs and code clutter:
 
 ```c
 // Advance the buffer by HEADER_SIZE.
