@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">slice99
-   &#160;<span id="projectnumber">0.2.0</span>
+   &#160;<span id="projectnumber">0.2.1</span>
    </div>
    <div id="projectbrief">Array slicing for C99</div>
   </td>
@@ -240,6 +240,18 @@ Functions</h2></td></tr>
 <tr class="memitem:ab40720954fa063663c72d2d0e1cc61f3"><td class="memItemLeft" align="right" valign="top">static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#ab40720954fa063663c72d2d0e1cc61f3">Slice99_c_str</a> (<a class="el" href="structSlice99.html">Slice99</a> self, char out[restrict])</td></tr>
 <tr class="memdesc:ab40720954fa063663c72d2d0e1cc61f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies <code>self</code> to <code>out</code> and appends '\0' to the end.  <a href="#ab40720954fa063663c72d2d0e1cc61f3">More...</a><br /></td></tr>
 <tr class="separator:ab40720954fa063663c72d2d0e1cc61f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab7b42bc1442e680b7611f9625b429f0"><td class="memItemLeft" align="right" valign="top">static uint8_t SLICE99_PURE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#aab7b42bc1442e680b7611f9625b429f0">Slice99_pack_to_u8</a> (<a class="el" href="structSlice99.html">Slice99</a> self)</td></tr>
+<tr class="memdesc:aab7b42bc1442e680b7611f9625b429f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Packs <code>self</code> to <code>uint8_t</code>.  <a href="#aab7b42bc1442e680b7611f9625b429f0">More...</a><br /></td></tr>
+<tr class="separator:aab7b42bc1442e680b7611f9625b429f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c41f94f5cb044fc385cdc2020889770"><td class="memItemLeft" align="right" valign="top">static uint16_t SLICE99_PURE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a2c41f94f5cb044fc385cdc2020889770">Slice99_pack_to_u16</a> (<a class="el" href="structSlice99.html">Slice99</a> self)</td></tr>
+<tr class="memdesc:a2c41f94f5cb044fc385cdc2020889770"><td class="mdescLeft">&#160;</td><td class="mdescRight">Packs <code>self</code> to <code>uint16_t</code>.  <a href="#a2c41f94f5cb044fc385cdc2020889770">More...</a><br /></td></tr>
+<tr class="separator:a2c41f94f5cb044fc385cdc2020889770"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaf4a73f9ada379d5a536b217740c198"><td class="memItemLeft" align="right" valign="top">static uint32_t SLICE99_PURE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#abaf4a73f9ada379d5a536b217740c198">Slice99_pack_to_u32</a> (<a class="el" href="structSlice99.html">Slice99</a> self)</td></tr>
+<tr class="memdesc:abaf4a73f9ada379d5a536b217740c198"><td class="mdescLeft">&#160;</td><td class="mdescRight">Packs <code>self</code> to <code>uint32_t</code>.  <a href="#abaf4a73f9ada379d5a536b217740c198">More...</a><br /></td></tr>
+<tr class="separator:abaf4a73f9ada379d5a536b217740c198"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71da5746d9bb44d04efafc71fd2a736c"><td class="memItemLeft" align="right" valign="top">static uint64_t SLICE99_PURE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a71da5746d9bb44d04efafc71fd2a736c">Slice99_pack_to_u64</a> (<a class="el" href="structSlice99.html">Slice99</a> self)</td></tr>
+<tr class="memdesc:a71da5746d9bb44d04efafc71fd2a736c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Packs <code>self</code> to <code>uint64_t</code>.  <a href="#a71da5746d9bb44d04efafc71fd2a736c">More...</a><br /></td></tr>
+<tr class="separator:a71da5746d9bb44d04efafc71fd2a736c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e582115f4f15bafc13a2615c39022b5"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST <a class="el" href="structSlice99Maybe.html">Slice99Maybe</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a9e582115f4f15bafc13a2615c39022b5">Slice99Maybe_just</a> (<a class="el" href="structSlice99.html">Slice99</a> slice)</td></tr>
 <tr class="memdesc:a9e582115f4f15bafc13a2615c39022b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an optional slice with some value.  <a href="#a9e582115f4f15bafc13a2615c39022b5">More...</a><br /></td></tr>
 <tr class="separator:a9e582115f4f15bafc13a2615c39022b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1200,6 +1212,150 @@ static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST <a class="el" href="structSlice9
 <dl class="section pre"><dt>Precondition</dt><dd><code>ptr != NULL</code> </dd>
 <dd>
 <code>item_size &gt; 0</code> </dd></dl>
+
+</div>
+</div>
+<a id="a2c41f94f5cb044fc385cdc2020889770"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c41f94f5cb044fc385cdc2020889770">&#9670;&nbsp;</a></span>Slice99_pack_to_u16()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint16_t SLICE99_PURE Slice99_pack_to_u16 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Packs <code>self</code> to <code>uint16_t</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice to be packed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>Slice99_size(self) == sizeof(uint16_t)</code></dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is defined only if <code>uint16_t</code> is supported. </dd></dl>
+
+</div>
+</div>
+<a id="abaf4a73f9ada379d5a536b217740c198"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abaf4a73f9ada379d5a536b217740c198">&#9670;&nbsp;</a></span>Slice99_pack_to_u32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint32_t SLICE99_PURE Slice99_pack_to_u32 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Packs <code>self</code> to <code>uint32_t</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice to be packed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>Slice99_size(self) == sizeof(uint32_t)</code></dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is defined only if <code>uint32_t</code> is supported. </dd></dl>
+
+</div>
+</div>
+<a id="a71da5746d9bb44d04efafc71fd2a736c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71da5746d9bb44d04efafc71fd2a736c">&#9670;&nbsp;</a></span>Slice99_pack_to_u64()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint64_t SLICE99_PURE Slice99_pack_to_u64 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Packs <code>self</code> to <code>uint64_t</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice to be packed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>Slice99_size(self) == sizeof(uint64_t)</code></dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is defined only if <code>uint64_t</code> is supported. </dd></dl>
+
+</div>
+</div>
+<a id="aab7b42bc1442e680b7611f9625b429f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab7b42bc1442e680b7611f9625b429f0">&#9670;&nbsp;</a></span>Slice99_pack_to_u8()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static uint8_t SLICE99_PURE Slice99_pack_to_u8 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Packs <code>self</code> to <code>uint8_t</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice to be packed.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>Slice99_size(self) == sizeof(uint8_t)</code></dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function is defined only if <code>uint8_t</code> is supported. </dd></dl>
 
 </div>
 </div>
