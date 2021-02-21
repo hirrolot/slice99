@@ -65,7 +65,7 @@ Normally, we pass a pointer to the first element of some array together with its
 void foo(size_t len, uint8_t buffer[static len]) { /* ... */ }
 ```
 
-However, this interface is notoriously easy to misuse. Moreover, sometimes programmers need to perform specific operations on `buffer` and `len` inside `foo`, leading to even more bugs and code clutter:
+This interface is notoriously easy to misuse. Moreover, programmers frequently tend to perform specific operations on `buffer` and `len`, leading to even more bugs and code clutter:
 
 ```c
 // Advance the buffer by HEADER_SIZE.
@@ -83,7 +83,7 @@ void foo(Slice99 buffer) {
 }
 ```
 
-Another use case of Slice99 is zero-copy parsers: you can return slices pointing to actual data provided to your parser -- no need to dynamically allocate new memory just to append `'\0'` to strings each time; thus, slices need not be null-terminated.
+Another use case of Slice99 is zero-copy parsers: you can return slices pointing to actual data provided to your parser -- no need to use `malloc` just to append `'\0'` each time; thus, slices need not be null-terminated.
 
 ## Projects using Slice99
 
