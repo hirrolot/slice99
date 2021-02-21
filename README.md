@@ -65,7 +65,7 @@ Normally, we pass a pointer to the first element of some array together with its
 void foo(size_t len, uint8_t buffer[static len]) { /* ... */ }
 ```
 
-However, this interface is notoriously easy to misuse. Moreover, sometimes programmers need to perform specific operations on `buffer` which are not exported by the standard library, leading to even more bugs and code clutter:
+However, this interface is notoriously easy to misuse. Moreover, sometimes programmers need to perform specific operations on `buffer` and `len` inside `foo`, leading to even more bugs and code clutter:
 
 ```c
 // Advance the buffer by HEADER_SIZE.
@@ -83,7 +83,7 @@ void foo(Slice99 buffer) {
 }
 ```
 
-Another use case is zero-copy parsers: you can return slices that point to data provided to your parser -- no need to dynamically allocate new memory areas to append `'\0'` each time (slices need not be null-terminated).
+Another use case of Slice99 is zero-copy parsers: you can return slices pointing to actual data provided to your parser -- no need to dynamically allocate new memory just to append `'\0'` to strings each time; thus, slices need not be null-terminated.
 
 ## Projects using Slice99
 
@@ -97,4 +97,4 @@ A: Yes, see the [docs](https://hirrolot.github.io/slice99/slice99_8h.html#detail
 
 ### Q: What about type safety?
 
-A: `Slice99` just holds `void *` to access data. If you want to stay type-safe, you can still accept a length and a properly typed pointer, convert them to `Slice99` by `Slice99_from_typed_ptr` and use the multitude of functions it provides (`Slice99_for_each`, `Slice99_bsearch`, `Slice99_find`, etc.). Note that if you anyway deal with something like `uint8_t *buffer`, you do **not** lose in type safety for obvious reasons.
+A: `Slice99` just holds `void *` to access data. If you want to stay type-safe, you can still accept a length and a properly typed pointer, convert them to `Slice99` by `Slice99_from_typed_ptr(ptr, len)` and use the multitude of functions it provides (`Slice99_advance`, `Slice99_last`, `Slice99_find`, etc.). Note that if you anyway deal with something like `uint8_t *buffer`, you do **not** lose in type safety for obvious reasons.
