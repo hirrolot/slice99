@@ -4,13 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.2.1] - 2020-02-21
+## [0.2.1] - 2021-02-21
 
 ### Added
 
  - `Slice99_pack_to_u8`, `Slice99_pack_to_u16`, `Slice99_pack_to_u32`, `Slice99_pack_to_u64`
 
-## [0.2.0] - 2020-02-11
+## [0.2.0] - 2021-02-11
 
 ### Added
 
@@ -30,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Rename `Slice99_copy` to `Slice99_copy_non_overlapping`.
  - Use `ptrdiff_t` as an index. Reify the macros `Slice99_get(_cast_type)`, `Slice99_sub(_cast_type)`, and `Slice99_swap` into the corresponding functions: `Slice99_get`, `Slice99_sub`, `Slice99_swap`.
 
-## [0.1.0] - 2020-01-02
+## [0.1.0] - 2021-01-02
 
 ### Added
 
