@@ -1,35 +1,36 @@
 /*
- * MIT License
- *
- * Copyright (c) 2020 Temirkhan Myrzamadi
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge, publish, distribute,
- * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or
- * substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
- * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
- * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
+MIT License
+
+Copyright (c) 2020 Temirkhan Myrzamadi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 
 /**
  * @file
  * A slice of some array.
  *
- * The macros #SLICE99_ASSERT, #SLICE99_MEMCMP, #SLICE99_MEMCPY, #SLICE99_MEMMOVE, #SLICE99_STRLEN,
- * #SLICE99_QSORT, and #SLICE99_BSEARCH are automatically defined in case they have not been defined
- * before including this header file. They represent the corresponding standard library's functions,
- * though actual implementations can differ. If you develop software for a freestanding environment,
- * these macros might need to be defined beforehand. Note that #SLICE99_QSORT and #SLICE99_BSEARCH
- * might need to be provided only if you define `SLICE99_INCLUDE_SORT` and
- * `SLICE99_INCLUDE_BSEARCH`, respectively.
+ * The macros #SLICE99_ASSERT, #SLICE99_MEMCMP, #SLICE99_MEMCPY, #SLICE99_MEMMOVE, and
+ * #SLICE99_STRLEN are automatically defined in case they have not been defined before including
+ * this header file. They represent the corresponding standard library's functions, though actual
+ * implementations can differ. If you develop software for a freestanding environment, these macros
+ * might need to be defined beforehand.
  */
 
 /**
@@ -79,26 +80,6 @@
 /// Like `strlen`.
 #define SLICE99_STRLEN strlen
 #endif
-
-#ifdef SLICE99_INCLUDE_SORT
-
-#ifndef SLICE99_QSORT
-#include <stdlib.h>
-/// Like `qsort`.
-#define SLICE99_QSORT qsort
-#endif
-
-#endif // SLICE99_INCLUDE_SORT
-
-#ifdef SLICE99_INCLUDE_BSEARCH
-
-#ifndef SLICE99_BSEARCH
-#include <stdlib.h>
-/// Like `bsearch`.
-#define SLICE99_BSEARCH bsearch
-#endif
-
-#endif // SLICE99_INCLUDE_BSEARCH
 
 #ifdef __GNUC__
 #define SLICE99_WARN_UNUSED_RESULT __attribute__((warn_unused_result))
@@ -582,53 +563,6 @@ inline static void Slice99_write_ln(Slice99 self) {
 }
 
 #endif // SLICE99_INCLUDE_IO
-
-#ifdef SLICE99_INCLUDE_SORT
-
-/**
- * Sorts the items in @p self.
- *
- * @param[out] self The slice whose items will be sorted.
- * @param[in] comparator A function deciding whether two items are equal ot not (0 if equal, any
- * other value otherwise).
- *
- * @note Included only if `SLICE99_INCLUDE_SORT` is defined.
- *
- * @pre `comparator != NULL`
- */
-inline static void Slice99_sort(Slice99 self, int (*comparator)(const void *, const void *)) {
-    SLICE99_ASSERT(comparator);
-
-    SLICE99_QSORT(self.ptr, self.len, self.item_size, comparator);
-}
-
-#endif // SLICE99_INCLUDE_SORT
-
-#ifdef SLICE99_INCLUDE_BSEARCH
-
-/**
- * Performs a binary search in @p self.
- *
- * @param[in] self The slice in which the binary search will be performed.
- * @param[in] key The value to search for.
- * @param[in] comparator A function returning the order of two items (0 if equal, <0 if the first
- * item is lesser than the second, >0 if the first item is greater than the second).
- *
- * @return A pointer to an element in @p self that compares equal to @p key. If it does not exist,
- * `NULL`.
- *
- * @note Included only if `SLICE99_INCLUDE_BSEARCH` is defined.
- *
- * @pre `comparator != NULL`
- */
-inline static SLICE99_WARN_UNUSED_RESULT void *
-Slice99_bsearch(Slice99 self, const void *key, int (*comparator)(const void *, const void *)) {
-    SLICE99_ASSERT(comparator);
-
-    return SLICE99_BSEARCH(key, self.ptr, self.len, self.item_size, comparator);
-}
-
-#endif // SLICE99_INCLUDE_BSEARCH
 
 /**
  * Swaps the @p lhs -indexed and @p rhs -indexed items.

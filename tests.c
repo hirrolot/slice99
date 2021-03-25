@@ -1,27 +1,3 @@
-/*
- * MIT License
- *
- * Copyright (c) 2020 Temirkhan Myrzamadi
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge, publish, distribute,
- * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or
- * substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
- * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
- * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
-#define SLICE99_INCLUDE_SORT
-#define SLICE99_INCLUDE_BSEARCH
-
 #include <slice99.h>
 
 #include <assert.h>
@@ -574,27 +550,6 @@ TEST(copy_non_overlapping) {
     assert(memcmp(data, copied, sizeof(data)) == 0);
 }
 
-TEST(sort) {
-    int data[] = {123};
-    Slice99 slice = Slice99_new(data, sizeof(char), 0);
-    Slice99_sort(slice, int_comparator);
-    assert(memcmp(data, (const int[]){123}, sizeof(data)) == 0);
-
-    slice = Slice99_from_array((int[]){62, -15, 60, 0, -19019, 145});
-    Slice99_sort(slice, int_comparator);
-    assert(memcmp(slice.ptr, (const int[]){-19019, -15, 0, 60, 62, 145}, Slice99_size(slice)) == 0);
-}
-
-TEST(bsearch) {
-    Slice99 slice = Slice99_from_array((int[]){1, 2, 3, 4, 5, 6, 7});
-
-    int key = 5;
-    assert(*(int *)Slice99_bsearch(slice, &key, int_comparator) == key);
-
-    key = 101;
-    assert(Slice99_bsearch(slice, &key, int_comparator) == NULL);
-}
-
 TEST(swap) {
     int backup;
 
@@ -873,8 +828,6 @@ int main(void) {
     test_ends_with();
     test_copy();
     test_copy_non_overlapping();
-    test_sort();
-    test_bsearch();
     test_swap();
     test_swap_with_slice();
     test_reverse();
