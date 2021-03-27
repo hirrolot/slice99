@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - `Slice99_sort`, `SLICE99_INCLUDE_SORT`, `SLICE99_QSORT`
  - `Slice99_bsearch`, `SLICE99_INCLUDE_BSEARCH`, `SLICE99_BSEARCH`
 
+### Changed
+
+ - `Slice99_array_len` -> `SLICE99_ARRAY_LEN`
+
 ## [0.2.1] - 2021-02-21
 
 ### Added

@@ -102,7 +102,7 @@ SOFTWARE.
 /**
  * Computes a number of items in an array expression.
  */
-#define Slice99_array_len(...) (sizeof(__VA_ARGS__) / sizeof((__VA_ARGS__)[0]))
+#define SLICE99_ARRAY_LEN(...) (sizeof(__VA_ARGS__) / sizeof((__VA_ARGS__)[0]))
 
 /**
  * Constructs a slice from an array expression.
@@ -111,7 +111,7 @@ SOFTWARE.
  * #Slice99.item_size equal to the size of each item.
  */
 #define Slice99_from_array(...)                                                                    \
-    Slice99_new((void *)(__VA_ARGS__), sizeof((__VA_ARGS__)[0]), Slice99_array_len(__VA_ARGS__))
+    Slice99_new((void *)(__VA_ARGS__), sizeof((__VA_ARGS__)[0]), SLICE99_ARRAY_LEN(__VA_ARGS__))
 
 /**
  * Constructs a slice from a pointer of a non-`void` type and a length.

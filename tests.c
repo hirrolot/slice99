@@ -82,11 +82,11 @@ TEST(from_ptrdiff) {
     );
 
     ASSERT_SLICE(
-        Slice99_from_ptrdiff(data, data + Slice99_array_len(data),
+        Slice99_from_ptrdiff(data, data + SLICE99_ARRAY_LEN(data),
         sizeof(int)),
         PTR data,
         ITEM_SIZE sizeof(int),
-        LEN Slice99_array_len(data)
+        LEN SLICE99_ARRAY_LEN(data)
     );
 
     ASSERT_SLICE(
@@ -525,7 +525,7 @@ TEST(ends_with) {
 
 TEST(copy) {
     int data[] = {1, 2, 3, 4, 5};
-    int copied[Slice99_array_len(data)];
+    int copied[SLICE99_ARRAY_LEN(data)];
 
     Slice99_copy(Slice99_from_array(copied), Slice99_from_array(data));
     assert(memcmp(data, copied, sizeof(data)) == 0);
@@ -545,7 +545,7 @@ TEST(copy_non_overlapping) {
 
     // Check that copy occurs even if a destination slice is empty.
     int data[] = {1, 2, 3, 4, 5};
-    int copied[Slice99_array_len(data)];
+    int copied[SLICE99_ARRAY_LEN(data)];
     Slice99_copy(Slice99_new(copied, sizeof(int), 0), Slice99_from_array(data));
     assert(memcmp(data, copied, sizeof(data)) == 0);
 }
