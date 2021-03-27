@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+## [0.3.0] - 2021-03-27
+
+### Added
+
+ - `SLICE99_MAJOR`, `SLICE99_MINOR`, `SLICE99_PATCH`
+
 ### Removed
 
  - `Slice99_sort`, `SLICE99_INCLUDE_SORT`, `SLICE99_QSORT`

@@ -100,6 +100,21 @@ SOFTWARE.
 #endif
 
 /**
+ * The major version number.
+ */
+#define SLICE99_MAJOR 0
+
+/**
+ * The minor version number.
+ */
+#define SLICE99_MINOR 3
+
+/**
+ * The patch version number.
+ */
+#define SLICE99_PATCH 0
+
+/**
  * Computes a number of items in an array expression.
  */
 #define SLICE99_ARRAY_LEN(...) (sizeof(__VA_ARGS__) / sizeof((__VA_ARGS__)[0]))

@@ -1,7 +1,6 @@
 var searchData=
 [
   ['slice99_5fadvance',['Slice99_advance',['../slice99_8h.html#ab364d098941c1f0d6c9316dd845198d3',1,'slice99.h']]],
-  ['slice99_5fbsearch',['Slice99_bsearch',['../slice99_8h.html#afe3e8f164eeded22a7456138e3327a1a',1,'slice99.h']]],
   ['slice99_5fc_5fstr',['Slice99_c_str',['../slice99_8h.html#ab40720954fa063663c72d2d0e1cc61f3',1,'slice99.h']]],
   ['slice99_5fcopy',['Slice99_copy',['../slice99_8h.html#af0633af9b428c3c28e0476c65c4bb5dc',1,'slice99.h']]],
   ['slice99_5fcopy_5fnon_5foverlapping',['Slice99_copy_non_overlapping',['../slice99_8h.html#ab6e9856494623751a31202d2f1d94409',1,'slice99.h']]],
@@ -28,7 +27,6 @@ var searchData=
   ['slice99_5fprimitive_5fstarts_5fwith',['Slice99_primitive_starts_with',['../slice99_8h.html#a5089ecf9f17b19a9a5f6d4d587721ca1',1,'slice99.h']]],
   ['slice99_5freverse',['Slice99_reverse',['../slice99_8h.html#a51f4ba9696f12fa0cf82fa018828e9a9',1,'slice99.h']]],
   ['slice99_5fsize',['Slice99_size',['../slice99_8h.html#a2c1981dc6bf18ca36407f2160846c816',1,'slice99.h']]],
-  ['slice99_5fsort',['Slice99_sort',['../slice99_8h.html#a92fa3f03cef49b60206d43abd5d02946',1,'slice99.h']]],
   ['slice99_5fsplit_5fat',['Slice99_split_at',['../slice99_8h.html#a292232b30f8add259cc03a87e5c96d86',1,'slice99.h']]],
   ['slice99_5fstarts_5fwith',['Slice99_starts_with',['../slice99_8h.html#aaa961f073e3625eb2d7f520953d8064e',1,'slice99.h']]],
   ['slice99_5fsub',['Slice99_sub',['../slice99_8h.html#afa7fd2226d3ed730fb6be0381ca3b4fe',1,'slice99.h']]],
