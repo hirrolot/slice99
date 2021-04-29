@@ -81,6 +81,8 @@ SOFTWARE.
 #define SLICE99_STRLEN strlen
 #endif
 
+#ifndef DOXYGEN_IGNORE
+
 #ifdef __GNUC__
 #define SLICE99_WARN_UNUSED_RESULT __attribute__((warn_unused_result))
 #else
@@ -98,6 +100,8 @@ SOFTWARE.
 #define SLICE99_PURE
 
 #endif
+
+#endif // DOXYGEN_IGNORE
 
 /**
  * The major version number.
