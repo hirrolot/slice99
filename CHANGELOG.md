@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
- - `SLICE99_(MAJOR|MINOR|PATCH)` representing the corresponding components of a version.
+ - `SLICE99_(MAJOR|MINOR|PATCH)` representing the corresponding components of a library version.
 
 ### Removed
 
