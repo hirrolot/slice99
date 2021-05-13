@@ -28,9 +28,9 @@ SOFTWARE.
  *
  * The macros #SLICE99_ASSERT, #SLICE99_MEMCMP, #SLICE99_MEMCPY, #SLICE99_MEMMOVE, and
  * #SLICE99_STRLEN are automatically defined in case they have not been defined before including
- * this header file. They represent the corresponding standard library's functions, though actual
+ * this header file. They represent the corresponding standard library's functions, although actual
  * implementations can differ. If you develop software for a freestanding environment, these macros
- * might need to be defined beforehand.
+ * must be defined beforehand.
  */
 
 /**
@@ -528,60 +528,6 @@ inline static void Slice99_copy(Slice99 self, Slice99 other) {
 inline static void Slice99_copy_non_overlapping(Slice99 self, Slice99 other) {
     SLICE99_MEMCPY(self.ptr, other.ptr, Slice99_size(other));
 }
-
-#ifdef SLICE99_INCLUDE_IO
-
-#include <stdio.h>
-
-/**
- * Writes @p self to @p stream, byte-by-byte.
- *
- * @param[in] self The slice to be written.
- * @param[out] stream The stream to which @p self will be written.
- *
- * @note Included only if `SLICE99_INCLUDE_IO` is defined.
- */
-inline static void Slice99_fwrite(Slice99 self, FILE *stream) {
-    fwrite(self.ptr, self.item_size, self.len, stream);
-}
-
-/**
- * Writes @p self to `stdout`, byte-by-byte.
- *
- * @param[in] self The slice to be written.
- *
- * @note Included only if `SLICE99_INCLUDE_IO` is defined.
- */
-inline static void Slice99_write(Slice99 self) {
-    Slice99_fwrite(self, stdout);
-}
-
-/**
- * The same as #Slice99_fwrite but places a new line character afterwards.
- *
- * @param[in] self The slice to be written.
- * @param[out] stream The stream to which @p self will be written.
- *
- * @note Included only if `SLICE99_INCLUDE_IO` is defined.
- */
-inline static void Slice99_fwrite_ln(Slice99 self, FILE *stream) {
-    Slice99_fwrite(self, stream);
-    fprintf(stream, "\n");
-}
-
-/**
- * The same as #Slice99_write but places a new line character afterwards.
- *
- * @param[in] self The slice to be written.
- *
- * @note Included only if `SLICE99_INCLUDE_IO` is defined.
- */
-inline static void Slice99_write_ln(Slice99 self) {
-    Slice99_write(self);
-    puts("");
-}
-
-#endif // SLICE99_INCLUDE_IO
 
 /**
  * Swaps the @p lhs -indexed and @p rhs -indexed items.

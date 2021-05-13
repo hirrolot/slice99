@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
  - Useless higher-order functions:
    - `Slice99_for_each`, `Slice99_find`.
+ - I/O functions:
+   - `Slice99_fwrite(_ln)`, `Slice99_write(_ln)`.
 
 ## [0.3.0] - 2021-03-27
 
