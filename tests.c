@@ -704,58 +704,6 @@ TEST(split_at) {
 }
 // } (Slice99_split_at)
 
-// Slice99_find {
-typedef struct {
-    int a, b, c;
-} Foo;
-
-static bool find_predicate(const void *item, void *cx) {
-    (*(int *)cx)++;
-    return ((const Foo *)item)->b == 9;
-}
-
-TEST(find) {
-    Slice99 slice = Slice99_from_array((Foo[]){
-        {1, 2, 3},
-        {124, 187, 9011},
-        {0, 9, 191},
-    });
-
-    int cx = 0;
-    assert(Slice99_find(slice, find_predicate, &cx) == Slice99_get(slice, 2));
-    assert(cx == 3);
-
-    slice = Slice99_from_array((Foo[]){
-        {1, 2, 3},
-        {124, 187, 9011},
-        {0, 33, 191},
-        {10, 0, 121101},
-    });
-
-    cx = 0;
-    assert(Slice99_find(slice, find_predicate, &cx) == NULL);
-    assert(cx == 4);
-}
-// } (Slice99_find)
-
-// Slice99_for_each {
-static void visit(void *item, void *cx) {
-    (*(int *)cx)++;
-    *(size_t *)item += 5;
-}
-
-TEST(for_each) {
-    Slice99 slice = Slice99_from_array((int[]){72, 0, 113, -13, 9});
-
-    size_t cx = 0;
-    Slice99_for_each(slice, visit, &cx);
-    assert(cx == slice.len);
-
-    assert(Slice99_primitive_eq(
-        slice, Slice99_from_array((int[]){72 + 5, 0 + 5, 113 + 5, -13 + 5, 9 + 5})));
-}
-// } (Slice99_for_each)
-
 TEST(to_c_str) {
     Slice99 slice = Slice99_from_array((char[]){'a', 'b', 'c'});
 
@@ -832,8 +780,6 @@ int main(void) {
     test_swap_with_slice();
     test_reverse();
     test_split_at();
-    test_find();
-    test_for_each();
     test_to_c_str();
     test_pack_to_u8();
     test_pack_to_u16();

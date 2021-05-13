@@ -668,48 +668,6 @@ Slice99_split_at(Slice99 self, size_t i, Slice99 *restrict lhs, Slice99 *restric
 }
 
 /**
- * Finds the first occurence of an item for which @p predicate holds.
- *
- * @param[in] self The slice which will be searched for an item.
- * @param[in] predicate The predicate on an item.
- * @param[in] cx The auxiliary value provided to @p predicate each time.
- *
- * @pre `predicate != NULL`
- * @pre `self.len` must be representable as `ptrdiff_t`.
- */
-inline static SLICE99_WARN_UNUSED_RESULT void *
-Slice99_find(Slice99 self, bool (*predicate)(const void *item, void *cx), void *cx) {
-    SLICE99_ASSERT(predicate);
-
-    for (ptrdiff_t i = 0; i < (ptrdiff_t)self.len; i++) {
-        void *item = Slice99_get(self, i);
-        if (predicate(item, cx)) {
-            return item;
-        }
-    }
-
-    return NULL;
-}
-
-/**
- * Sequentially applies all the items in @p self to @p f.
- *
- * @param[in] self The slice whose items will be applied to @p f.
- * @param[in] f The handler function.
- * @param[in] cx The auxiliary value provided to @p f each time.
- *
- * @pre `f != NULL`
- * @pre `self.len` must be representable as `ptrdiff_t`.
- */
-inline static void Slice99_for_each(Slice99 self, void (*f)(void *item, void *cx), void *cx) {
-    SLICE99_ASSERT(f);
-
-    for (ptrdiff_t i = 0; i < (ptrdiff_t)self.len; i++) {
-        f(Slice99_get(self, i), cx);
-    }
-}
-
-/**
  * Copies @p self to @p out and appends '\0' to the end.
  *
  * @param[in] self The slice which will be copied.

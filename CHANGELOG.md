@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### Removed
+
+ - Useless higher-order functions:
+   - `Slice99_for_each`, `Slice99_find`.
+
 ## [0.3.0] - 2021-03-27
 
 ### Added
