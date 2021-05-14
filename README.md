@@ -65,7 +65,7 @@ Normally, we pass a data pointer with its length as separate arguments:
 void foo(size_t len, uint8_t buffer[static len]) { /* ... */ }
 ```
 
-However, this interface is notoriously easy to misuse, for instance, by passing an invalid length or a null pointer for `buffer`. Moreover, programmers frequently tend to perform specific operations on `buffer` and `len`, leading to even more bugs and code clutter:
+However, this interface is notoriously easy to misuse by passing an invalid length or a null pointer for `buffer`. Moreover, programmers frequently tend to perform specific operations on `buffer` and `len`, leading to even more bugs and code clutter:
 
 ```c
 // Advance the buffer by HEADER_SIZE.
@@ -73,7 +73,7 @@ buffer += HEADER_SIZE;
 len -= HEADER_SIZE;
 ```
 
-Slice99 reifies such patterns into functions (`Slice99_advance` below), thus increasing code safety and clarity:
+Slice99 reifies such patterns into functions (`Slice99_advance` below), thus assisting in code safety and clarity:
 
 ```c
 void foo(Slice99 buffer) {
