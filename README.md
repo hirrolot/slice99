@@ -83,7 +83,7 @@ void foo(Slice99 buffer) {
 }
 ```
 
-Another use case of Slice99 is zero-copy parsers: you can return slices pointing to actual data provided to your parser -- no need to use `malloc` just to append `'\0'` each time (slices need not be null-terminated).
+Another use case of Slice99 is zero-copy parsers: you can return slices from your parser pointing to actual data, without `malloc`ing and `memcpy`ing just to append `'\0'` each time.
 
 ## Projects using Slice99
 
