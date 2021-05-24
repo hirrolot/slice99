@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### Added
+
+ - Strongly typed slices:
+   - `SLICE99_DEF_TYPED` to generate a typed slice.
+   - `SLICE99_TO_TYPED` to convert an untyped slice into a typed one.
+   - `SLICE99_TO_UNTYPED` to convert a typed slice into an untyped one.
+   - `Slice99_typed_from_array` as a typed slice counterpart of `Slice99_from_array`.
+
 ### Removed
 
  - Useless higher-order functions:

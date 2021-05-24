@@ -94,9 +94,3 @@ Another use case of Slice99 is zero-copy parsers: you can return slices from you
 ### Q: Can I use this library to develop bare-metal software?
 
 A: Yes, see the [docs](https://hirrolot.github.io/slice99/slice99_8h.html#details).
-
-### Q: What about type safety?
-
-A: `Slice99` holds `void *` to access data. If you want to stay type-safe, you can still convert a properly typed pointer to `Slice99` by `Slice99_from_typed_ptr(ptr, len)` and use the multitude of functions it provides (`Slice99_advance`, `Slice99_last`, `Slice99_sub`, etc.), where necessary.
-
-Note that if you anyway deal with something like `uint8_t *buffer`, you do **not** lose in type safety with `Slice99 buffer` for obvious reasons.

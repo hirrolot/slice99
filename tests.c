@@ -724,6 +724,57 @@ TEST(maybe_nothing) {
     assert(!maybe.exists);
 }
 
+// Typed slice {
+
+typedef struct {
+    int x, y;
+} Point;
+
+SLICE99_DEF_TYPED(MyPoints, Point);
+
+static void typecheck_typed_slice(void) {
+#define TYPECHECK(fn, expected_type)                                                               \
+    do {                                                                                           \
+        expected_type = fn;                                                                        \
+        (void)_;                                                                                   \
+    } while (0)
+
+    TYPECHECK(MyPoints_new, MyPoints(*_)(Point *, size_t));
+    TYPECHECK(MyPoints_from_ptrdiff, MyPoints(*_)(Point *, Point *));
+    TYPECHECK(MyPoints_empty, MyPoints(*_)(void));
+    TYPECHECK(MyPoints_update_len, MyPoints(*_)(MyPoints, size_t));
+    TYPECHECK(MyPoints_is_empty, bool (*_)(MyPoints));
+    TYPECHECK(MyPoints_size, size_t(*_)(MyPoints));
+    TYPECHECK(MyPoints_get, Point * (*_)(MyPoints, ptrdiff_t));
+    TYPECHECK(MyPoints_first, Point * (*_)(MyPoints));
+    TYPECHECK(MyPoints_last, Point * (*_)(MyPoints));
+    TYPECHECK(MyPoints_sub, MyPoints(*_)(MyPoints, ptrdiff_t, ptrdiff_t));
+    TYPECHECK(MyPoints_advance, MyPoints(*_)(MyPoints, ptrdiff_t));
+
+    TYPECHECK(MyPoints_primitive_eq, bool (*_)(MyPoints, MyPoints));
+    TYPECHECK(MyPoints_eq, bool (*_)(MyPoints, MyPoints, int (*)(const Point *, const Point *)));
+
+    TYPECHECK(MyPoints_primitive_starts_with, bool (*_)(MyPoints, MyPoints));
+    TYPECHECK(
+        MyPoints_starts_with, bool (*_)(MyPoints, MyPoints, int (*)(const Point *, const Point *)));
+
+    TYPECHECK(MyPoints_primitive_ends_with, bool (*_)(MyPoints, MyPoints));
+    TYPECHECK(
+        MyPoints_ends_with, bool (*_)(MyPoints, MyPoints, int (*)(const Point *, const Point *)));
+
+    TYPECHECK(MyPoints_copy, void (*_)(MyPoints, MyPoints));
+    TYPECHECK(MyPoints_copy_non_overlapping, void (*_)(MyPoints, MyPoints));
+    TYPECHECK(MyPoints_swap, void (*_)(MyPoints, ptrdiff_t, ptrdiff_t, Point * restrict));
+    TYPECHECK(MyPoints_swap_with_slice, void (*_)(MyPoints, MyPoints, Point * restrict));
+    TYPECHECK(MyPoints_reverse, void (*_)(MyPoints, Point * restrict));
+    TYPECHECK(
+        MyPoints_split_at, void (*_)(MyPoints, size_t, MyPoints * restrict, MyPoints * restrict));
+
+#undef TYPECHECK
+}
+
+// } (Typed slice)
+
 int main(void) {
     srand((unsigned)time(NULL));
 
@@ -758,6 +809,8 @@ int main(void) {
 
     test_maybe_just();
     test_maybe_nothing();
+
+    (void)typecheck_typed_slice;
 
     puts("All the tests have passed!");
 }
