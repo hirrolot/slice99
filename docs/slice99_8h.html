@@ -105,15 +105,6 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a74ab39995ce273807783bb0006d9d85d">SLICE99_STRLEN</a>&#160;&#160;&#160;strlen</td></tr>
 <tr class="memdesc:a74ab39995ce273807783bb0006d9d85d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Like <code>strlen</code>. <br /></td></tr>
 <tr class="separator:a74ab39995ce273807783bb0006d9d85d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e85222aed25f645d65a0c8e86e2916d"><td class="memItemLeft" align="right" valign="top"><a id="a9e85222aed25f645d65a0c8e86e2916d"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SLICE99_WARN_UNUSED_RESULT</b></td></tr>
-<tr class="separator:a9e85222aed25f645d65a0c8e86e2916d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a393af859c337bbdac67f10233f9a6c5f"><td class="memItemLeft" align="right" valign="top"><a id="a393af859c337bbdac67f10233f9a6c5f"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SLICE99_CONST</b></td></tr>
-<tr class="separator:a393af859c337bbdac67f10233f9a6c5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a367ec5df58f5059b6c233829de79e741"><td class="memItemLeft" align="right" valign="top"><a id="a367ec5df58f5059b6c233829de79e741"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><b>SLICE99_PURE</b></td></tr>
-<tr class="separator:a367ec5df58f5059b6c233829de79e741"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa20d9d653b7c065db03d068ada57b89c"><td class="memItemLeft" align="right" valign="top"><a id="aa20d9d653b7c065db03d068ada57b89c"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#aa20d9d653b7c065db03d068ada57b89c">SLICE99_MAJOR</a>&#160;&#160;&#160;0</td></tr>
 <tr class="memdesc:aa20d9d653b7c065db03d068ada57b89c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The major version number. <br /></td></tr>
@@ -126,6 +117,15 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a910ddb4ba43cb60535cf6d1c3cb498a0">SLICE99_PATCH</a>&#160;&#160;&#160;0</td></tr>
 <tr class="memdesc:a910ddb4ba43cb60535cf6d1c3cb498a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The patch version number. <br /></td></tr>
 <tr class="separator:a910ddb4ba43cb60535cf6d1c3cb498a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a557c011352fbc859d6c9ed3871a31c5e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a557c011352fbc859d6c9ed3871a31c5e">SLICE99_DEF_TYPED</a>(name,  T)</td></tr>
+<tr class="memdesc:a557c011352fbc859d6c9ed3871a31c5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the strongly typed slice <code>name</code> containing items of type <code>T</code>.  <a href="#a557c011352fbc859d6c9ed3871a31c5e">More...</a><br /></td></tr>
+<tr class="separator:a557c011352fbc859d6c9ed3871a31c5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1268f7fbfc4e44efd9322b4123664e56"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a1268f7fbfc4e44efd9322b4123664e56">SLICE99_TO_TYPED</a>(slice,  typed_slice_name)&#160;&#160;&#160;((typed_slice_name){.ptr = (slice).ptr, .len = (slice).len})</td></tr>
+<tr class="memdesc:a1268f7fbfc4e44efd9322b4123664e56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts <a class="el" href="structSlice99.html" title="A slice of some array. ">Slice99</a> to the typed representation <code>typed_slice_name</code>.  <a href="#a1268f7fbfc4e44efd9322b4123664e56">More...</a><br /></td></tr>
+<tr class="separator:a1268f7fbfc4e44efd9322b4123664e56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace6a9c752806e590ca10c3f2131c8665"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#ace6a9c752806e590ca10c3f2131c8665">SLICE99_TO_UNTYPED</a>(typed_slice)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad">Slice99_new</a>((typed_slice).ptr, sizeof(*(typed_slice).ptr), (typed_slice).len)</td></tr>
+<tr class="memdesc:ace6a9c752806e590ca10c3f2131c8665"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the typed slice <code>typed_slice</code> to <a class="el" href="structSlice99.html" title="A slice of some array. ">Slice99</a>.  <a href="#ace6a9c752806e590ca10c3f2131c8665">More...</a><br /></td></tr>
+<tr class="separator:ace6a9c752806e590ca10c3f2131c8665"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36fc375eb1db0b3907825ea0720fbf0c"><td class="memItemLeft" align="right" valign="top"><a id="a36fc375eb1db0b3907825ea0720fbf0c"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a36fc375eb1db0b3907825ea0720fbf0c">SLICE99_ARRAY_LEN</a>(...)&#160;&#160;&#160;(sizeof(__VA_ARGS__) / sizeof((__VA_ARGS__)[0]))</td></tr>
 <tr class="memdesc:a36fc375eb1db0b3907825ea0720fbf0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a number of items in an array expression. <br /></td></tr>
@@ -133,6 +133,10 @@ Macros</h2></td></tr>
 <tr class="memitem:aee899fa7bd6ee37b88c0bf229213d97e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#aee899fa7bd6ee37b88c0bf229213d97e">Slice99_from_array</a>(...)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad">Slice99_new</a>((void *)(__VA_ARGS__), sizeof((__VA_ARGS__)[0]), <a class="el" href="slice99_8h.html#a36fc375eb1db0b3907825ea0720fbf0c">SLICE99_ARRAY_LEN</a>(__VA_ARGS__))</td></tr>
 <tr class="memdesc:aee899fa7bd6ee37b88c0bf229213d97e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a slice from an array expression.  <a href="#aee899fa7bd6ee37b88c0bf229213d97e">More...</a><br /></td></tr>
 <tr class="separator:aee899fa7bd6ee37b88c0bf229213d97e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a910435545a29467d608f27e328cc429d"><td class="memItemLeft" align="right" valign="top"><a id="a910435545a29467d608f27e328cc429d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a910435545a29467d608f27e328cc429d">Slice99_typed_from_array</a>(typed_slice_name, ...)&#160;&#160;&#160;typed_slice_name##_new((__VA_ARGS__), <a class="el" href="slice99_8h.html#a36fc375eb1db0b3907825ea0720fbf0c">SLICE99_ARRAY_LEN</a>(__VA_ARGS__))</td></tr>
+<tr class="memdesc:a910435545a29467d608f27e328cc429d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The same as <a class="el" href="slice99_8h.html#aee899fa7bd6ee37b88c0bf229213d97e" title="Constructs a slice from an array expression. ">Slice99_from_array</a> but for typed slices. <br /></td></tr>
+<tr class="separator:a910435545a29467d608f27e328cc429d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8c2fd6a232198b3c511c19f3546b41b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#af8c2fd6a232198b3c511c19f3546b41b">Slice99_from_typed_ptr</a>(ptr,  len)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad">Slice99_new</a>(ptr, sizeof(*ptr), len)</td></tr>
 <tr class="memdesc:af8c2fd6a232198b3c511c19f3546b41b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a slice from a pointer of a non-<code>void</code> type and a length.  <a href="#af8c2fd6a232198b3c511c19f3546b41b">More...</a><br /></td></tr>
 <tr class="separator:af8c2fd6a232198b3c511c19f3546b41b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,12 +155,6 @@ Functions</h2></td></tr>
 <tr class="memitem:ab994ee5ddd723fb1f09f77d209466b05"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#ab994ee5ddd723fb1f09f77d209466b05">Slice99_empty</a> (size_t item_size)</td></tr>
 <tr class="memdesc:ab994ee5ddd723fb1f09f77d209466b05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an empty slice.  <a href="#ab994ee5ddd723fb1f09f77d209466b05">More...</a><br /></td></tr>
 <tr class="separator:ab994ee5ddd723fb1f09f77d209466b05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a5679da3af78e3cca0d7bf5f59793c9"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a7a5679da3af78e3cca0d7bf5f59793c9">Slice99_update_ptr</a> (<a class="el" href="structSlice99.html">Slice99</a> self, void *new_ptr)</td></tr>
-<tr class="memdesc:a7a5679da3af78e3cca0d7bf5f59793c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates <code>self</code> with the new pointer <code>new_ptr</code>.  <a href="#a7a5679da3af78e3cca0d7bf5f59793c9">More...</a><br /></td></tr>
-<tr class="separator:a7a5679da3af78e3cca0d7bf5f59793c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34105553a141a9c14eef7bf22552e19f"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a34105553a141a9c14eef7bf22552e19f">Slice99_update_item_size</a> (<a class="el" href="structSlice99.html">Slice99</a> self, size_t new_item_size)</td></tr>
-<tr class="memdesc:a34105553a141a9c14eef7bf22552e19f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates <code>self</code> with the new item size <code>new_item_size</code>.  <a href="#a34105553a141a9c14eef7bf22552e19f">More...</a><br /></td></tr>
-<tr class="separator:a34105553a141a9c14eef7bf22552e19f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b671c453b415d9ca3d231626bd73ba0"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a0b671c453b415d9ca3d231626bd73ba0">Slice99_update_len</a> (<a class="el" href="structSlice99.html">Slice99</a> self, size_t new_len)</td></tr>
 <tr class="memdesc:a0b671c453b415d9ca3d231626bd73ba0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates <code>self</code> with the new length <code>new_len</code>.  <a href="#a0b671c453b415d9ca3d231626bd73ba0">More...</a><br /></td></tr>
 <tr class="separator:a0b671c453b415d9ca3d231626bd73ba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -205,18 +203,6 @@ Functions</h2></td></tr>
 <tr class="memitem:ab6e9856494623751a31202d2f1d94409"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#ab6e9856494623751a31202d2f1d94409">Slice99_copy_non_overlapping</a> (<a class="el" href="structSlice99.html">Slice99</a> self, <a class="el" href="structSlice99.html">Slice99</a> other)</td></tr>
 <tr class="memdesc:ab6e9856494623751a31202d2f1d94409"><td class="mdescLeft">&#160;</td><td class="mdescRight">The same as <a class="el" href="slice99_8h.html#af0633af9b428c3c28e0476c65c4bb5dc" title="Copies other to the beginning of self, byte-by-byte. ">Slice99_copy</a> except that <code>self</code> and <code>other</code> must be non-overlapping.  <a href="#ab6e9856494623751a31202d2f1d94409">More...</a><br /></td></tr>
 <tr class="separator:ab6e9856494623751a31202d2f1d94409"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a314b3e238e23ad7486841d8a8ceb9e9e"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a314b3e238e23ad7486841d8a8ceb9e9e">Slice99_fwrite</a> (<a class="el" href="structSlice99.html">Slice99</a> self, FILE *stream)</td></tr>
-<tr class="memdesc:a314b3e238e23ad7486841d8a8ceb9e9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes <code>self</code> to <code>stream</code>, byte-by-byte.  <a href="#a314b3e238e23ad7486841d8a8ceb9e9e">More...</a><br /></td></tr>
-<tr class="separator:a314b3e238e23ad7486841d8a8ceb9e9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84aaf560a0ac60367ba665e8520ee544"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a84aaf560a0ac60367ba665e8520ee544">Slice99_write</a> (<a class="el" href="structSlice99.html">Slice99</a> self)</td></tr>
-<tr class="memdesc:a84aaf560a0ac60367ba665e8520ee544"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes <code>self</code> to <code>stdout</code>, byte-by-byte.  <a href="#a84aaf560a0ac60367ba665e8520ee544">More...</a><br /></td></tr>
-<tr class="separator:a84aaf560a0ac60367ba665e8520ee544"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa61e5b059865b65048fce5dd53fea27"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#afa61e5b059865b65048fce5dd53fea27">Slice99_fwrite_ln</a> (<a class="el" href="structSlice99.html">Slice99</a> self, FILE *stream)</td></tr>
-<tr class="memdesc:afa61e5b059865b65048fce5dd53fea27"><td class="mdescLeft">&#160;</td><td class="mdescRight">The same as <a class="el" href="slice99_8h.html#a314b3e238e23ad7486841d8a8ceb9e9e" title="Writes self to stream, byte-by-byte. ">Slice99_fwrite</a> but places a new line character afterwards.  <a href="#afa61e5b059865b65048fce5dd53fea27">More...</a><br /></td></tr>
-<tr class="separator:afa61e5b059865b65048fce5dd53fea27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5c6aa8e9267ef6e0428764ab6028a9b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#aa5c6aa8e9267ef6e0428764ab6028a9b">Slice99_write_ln</a> (<a class="el" href="structSlice99.html">Slice99</a> self)</td></tr>
-<tr class="memdesc:aa5c6aa8e9267ef6e0428764ab6028a9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The same as <a class="el" href="slice99_8h.html#a84aaf560a0ac60367ba665e8520ee544" title="Writes self to stdout, byte-by-byte. ">Slice99_write</a> but places a new line character afterwards.  <a href="#aa5c6aa8e9267ef6e0428764ab6028a9b">More...</a><br /></td></tr>
-<tr class="separator:aa5c6aa8e9267ef6e0428764ab6028a9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20fcf4b3348c53d782cc5ca280c19105"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a20fcf4b3348c53d782cc5ca280c19105">Slice99_swap</a> (<a class="el" href="structSlice99.html">Slice99</a> self, ptrdiff_t lhs, ptrdiff_t rhs, void *restrict backup)</td></tr>
 <tr class="memdesc:a20fcf4b3348c53d782cc5ca280c19105"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps the <code>lhs</code> -indexed and <code>rhs</code> -indexed items.  <a href="#a20fcf4b3348c53d782cc5ca280c19105">More...</a><br /></td></tr>
 <tr class="separator:a20fcf4b3348c53d782cc5ca280c19105"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -229,12 +215,6 @@ Functions</h2></td></tr>
 <tr class="memitem:a292232b30f8add259cc03a87e5c96d86"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a292232b30f8add259cc03a87e5c96d86">Slice99_split_at</a> (<a class="el" href="structSlice99.html">Slice99</a> self, size_t i, <a class="el" href="structSlice99.html">Slice99</a> *restrict lhs, <a class="el" href="structSlice99.html">Slice99</a> *restrict rhs)</td></tr>
 <tr class="memdesc:a292232b30f8add259cc03a87e5c96d86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits <code>self</code> into two parts.  <a href="#a292232b30f8add259cc03a87e5c96d86">More...</a><br /></td></tr>
 <tr class="separator:a292232b30f8add259cc03a87e5c96d86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee124789b351694f4697e4472c679faf"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#aee124789b351694f4697e4472c679faf">Slice99_find</a> (<a class="el" href="structSlice99.html">Slice99</a> self, bool(*predicate)(const void *item, void *cx), void *cx)</td></tr>
-<tr class="memdesc:aee124789b351694f4697e4472c679faf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the first occurence of an item for which <code>predicate</code> holds.  <a href="#aee124789b351694f4697e4472c679faf">More...</a><br /></td></tr>
-<tr class="separator:aee124789b351694f4697e4472c679faf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a916a8f73c497bbd2d9c3b8cb3ada1b18"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a916a8f73c497bbd2d9c3b8cb3ada1b18">Slice99_for_each</a> (<a class="el" href="structSlice99.html">Slice99</a> self, void(*f)(void *item, void *cx), void *cx)</td></tr>
-<tr class="memdesc:a916a8f73c497bbd2d9c3b8cb3ada1b18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sequentially applies all the items in <code>self</code> to <code>f</code>.  <a href="#a916a8f73c497bbd2d9c3b8cb3ada1b18">More...</a><br /></td></tr>
-<tr class="separator:a916a8f73c497bbd2d9c3b8cb3ada1b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab40720954fa063663c72d2d0e1cc61f3"><td class="memItemLeft" align="right" valign="top">static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#ab40720954fa063663c72d2d0e1cc61f3">Slice99_c_str</a> (<a class="el" href="structSlice99.html">Slice99</a> self, char out[restrict])</td></tr>
 <tr class="memdesc:ab40720954fa063663c72d2d0e1cc61f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies <code>self</code> to <code>out</code> and appends '\0' to the end.  <a href="#ab40720954fa063663c72d2d0e1cc61f3">More...</a><br /></td></tr>
 <tr class="separator:ab40720954fa063663c72d2d0e1cc61f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -260,8 +240,53 @@ static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST <a class="el" href="structSlice9
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A slice of some array. </p>
-<p>The macros <a class="el" href="slice99_8h.html#a29d489b28cf4d2cf56a17a2617990fee" title="Like assert. ">SLICE99_ASSERT</a>, <a class="el" href="slice99_8h.html#a4ad6e85e51121b718c704bc6f7c16cd7" title="Like memcmp. ">SLICE99_MEMCMP</a>, <a class="el" href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c" title="Like memcpy. ">SLICE99_MEMCPY</a>, <a class="el" href="slice99_8h.html#afa5c9f55ad339be88c60744fadb239f6" title="Like memmove. ">SLICE99_MEMMOVE</a>, and <a class="el" href="slice99_8h.html#a74ab39995ce273807783bb0006d9d85d" title="Like strlen. ">SLICE99_STRLEN</a> are automatically defined in case they have not been defined before including this header file. They represent the corresponding standard library's functions, though actual implementations can differ. If you develop software for a freestanding environment, these macros might need to be defined beforehand. </p>
+<p>The macros <a class="el" href="slice99_8h.html#a29d489b28cf4d2cf56a17a2617990fee" title="Like assert. ">SLICE99_ASSERT</a>, <a class="el" href="slice99_8h.html#a4ad6e85e51121b718c704bc6f7c16cd7" title="Like memcmp. ">SLICE99_MEMCMP</a>, <a class="el" href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c" title="Like memcpy. ">SLICE99_MEMCPY</a>, <a class="el" href="slice99_8h.html#afa5c9f55ad339be88c60744fadb239f6" title="Like memmove. ">SLICE99_MEMMOVE</a>, and <a class="el" href="slice99_8h.html#a74ab39995ce273807783bb0006d9d85d" title="Like strlen. ">SLICE99_STRLEN</a> are automatically defined in case they have not been defined before including this header file. They represent the corresponding standard library's functions, although actual implementations can differ. If you develop software for a freestanding environment, these macros must be defined beforehand. </p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a557c011352fbc859d6c9ed3871a31c5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a557c011352fbc859d6c9ed3871a31c5e">&#9670;&nbsp;</a></span>SLICE99_DEF_TYPED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SLICE99_DEF_TYPED</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">name, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">T&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Defines the strongly typed slice <code>name</code> containing items of type <code>T</code>. </p>
+<p>This macro defines</p>
+<div class="fragment"><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div><div class="line">    T *ptr;</div><div class="line">    <span class="keywordtype">size_t</span> len;</div><div class="line">} name;</div></div><!-- fragment --><p>Also, it specialises all the functions operating on <a class="el" href="structSlice99.html" title="A slice of some array. ">Slice99</a>. Every function is defined by the following rules:</p>
+<ul>
+<li>A function named <code>Slice99_*</code> becomes <code>name_*</code>.</li>
+<li><code>void *</code> is replaced by <code>T *</code>.</li>
+<li><code><a class="el" href="structSlice99.html" title="A slice of some array. ">Slice99</a></code> is replaced by <code>name</code>.</li>
+<li>All function preconditions, invariants, and postconditions remain the same.</li>
+</ul>
+<p>The exceptions are:</p>
+<ul>
+<li><a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad" title="Constructs a slice. ">Slice99_new</a>: the signature becomes <code>(T *ptr, size_t len) =&gt; name</code>.</li>
+<li><a class="el" href="slice99_8h.html#af4ddbf9b09c12cee18c2546c0e08d657" title="Constructs a slice residing between start (inclusively) and end (exclusively). ">Slice99_from_ptrdiff</a>: the signature becomes <code>(T *start, T *end) =&gt; name</code>.</li>
+<li><a class="el" href="slice99_8h.html#a827f21894eb4424d835b93de680caa9e" title="Constructs a slice from str. ">Slice99_from_str</a>, <a class="el" href="slice99_8h.html#ab40720954fa063663c72d2d0e1cc61f3" title="Copies self to out and appends &#39;\0&#39; to the end. ">Slice99_c_str</a>, <a class="el" href="slice99_8h.html#aab7b42bc1442e680b7611f9625b429f0" title="Packs self to uint8_t. ">Slice99_pack_to_u8</a>, <a class="el" href="slice99_8h.html#a2c41f94f5cb044fc385cdc2020889770" title="Packs self to uint16_t. ">Slice99_pack_to_u16</a>, <a class="el" href="slice99_8h.html#abaf4a73f9ada379d5a536b217740c198" title="Packs self to uint32_t. ">Slice99_pack_to_u32</a>, <a class="el" href="slice99_8h.html#a71da5746d9bb44d04efafc71fd2a736c" title="Packs self to uint64_t. ">Slice99_pack_to_u64</a>: their counterparts are not generated.</li>
+</ul>
+<h1>Examples</h1>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="slice99_8h.html">slice99.h</a>&gt;</span></div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div><div class="line">    <span class="keywordtype">double</span> x, y;</div><div class="line">} Point;</div><div class="line"></div><div class="line"><a class="code" href="slice99_8h.html#a557c011352fbc859d6c9ed3871a31c5e">SLICE99_DEF_TYPED</a>(MyPoints, Point);</div><div class="line"></div><div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">void</span>) {</div><div class="line">    MyPoints points =</div><div class="line">        <a class="code" href="slice99_8h.html#a910435545a29467d608f27e328cc429d">Slice99_typed_from_array</a>(MyPoints, (Point[]){{1.5, 32.5}, {12.0, 314.01}, {-134.10,</div><div class="line">-9.3}});</div><div class="line"></div><div class="line">MyPoints first_two = MyPoints_sub(points, 0, 2);</div><div class="line">Point *first = MyPoints_first(points);</div><div class="line"><span class="keywordtype">bool</span> is_empty = MyPoints_is_empty(points);</div><div class="line">}</div></div><!-- fragment --> 
+</div>
+</div>
 <a id="aee899fa7bd6ee37b88c0bf229213d97e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aee899fa7bd6ee37b88c0bf229213d97e">&#9670;&nbsp;</a></span>Slice99_from_array</h2>
 
@@ -318,6 +343,60 @@ static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST <a class="el" href="structSlice9
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a1268f7fbfc4e44efd9322b4123664e56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1268f7fbfc4e44efd9322b4123664e56">&#9670;&nbsp;</a></span>SLICE99_TO_TYPED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SLICE99_TO_TYPED</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">slice, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">typed_slice_name&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;((typed_slice_name){.ptr = (slice).ptr, .len = (slice).len})</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Converts <a class="el" href="structSlice99.html" title="A slice of some array. ">Slice99</a> to the typed representation <code>typed_slice_name</code>. </p>
+<dl class="section pre"><dt>Precondition</dt><dd><code>slice</code> must be an expression of type <a class="el" href="structSlice99.html" title="A slice of some array. ">Slice99</a>. </dd>
+<dd>
+<code>typed_slice_name</code> must be a type name defined via <a class="el" href="slice99_8h.html#a557c011352fbc859d6c9ed3871a31c5e" title="Defines the strongly typed slice name containing items of type T. ">SLICE99_DEF_TYPED</a>. </dd></dl>
+
+</div>
+</div>
+<a id="ace6a9c752806e590ca10c3f2131c8665"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace6a9c752806e590ca10c3f2131c8665">&#9670;&nbsp;</a></span>SLICE99_TO_UNTYPED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SLICE99_TO_UNTYPED</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">typed_slice</td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad">Slice99_new</a>((typed_slice).ptr, sizeof(*(typed_slice).ptr), (typed_slice).len)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Converts the typed slice <code>typed_slice</code> to <a class="el" href="structSlice99.html" title="A slice of some array. ">Slice99</a>. </p>
+<dl class="section pre"><dt>Precondition</dt><dd><code>typed_slice</code> must be an expression of type defined by <a class="el" href="slice99_8h.html#a557c011352fbc859d6c9ed3871a31c5e" title="Defines the strongly typed slice name containing items of type T. ">SLICE99_DEF_TYPED</a>. </dd></dl>
 
 </div>
 </div>
@@ -657,61 +736,6 @@ static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST <a class="el" href="structSlice9
 
 </div>
 </div>
-<a id="aee124789b351694f4697e4472c679faf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee124789b351694f4697e4472c679faf">&#9670;&nbsp;</a></span>Slice99_find()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static SLICE99_WARN_UNUSED_RESULT void* Slice99_find </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool(*)(const void *item, void *cx)&#160;</td>
-          <td class="paramname"><em>predicate</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>cx</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Finds the first occurence of an item for which <code>predicate</code> holds. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice which will be searched for an item. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">predicate</td><td>The predicate on an item. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">cx</td><td>The auxiliary value provided to <code>predicate</code> each time.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section pre"><dt>Precondition</dt><dd><code>predicate != NULL</code> </dd>
-<dd>
-<code>self.len</code> must be representable as <code>ptrdiff_t</code>. </dd></dl>
-
-</div>
-</div>
 <a id="ab3efecbb56ae6ddf66db72c5fc12c335"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab3efecbb56ae6ddf66db72c5fc12c335">&#9670;&nbsp;</a></span>Slice99_first()</h2>
 
@@ -743,61 +767,6 @@ static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST <a class="el" href="structSlice9
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="a916a8f73c497bbd2d9c3b8cb3ada1b18"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a916a8f73c497bbd2d9c3b8cb3ada1b18">&#9670;&nbsp;</a></span>Slice99_for_each()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void Slice99_for_each </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void(*)(void *item, void *cx)&#160;</td>
-          <td class="paramname"><em>f</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>cx</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sequentially applies all the items in <code>self</code> to <code>f</code>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice whose items will be applied to <code>f</code>. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">f</td><td>The handler function. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">cx</td><td>The auxiliary value provided to <code>f</code> each time.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section pre"><dt>Precondition</dt><dd><code>f != NULL</code> </dd>
-<dd>
-<code>self.len</code> must be representable as <code>ptrdiff_t</code>. </dd></dl>
 
 </div>
 </div>
@@ -892,98 +861,6 @@ static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST <a class="el" href="structSlice9
   </dd>
 </dl>
 <dl class="section pre"><dt>Precondition</dt><dd><code>str != NULL</code> </dd></dl>
-
-</div>
-</div>
-<a id="a314b3e238e23ad7486841d8a8ceb9e9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a314b3e238e23ad7486841d8a8ceb9e9e">&#9670;&nbsp;</a></span>Slice99_fwrite()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void Slice99_fwrite </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FILE *&#160;</td>
-          <td class="paramname"><em>stream</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Writes <code>self</code> to <code>stream</code>, byte-by-byte. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice to be written. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">stream</td><td>The stream to which <code>self</code> will be written.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>Included only if <code>SLICE99_INCLUDE_IO</code> is defined. </dd></dl>
-
-</div>
-</div>
-<a id="afa61e5b059865b65048fce5dd53fea27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa61e5b059865b65048fce5dd53fea27">&#9670;&nbsp;</a></span>Slice99_fwrite_ln()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void Slice99_fwrite_ln </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FILE *&#160;</td>
-          <td class="paramname"><em>stream</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The same as <a class="el" href="slice99_8h.html#a314b3e238e23ad7486841d8a8ceb9e9e" title="Writes self to stream, byte-by-byte. ">Slice99_fwrite</a> but places a new line character afterwards. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice to be written. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">stream</td><td>The stream to which <code>self</code> will be written.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>Included only if <code>SLICE99_INCLUDE_IO</code> is defined. </dd></dl>
 
 </div>
 </div>
@@ -1827,52 +1704,6 @@ static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST <a class="el" href="structSlice9
 
 </div>
 </div>
-<a id="a34105553a141a9c14eef7bf22552e19f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34105553a141a9c14eef7bf22552e19f">&#9670;&nbsp;</a></span>Slice99_update_item_size()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a> Slice99_update_item_size </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>new_item_size</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Updates <code>self</code> with the new item size <code>new_item_size</code>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice whose item size will be updated. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">new_item_size</td><td>The new item size.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section pre"><dt>Precondition</dt><dd><code>new_item_size &gt; 0</code> </dd></dl>
-
-</div>
-</div>
 <a id="a0b671c453b415d9ca3d231626bd73ba0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0b671c453b415d9ca3d231626bd73ba0">&#9670;&nbsp;</a></span>Slice99_update_len()</h2>
 
@@ -1915,122 +1746,6 @@ static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST <a class="el" href="structSlice9
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="a7a5679da3af78e3cca0d7bf5f59793c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a5679da3af78e3cca0d7bf5f59793c9">&#9670;&nbsp;</a></span>Slice99_update_ptr()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static SLICE99_WARN_UNUSED_RESULT <a class="el" href="structSlice99.html">Slice99</a> Slice99_update_ptr </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>new_ptr</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Updates <code>self</code> with the new pointer <code>new_ptr</code>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice whose pointer to data will be updated. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">new_ptr</td><td>The new pointer to data.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section pre"><dt>Precondition</dt><dd><code>new_ptr != NULL</code> </dd></dl>
-
-</div>
-</div>
-<a id="a84aaf560a0ac60367ba665e8520ee544"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84aaf560a0ac60367ba665e8520ee544">&#9670;&nbsp;</a></span>Slice99_write()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void Slice99_write </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Writes <code>self</code> to <code>stdout</code>, byte-by-byte. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice to be written.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>Included only if <code>SLICE99_INCLUDE_IO</code> is defined. </dd></dl>
-
-</div>
-</div>
-<a id="aa5c6aa8e9267ef6e0428764ab6028a9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5c6aa8e9267ef6e0428764ab6028a9b">&#9670;&nbsp;</a></span>Slice99_write_ln()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void Slice99_write_ln </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The same as <a class="el" href="slice99_8h.html#a84aaf560a0ac60367ba665e8520ee544" title="Writes self to stdout, byte-by-byte. ">Slice99_write</a> but places a new line character afterwards. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice to be written.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd>Included only if <code>SLICE99_INCLUDE_IO</code> is defined. </dd></dl>
 
 </div>
 </div>
