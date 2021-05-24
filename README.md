@@ -94,3 +94,7 @@ Another use case of Slice99 is zero-copy parsers: you can return slices from you
 ### Q: Can I use this library to develop bare-metal software?
 
 A: Yes, see the [docs](https://hirrolot.github.io/slice99/slice99_8h.html#details).
+
+### Q: Does it support strongly typed slices?
+
+A: Yes, see [`SLICE99_DEF_TYPED`](https://hirrolot.github.io/slice99/slice99_8h.html#a557c011352fbc859d6c9ed3871a31c5e).
