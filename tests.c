@@ -732,7 +732,7 @@ typedef struct {
 
 SLICE99_DEF_TYPED(MyPoints, Point);
 
-static void typecheck_typed_slice(void) {
+TEST(typed_slice) {
 #define TYPECHECK(fn, expected_type)                                                               \
     do {                                                                                           \
         expected_type = fn;                                                                        \
@@ -771,6 +771,13 @@ static void typecheck_typed_slice(void) {
         MyPoints_split_at, void (*_)(MyPoints, size_t, MyPoints * restrict, MyPoints * restrict));
 
 #undef TYPECHECK
+
+    // Slice99_typed_from_array
+    {
+        MyPoints points =
+            Slice99_typed_from_array(MyPoints, (Point[]){{1, 32}, {12, 314}, {-134, -9}});
+        (void)points;
+    }
 }
 
 // } (Typed slice)
@@ -810,7 +817,7 @@ int main(void) {
     test_maybe_just();
     test_maybe_nothing();
 
-    (void)typecheck_typed_slice;
+    test_typed_slice();
 
     puts("All the tests have passed!");
 }
