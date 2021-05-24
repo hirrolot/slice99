@@ -118,6 +118,12 @@ SOFTWARE.
  */
 #define SLICE99_PATCH 0
 
+#define SLICE99_DEF(name, T)                                                                       \
+    typedef struct {                                                                               \
+        T *ptr;                                                                                    \
+        size_t len;                                                                                \
+    } name;
+
 /**
  * Computes a number of items in an array expression.
  */
@@ -248,35 +254,6 @@ Slice99_from_ptrdiff(void *start, void *end, size_t item_size) {
 inline static SLICE99_WARN_UNUSED_RESULT Slice99 Slice99_empty(size_t item_size) {
     SLICE99_ASSERT(item_size > 0);
     return Slice99_new("", item_size, 0);
-}
-
-/**
- * Updates @p self with the new pointer @p new_ptr.
- *
- * @param[in] self The slice whose pointer to data will be updated.
- * @param[in] new_ptr The new pointer to data.
- *
- * @pre `new_ptr != NULL`
- */
-inline static SLICE99_WARN_UNUSED_RESULT Slice99 Slice99_update_ptr(Slice99 self, void *new_ptr) {
-    SLICE99_ASSERT(new_ptr);
-
-    return Slice99_new(new_ptr, self.item_size, self.len);
-}
-
-/**
- * Updates @p self with the new item size @p new_item_size.
- *
- * @param[in] self The slice whose item size will be updated.
- * @param[in] new_item_size The new item size.
- *
- * @pre `new_item_size > 0`
- */
-inline static SLICE99_WARN_UNUSED_RESULT Slice99
-Slice99_update_item_size(Slice99 self, size_t new_item_size) {
-    SLICE99_ASSERT(new_item_size > 0);
-
-    return Slice99_new(self.ptr, new_item_size, self.len);
 }
 
 /**
