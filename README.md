@@ -85,6 +85,40 @@ void foo(Slice99 buffer) {
 
 Another use case of Slice99 is zero-copy parsers: you can return slices from your parser pointing to actual data, without `malloc`ing and `memcpy`ing just to append `'\0'` each time.
 
+## Typed slices
+
+You can define a strongly typed slice with `SLICE99_DEF_TYPED`:
+
+```c
+#include <slice99.h>
+
+typedef struct {
+    double x, y;
+} Point;
+
+SLICE99_DEF_TYPED(MyPoints, Point);
+
+int main(void) {
+    MyPoints points =
+        Slice99_typed_from_array(MyPoints, (Point[]){{1.5, 32.5}, {12.0, 314.01}, {-134.10, -9.3}});
+
+    MyPoints first_two = MyPoints_sub(points, 0, 2);
+    Point *first = MyPoints_first(points);
+    bool is_empty = MyPoints_is_empty(points);
+}
+```
+
+`SLICE99_DEF_TYPED(MyPoints, Point)` generates a slice named `MyPoints` of the following structure:
+
+```c
+typedef struct {
+    Point *ptr;
+    size_t len;
+} MyPoints;
+```
+
+It also generates `inline static` functions like `MyPoints_sub` that type-check their arguments. These functions merely desugar to their untyped `Slice99_*` counterparts.
+
 ## Projects using Slice99
 
  - [Hirrolot/smolrtsp](https://github.com/Hirrolot/smolrtsp) --  A small, portable, extensible RTSP 1.0 implementation in C99.
@@ -94,7 +128,3 @@ Another use case of Slice99 is zero-copy parsers: you can return slices from you
 ### Q: Can I use this library to develop bare-metal software?
 
 A: Yes, see the [docs](https://hirrolot.github.io/slice99/slice99_8h.html#details).
-
-### Q: Does it support strongly typed slices?
-
-A: Yes, see [`SLICE99_DEF_TYPED`](https://hirrolot.github.io/slice99/slice99_8h.html#a557c011352fbc859d6c9ed3871a31c5e).
