@@ -369,21 +369,6 @@ typedef struct {
 } Slice99;
 
 /**
- * An optional slice.
- */
-typedef struct {
-    /**
-     * Whether #slice exist or not.
-     */
-    bool exists;
-
-    /**
-     * The slice of data.
-     */
-    Slice99 slice;
-} Slice99Maybe;
-
-/**
  * Constructs a slice.
  *
  * @param[in] ptr The value of Slice99#ptr.
@@ -896,22 +881,5 @@ inline static uint64_t SLICE99_PURE Slice99_pack_to_u64(Slice99 self) {
 }
 
 #endif // UINT64_MAX
-
-/**
- * Constructs an optional slice with some value.
- *
- * @param[in] slice The value of Slice99Maybe#slice.
- */
-inline static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST Slice99Maybe
-Slice99Maybe_just(Slice99 slice) {
-    return (Slice99Maybe){.exists = true, .slice = slice};
-}
-
-/**
- * Constructs an optional slice without a value.
- */
-inline static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST Slice99Maybe Slice99Maybe_nothing(void) {
-    return (Slice99Maybe){.exists = false, .slice = Slice99_empty(sizeof(char))};
-}
 
 #endif // SLICE99_H

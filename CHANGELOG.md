@@ -22,6 +22,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    - `Slice99_fwrite(_ln)`, `Slice99_write(_ln)`.
  - Field updating functions:
    - `Slice99_update_ptr`, `Slice99_update_item_size`.
+ - `Slice99Maybe` facilities:
+   - The `Slice99Maybe` type.
+   - The `Slice99Maybe_(just|nothing)`, functions.
 
 ## [0.3.0] - 2021-03-27
 

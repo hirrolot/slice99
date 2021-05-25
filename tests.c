@@ -710,20 +710,6 @@ TEST(pack_to_u64) {
     assert(Slice99_pack_to_u64(slice) == n);
 }
 
-TEST(maybe_just) {
-    Slice99 slice = Slice99_from_str("abc");
-    Slice99Maybe maybe = Slice99Maybe_just(slice);
-
-    assert(maybe.exists);
-    assert(Slice99_primitive_eq(slice, maybe.slice));
-}
-
-TEST(maybe_nothing) {
-    Slice99Maybe maybe = Slice99Maybe_nothing();
-
-    assert(!maybe.exists);
-}
-
 // Typed slice {
 
 typedef struct {
@@ -809,13 +795,11 @@ int main(void) {
     test_reverse();
     test_split_at();
     test_to_c_str();
+
     test_pack_to_u8();
     test_pack_to_u16();
     test_pack_to_u32();
     test_pack_to_u64();
-
-    test_maybe_just();
-    test_maybe_nothing();
 
     test_typed_slice();
 
