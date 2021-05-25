@@ -161,9 +161,9 @@ SOFTWARE.
  *         Slice99_typed_from_array(MyPoints, (Point[]){{1.5, 32.5}, {12.0, 314.01}, {-134.10,
  * -9.3}});
  *
- * MyPoints first_two = MyPoints_sub(points, 0, 2);
- * Point *first = MyPoints_first(points);
- * bool is_empty = MyPoints_is_empty(points);
+ *     MyPoints first_two = MyPoints_sub(points, 0, 2);
+ *     Point *first = MyPoints_first(points);
+ *     bool is_empty = MyPoints_is_empty(points);
  * }
  * @endcode
  */
