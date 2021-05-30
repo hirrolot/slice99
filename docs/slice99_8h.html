@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>slice99: slice99.h File Reference</title>
+<title>Slice99: slice99.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,10 +21,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">slice99
-   &#160;<span id="projectnumber">0.3.0</span>
+   <div id="projectname">Slice99
+   &#160;<span id="projectnumber">0.4.0</span>
    </div>
-   <div id="projectbrief">Array slicing for C99</div>
+   <div id="projectbrief">Memory slices for C99</div>
   </td>
  </tr>
  </tbody>
@@ -79,9 +79,6 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSlice99.html">Slice99</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A slice of some array.  <a href="structSlice99.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structSlice99Maybe.html">Slice99Maybe</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An optional slice.  <a href="structSlice99Maybe.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -110,7 +107,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:aa20d9d653b7c065db03d068ada57b89c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The major version number. <br /></td></tr>
 <tr class="separator:aa20d9d653b7c065db03d068ada57b89c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a577ef72a4eace6cfb5ca89f2518250"><td class="memItemLeft" align="right" valign="top"><a id="a8a577ef72a4eace6cfb5ca89f2518250"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a8a577ef72a4eace6cfb5ca89f2518250">SLICE99_MINOR</a>&#160;&#160;&#160;3</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a8a577ef72a4eace6cfb5ca89f2518250">SLICE99_MINOR</a>&#160;&#160;&#160;4</td></tr>
 <tr class="memdesc:a8a577ef72a4eace6cfb5ca89f2518250"><td class="mdescLeft">&#160;</td><td class="mdescRight">The minor version number. <br /></td></tr>
 <tr class="separator:a8a577ef72a4eace6cfb5ca89f2518250"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a910ddb4ba43cb60535cf6d1c3cb498a0"><td class="memItemLeft" align="right" valign="top"><a id="a910ddb4ba43cb60535cf6d1c3cb498a0"></a>
@@ -230,13 +227,6 @@ Functions</h2></td></tr>
 <tr class="memitem:a71da5746d9bb44d04efafc71fd2a736c"><td class="memItemLeft" align="right" valign="top">static uint64_t SLICE99_PURE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a71da5746d9bb44d04efafc71fd2a736c">Slice99_pack_to_u64</a> (<a class="el" href="structSlice99.html">Slice99</a> self)</td></tr>
 <tr class="memdesc:a71da5746d9bb44d04efafc71fd2a736c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Packs <code>self</code> to <code>uint64_t</code>.  <a href="#a71da5746d9bb44d04efafc71fd2a736c">More...</a><br /></td></tr>
 <tr class="separator:a71da5746d9bb44d04efafc71fd2a736c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e582115f4f15bafc13a2615c39022b5"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST <a class="el" href="structSlice99Maybe.html">Slice99Maybe</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a9e582115f4f15bafc13a2615c39022b5">Slice99Maybe_just</a> (<a class="el" href="structSlice99.html">Slice99</a> slice)</td></tr>
-<tr class="memdesc:a9e582115f4f15bafc13a2615c39022b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an optional slice with some value.  <a href="#a9e582115f4f15bafc13a2615c39022b5">More...</a><br /></td></tr>
-<tr class="separator:a9e582115f4f15bafc13a2615c39022b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7852cf0fbbb3e9c1cc15056155fed2d"><td class="memItemLeft" align="right" valign="top"><a id="ac7852cf0fbbb3e9c1cc15056155fed2d"></a>
-static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST <a class="el" href="structSlice99Maybe.html">Slice99Maybe</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#ac7852cf0fbbb3e9c1cc15056155fed2d">Slice99Maybe_nothing</a> (void)</td></tr>
-<tr class="memdesc:ac7852cf0fbbb3e9c1cc15056155fed2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an optional slice without a value. <br /></td></tr>
-<tr class="separator:ac7852cf0fbbb3e9c1cc15056155fed2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A slice of some array. </p>
@@ -284,7 +274,7 @@ static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST <a class="el" href="structSlice9
 <li><a class="el" href="slice99_8h.html#a827f21894eb4424d835b93de680caa9e" title="Constructs a slice from str. ">Slice99_from_str</a>, <a class="el" href="slice99_8h.html#ab40720954fa063663c72d2d0e1cc61f3" title="Copies self to out and appends &#39;\0&#39; to the end. ">Slice99_c_str</a>, <a class="el" href="slice99_8h.html#aab7b42bc1442e680b7611f9625b429f0" title="Packs self to uint8_t. ">Slice99_pack_to_u8</a>, <a class="el" href="slice99_8h.html#a2c41f94f5cb044fc385cdc2020889770" title="Packs self to uint16_t. ">Slice99_pack_to_u16</a>, <a class="el" href="slice99_8h.html#abaf4a73f9ada379d5a536b217740c198" title="Packs self to uint32_t. ">Slice99_pack_to_u32</a>, <a class="el" href="slice99_8h.html#a71da5746d9bb44d04efafc71fd2a736c" title="Packs self to uint64_t. ">Slice99_pack_to_u64</a>: their counterparts are not generated.</li>
 </ul>
 <h1>Examples</h1>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="slice99_8h.html">slice99.h</a>&gt;</span></div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div><div class="line">    <span class="keywordtype">double</span> x, y;</div><div class="line">} Point;</div><div class="line"></div><div class="line"><a class="code" href="slice99_8h.html#a557c011352fbc859d6c9ed3871a31c5e">SLICE99_DEF_TYPED</a>(MyPoints, Point);</div><div class="line"></div><div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">void</span>) {</div><div class="line">    MyPoints points =</div><div class="line">        <a class="code" href="slice99_8h.html#a910435545a29467d608f27e328cc429d">Slice99_typed_from_array</a>(MyPoints, (Point[]){{1.5, 32.5}, {12.0, 314.01}, {-134.10,</div><div class="line">-9.3}});</div><div class="line"></div><div class="line">MyPoints first_two = MyPoints_sub(points, 0, 2);</div><div class="line">Point *first = MyPoints_first(points);</div><div class="line"><span class="keywordtype">bool</span> is_empty = MyPoints_is_empty(points);</div><div class="line">}</div></div><!-- fragment --> 
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="slice99_8h.html">slice99.h</a>&gt;</span></div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div><div class="line">    <span class="keywordtype">double</span> x, y;</div><div class="line">} Point;</div><div class="line"></div><div class="line"><a class="code" href="slice99_8h.html#a557c011352fbc859d6c9ed3871a31c5e">SLICE99_DEF_TYPED</a>(MyPoints, Point);</div><div class="line"></div><div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">void</span>) {</div><div class="line">    MyPoints points =</div><div class="line">        <a class="code" href="slice99_8h.html#a910435545a29467d608f27e328cc429d">Slice99_typed_from_array</a>(MyPoints, (Point[]){{1.5, 32.5}, {12.0, 314.01}, {-134.10,</div><div class="line">-9.3}});</div><div class="line"></div><div class="line">    MyPoints first_two = MyPoints_sub(points, 0, 2);</div><div class="line">    Point *first = MyPoints_first(points);</div><div class="line">    <span class="keywordtype">bool</span> is_empty = MyPoints_is_empty(points);</div><div class="line">}</div></div><!-- fragment --> 
 </div>
 </div>
 <a id="aee899fa7bd6ee37b88c0bf229213d97e"></a>
@@ -1743,40 +1733,6 @@ static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST <a class="el" href="structSlice9
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">self</td><td>The slice whose length will be updated. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">new_len</td><td>The new length. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a9e582115f4f15bafc13a2615c39022b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e582115f4f15bafc13a2615c39022b5">&#9670;&nbsp;</a></span>Slice99Maybe_just()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST <a class="el" href="structSlice99Maybe.html">Slice99Maybe</a> Slice99Maybe_just </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structSlice99.html">Slice99</a>&#160;</td>
-          <td class="paramname"><em>slice</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Constructs an optional slice with some value. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">slice</td><td>The value of <a class="el" href="structSlice99Maybe.html#a3565d5dc973aadcab7046d43aae0c9f9" title="The slice of data. ">Slice99Maybe::slice</a>. </td></tr>
   </table>
   </dd>
 </dl>

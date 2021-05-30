@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['exists',['exists',['../structSlice99Maybe.html#ad06c3cffc465b875391bde793791561e',1,'Slice99Maybe']]]
+  ['item_5fsize',['item_size',['../structSlice99.html#a9ef1a9b7b6645499fb2e1047b1c0228b',1,'Slice99']]]
 ];
