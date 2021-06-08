@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### Added
+
+ - Specify `__attribute__((always_inline))` on `SLICE99_DEF_TYPED`-generated functions if compiling on GCC.
+
 ## [0.4.0] - 2021-05-30
 
 ### Added

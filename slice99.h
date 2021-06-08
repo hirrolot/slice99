@@ -91,13 +91,15 @@ SOFTWARE.
 
 #if defined(__GNUC__) && !defined(__clang__)
 
-#define SLICE99_CONST __attribute__((const))
-#define SLICE99_PURE  __attribute__((pure))
+#define SLICE99_CONST         __attribute__((const))
+#define SLICE99_PURE          __attribute__((pure))
+#define SLICE99_ALWAYS_INLINE __attribute__((always_inline))
 
 #else
 
 #define SLICE99_CONST
 #define SLICE99_PURE
+#define SLICE99_ALWAYS_INLINE
 
 #endif
 
@@ -173,115 +175,127 @@ SOFTWARE.
         size_t len;                                                                                \
     } name;                                                                                        \
                                                                                                    \
-    inline static SLICE99_WARN_UNUSED_RESULT name name##_new(T *ptr, size_t len) {                 \
+    inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT name name##_new(                \
+        T *ptr, size_t len) {                                                                      \
         const Slice99 result = Slice99_new((void *)ptr, sizeof(T), len);                           \
         return SLICE99_TO_TYPED(result, name);                                                     \
     }                                                                                              \
                                                                                                    \
-    inline static SLICE99_WARN_UNUSED_RESULT name name##_from_ptrdiff(T *start, T *end) {          \
+    inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT name name##_from_ptrdiff(       \
+        T *start, T *end) {                                                                        \
         const Slice99 result = Slice99_from_ptrdiff((void *)start, (void *)end, sizeof(T));        \
         return SLICE99_TO_TYPED(result, name);                                                     \
     }                                                                                              \
                                                                                                    \
-    inline static SLICE99_WARN_UNUSED_RESULT name name##_empty(void) {                             \
+    inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT name name##_empty(void) {       \
         const Slice99 result = Slice99_empty(sizeof(T));                                           \
         return SLICE99_TO_TYPED(result, name);                                                     \
     }                                                                                              \
                                                                                                    \
-    inline static SLICE99_WARN_UNUSED_RESULT name name##_update_len(name self, size_t new_len) {   \
+    inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT name name##_update_len(         \
+        name self, size_t new_len) {                                                               \
         const Slice99 result = Slice99_update_len(SLICE99_TO_UNTYPED(self), new_len);              \
         return SLICE99_TO_TYPED(result, name);                                                     \
     }                                                                                              \
                                                                                                    \
-    inline static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST bool name##_is_empty(name self) {       \
+    inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT                                 \
+        SLICE99_CONST bool name##_is_empty(name self) {                                            \
         return Slice99_is_empty(SLICE99_TO_UNTYPED(self));                                         \
     }                                                                                              \
                                                                                                    \
-    inline static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST size_t name##_size(name self) {         \
+    inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT SLICE99_CONST size_t            \
+        name##_size(name self) {                                                                   \
         return Slice99_size(SLICE99_TO_UNTYPED(self));                                             \
     }                                                                                              \
                                                                                                    \
-    inline static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST T *name##_get(name self, ptrdiff_t i) { \
+    inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT SLICE99_CONST T *name##_get(    \
+        name self, ptrdiff_t i) {                                                                  \
         return (T *)Slice99_get(SLICE99_TO_UNTYPED(self), i);                                      \
     }                                                                                              \
                                                                                                    \
-    inline static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST T *name##_first(name self) {            \
+    inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT SLICE99_CONST T *name##_first(  \
+        name self) {                                                                               \
         return (T *)Slice99_first(SLICE99_TO_UNTYPED(self));                                       \
     }                                                                                              \
                                                                                                    \
-    inline static SLICE99_WARN_UNUSED_RESULT SLICE99_CONST T *name##_last(name self) {             \
+    inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT SLICE99_CONST T *name##_last(   \
+        name self) {                                                                               \
         return (T *)Slice99_last(SLICE99_TO_UNTYPED(self));                                        \
     }                                                                                              \
                                                                                                    \
-    inline static SLICE99_WARN_UNUSED_RESULT name name##_sub(                                      \
+    inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT name name##_sub(                \
         name self, ptrdiff_t start_idx, ptrdiff_t end_idx) {                                       \
         const Slice99 result = Slice99_sub(SLICE99_TO_UNTYPED(self), start_idx, end_idx);          \
         return SLICE99_TO_TYPED(result, name);                                                     \
     }                                                                                              \
                                                                                                    \
-    inline static SLICE99_WARN_UNUSED_RESULT name name##_advance(name self, ptrdiff_t offset) {    \
+    inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT name name##_advance(            \
+        name self, ptrdiff_t offset) {                                                             \
         const Slice99 result = Slice99_advance(SLICE99_TO_UNTYPED(self), offset);                  \
         return SLICE99_TO_TYPED(result, name);                                                     \
     }                                                                                              \
                                                                                                    \
-    inline static SLICE99_WARN_UNUSED_RESULT bool name##_primitive_eq(name lhs, name rhs) {        \
+    inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT bool name##_primitive_eq(       \
+        name lhs, name rhs) {                                                                      \
         return Slice99_primitive_eq(SLICE99_TO_UNTYPED(lhs), SLICE99_TO_UNTYPED(rhs));             \
     }                                                                                              \
                                                                                                    \
-    inline static SLICE99_WARN_UNUSED_RESULT bool name##_eq(                                       \
+    inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT bool name##_eq(                 \
         name lhs, name rhs, int (*comparator)(const T *, const T *)) {                             \
         return Slice99_eq(                                                                         \
             SLICE99_TO_UNTYPED(lhs), SLICE99_TO_UNTYPED(rhs),                                      \
             (int (*)(const void *, const void *))comparator);                                      \
     }                                                                                              \
                                                                                                    \
-    inline static SLICE99_WARN_UNUSED_RESULT bool name##_primitive_starts_with(                    \
-        name self, name prefix) {                                                                  \
+    inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT bool                            \
+        name##_primitive_starts_with(name self, name prefix) {                                     \
         return Slice99_primitive_starts_with(                                                      \
             SLICE99_TO_UNTYPED(self), SLICE99_TO_UNTYPED(prefix));                                 \
     }                                                                                              \
                                                                                                    \
-    inline static SLICE99_WARN_UNUSED_RESULT bool name##_starts_with(                              \
+    inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT bool name##_starts_with(        \
         name self, name prefix, int (*comparator)(const T *, const T *)) {                         \
         return Slice99_starts_with(                                                                \
             SLICE99_TO_UNTYPED(self), SLICE99_TO_UNTYPED(prefix),                                  \
             (int (*)(const void *, const void *))comparator);                                      \
     }                                                                                              \
                                                                                                    \
-    inline static SLICE99_WARN_UNUSED_RESULT bool name##_primitive_ends_with(                      \
-        name self, name postfix) {                                                                 \
+    inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT bool                            \
+        name##_primitive_ends_with(name self, name postfix) {                                      \
         return Slice99_primitive_ends_with(SLICE99_TO_UNTYPED(self), SLICE99_TO_UNTYPED(postfix)); \
     }                                                                                              \
                                                                                                    \
-    inline static SLICE99_WARN_UNUSED_RESULT bool name##_ends_with(                                \
+    inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT bool name##_ends_with(          \
         name self, name postfix, int (*comparator)(const T *, const T *)) {                        \
         return Slice99_ends_with(                                                                  \
             SLICE99_TO_UNTYPED(self), SLICE99_TO_UNTYPED(postfix),                                 \
             (int (*)(const void *, const void *))comparator);                                      \
     }                                                                                              \
                                                                                                    \
-    inline static void name##_copy(name self, name other) {                                        \
+    inline static SLICE99_ALWAYS_INLINE void name##_copy(name self, name other) {                  \
         Slice99_copy(SLICE99_TO_UNTYPED(self), SLICE99_TO_UNTYPED(other));                         \
     }                                                                                              \
                                                                                                    \
-    inline static void name##_copy_non_overlapping(name self, name other) {                        \
+    inline static SLICE99_ALWAYS_INLINE void name##_copy_non_overlapping(name self, name other) {  \
         Slice99_copy_non_overlapping(SLICE99_TO_UNTYPED(self), SLICE99_TO_UNTYPED(other));         \
     }                                                                                              \
                                                                                                    \
-    inline static void name##_swap(name self, ptrdiff_t lhs, ptrdiff_t rhs, T *restrict backup) {  \
+    inline static SLICE99_ALWAYS_INLINE void name##_swap(                                          \
+        name self, ptrdiff_t lhs, ptrdiff_t rhs, T *restrict backup) {                             \
         Slice99_swap(SLICE99_TO_UNTYPED(self), lhs, rhs, (void *restrict)backup);                  \
     }                                                                                              \
                                                                                                    \
-    inline static void name##_swap_with_slice(name self, name other, T *restrict backup) {         \
+    inline static SLICE99_ALWAYS_INLINE void name##_swap_with_slice(                               \
+        name self, name other, T *restrict backup) {                                               \
         Slice99_swap_with_slice(                                                                   \
             SLICE99_TO_UNTYPED(self), SLICE99_TO_UNTYPED(other), (void *restrict)backup);          \
     }                                                                                              \
                                                                                                    \
-    inline static void name##_reverse(name self, T *restrict backup) {                             \
+    inline static SLICE99_ALWAYS_INLINE void name##_reverse(name self, T *restrict backup) {       \
         Slice99_reverse(SLICE99_TO_UNTYPED(self), (void *restrict)backup);                         \
     }                                                                                              \
                                                                                                    \
-    inline static void name##_split_at(                                                            \
+    inline static SLICE99_ALWAYS_INLINE void name##_split_at(                                      \
         name self, size_t i, name *restrict lhs, name *restrict rhs) {                             \
         SLICE99_ASSERT(lhs);                                                                       \
         SLICE99_ASSERT(rhs);                                                                       \
