@@ -119,6 +119,10 @@ typedef struct {
 
 It also generates `inline static` functions like `MyPoints_sub` that type-check their arguments. These functions merely desugar to their untyped `Slice99_*` counterparts.
 
+### Fundamental types
+
+This library automatically defines typed slices of several fundamental types. I recommend using them instead of untyped `Slice99`, if possible. For more information, see the docs.
+
 ## Projects using Slice99
 
  - [Hirrolot/smolrtsp](https://github.com/Hirrolot/smolrtsp) --  A small, portable, extensible RTSP 1.0 implementation in C99.

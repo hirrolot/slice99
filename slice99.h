@@ -804,7 +804,7 @@ inline static char *Slice99_c_str(Slice99 self, char out[restrict]) {
     return out;
 }
 
-// Check whether uint8_t is defined.
+// Check whether `uint8_t` is defined.
 #ifdef UINT8_MAX
 
 /**
@@ -827,7 +827,7 @@ inline static uint8_t SLICE99_PURE Slice99_pack_to_u8(Slice99 self) {
 
 #endif // UINT8_MAX
 
-// Check whether uint16_t is defined.
+// Check whether `uint16_t` is defined.
 #ifdef UINT16_MAX
 
 /**
@@ -850,7 +850,7 @@ inline static uint16_t SLICE99_PURE Slice99_pack_to_u16(Slice99 self) {
 
 #endif // UINT16_MAX
 
-// Check whether uint32_t is defined.
+// Check whether `uint32_t` is defined.
 #ifdef UINT32_MAX
 
 /**
@@ -873,7 +873,7 @@ inline static uint32_t SLICE99_PURE Slice99_pack_to_u32(Slice99 self) {
 
 #endif // UINT32_MAX
 
-// Check whether uint64_t is defined.
+// Check whether `uint64_t` is defined.
 #ifdef UINT64_MAX
 
 /**
@@ -895,5 +895,62 @@ inline static uint64_t SLICE99_PURE Slice99_pack_to_u64(Slice99 self) {
 }
 
 #endif // UINT64_MAX
+
+SLICE99_DEF_TYPED(CharSlice99, char);
+SLICE99_DEF_TYPED(SCharSlice99, signed char);
+SLICE99_DEF_TYPED(UCharSlice99, unsigned char);
+
+SLICE99_DEF_TYPED(ShortSlice99, short);
+SLICE99_DEF_TYPED(UShortSlice99, unsigned short);
+
+SLICE99_DEF_TYPED(IntSlice99, int);
+SLICE99_DEF_TYPED(UIntSlice99, unsigned int);
+
+SLICE99_DEF_TYPED(LongSlice99, long);
+SLICE99_DEF_TYPED(ULongSlice99, unsigned long);
+SLICE99_DEF_TYPED(LongLongSlice99, long long);
+SLICE99_DEF_TYPED(ULongLongSlice99, unsigned long long);
+
+SLICE99_DEF_TYPED(FloatSlice99, float);
+SLICE99_DEF_TYPED(DoubleSlice99, double);
+SLICE99_DEF_TYPED(LongDoubleSlice99, long double);
+
+SLICE99_DEF_TYPED(BoolSlice99, _Bool);
+
+// Unsigned integers {
+#ifdef UINT8_MAX
+SLICE99_DEF_TYPED(U8Slice99, uint8_t);
+#endif
+
+#ifdef UINT16_MAX
+SLICE99_DEF_TYPED(U16Slice99, uint16_t);
+#endif
+
+#ifdef UINT32_MAX
+SLICE99_DEF_TYPED(U32Slice99, uint32_t);
+#endif
+
+#ifdef UINT64_MAX
+SLICE99_DEF_TYPED(U64Slice99, uint64_t);
+#endif
+// } (Unsigned integers)
+
+// Signed integers {
+#ifdef INT8_MAX
+SLICE99_DEF_TYPED(I8Slice99, int8_t);
+#endif
+
+#ifdef INT16_MAX
+SLICE99_DEF_TYPED(I16Slice99, int16_t);
+#endif
+
+#ifdef INT32_MAX
+SLICE99_DEF_TYPED(I32Slice99, int32_t);
+#endif
+
+#ifdef INT64_MAX
+SLICE99_DEF_TYPED(I64Slice99, int64_t);
+#endif
+// } (Signed integers)
 
 #endif // SLICE99_H

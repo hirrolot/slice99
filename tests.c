@@ -766,6 +766,39 @@ TEST(typed_slice) {
     }
 }
 
+TEST(fundamentals) {
+    (void)CharSlice99_new((char[]){'a', 'b', 'c'}, 3);
+    (void)SCharSlice99_new((signed char[]){'a', 'b', 'c'}, 3);
+    (void)UCharSlice99_new((unsigned char[]){'a', 'b', 'c'}, 3);
+
+    (void)ShortSlice99_new((short[]){1, 2, 3}, 3);
+    (void)UShortSlice99_new((unsigned short[]){1, 2, 3}, 3);
+
+    (void)IntSlice99_new((int[]){1, 2, 3}, 3);
+    (void)UIntSlice99_new((unsigned int[]){1, 2, 3}, 3);
+
+    (void)LongSlice99_new((long[]){1, 2, 3}, 3);
+    (void)ULongSlice99_new((unsigned long[]){1, 2, 3}, 3);
+    (void)LongLongSlice99_new((long long[]){1, 2, 3}, 3);
+    (void)ULongLongSlice99_new((unsigned long long[]){1, 2, 3}, 3);
+
+    (void)FloatSlice99_new((float[]){1, 2, 3}, 3);
+    (void)DoubleSlice99_new((double[]){1, 2, 3}, 3);
+    (void)LongDoubleSlice99_new((long double[]){1, 2, 3}, 3);
+
+    (void)BoolSlice99_new((_Bool[]){1, 2, 3}, 3);
+
+    (void)U8Slice99_new((uint8_t[]){1, 2, 3}, 3);
+    (void)U16Slice99_new((uint16_t[]){1, 2, 3}, 3);
+    (void)U32Slice99_new((uint32_t[]){1, 2, 3}, 3);
+    (void)U64Slice99_new((uint64_t[]){1, 2, 3}, 3);
+
+    (void)I8Slice99_new((int8_t[]){1, 2, 3}, 3);
+    (void)I16Slice99_new((int16_t[]){1, 2, 3}, 3);
+    (void)I32Slice99_new((int32_t[]){1, 2, 3}, 3);
+    (void)I64Slice99_new((int64_t[]){1, 2, 3}, 3);
+}
+
 // } (Typed slice)
 
 int main(void) {
@@ -802,6 +835,7 @@ int main(void) {
     test_pack_to_u64();
 
     test_typed_slice();
+    test_fundamentals();
 
     puts("All the tests have passed!");
 }

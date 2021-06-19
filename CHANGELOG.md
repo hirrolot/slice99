@@ -9,6 +9,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
  - Specify `__attribute__((always_inline))` on `SLICE99_DEF_TYPED`-generated functions if compiling on GCC.
+ - Typed slices of fundamental types:
+   - `CharSlice99` of `char`.
+   - `SCharSlice99` of `signed char`.
+   - `UCharSlice99` of `unsigned char`.
+   - `ShortSlice99` of `short`.
+   - `UShortSlice99` of `unsigned short`.
+   - `IntSlice99` of `int`.
+   - `UIntSlice99` of `unsigned int`.
+   - `LongSlice99` of `long`.
+   - `ULongSlice99` of `unsigned long`.
+   - `LongLongSlice99` of `long long`.
+   - `ULongLongSlice99` of `unsigned long long`.
+   - `FloatSlice99` of `float`.
+   - `DoubleSlice99` of `double`.
+   - `LongDoubleSlice99` of `long double`.
+   - `BoolSlice99` of `_Bool`.
+   - `U8Slice99` of `uint8_t` (if supported).
+   - `U16Slice99` of `uint16_t` (if supported).
+   - `U32Slice99` of `uint32_t` (if supported).
+   - `U64Slice99` of `uint64_t` (if supported).
+   - `I8Slice99` of `int8_t` (if supported).
+   - `I16Slice99` of `int16_t` (if supported).
+   - `I32Slice99` of `int32_t` (if supported).
+   - `I64Slice99` of `int64_t` (if supported).
 
 ## [0.4.0] - 2021-05-30
 
