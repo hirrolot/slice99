@@ -34,6 +34,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    - `I32Slice99` of `int32_t` (if supported).
    - `I64Slice99` of `int64_t` (if supported).
 
+### Fixed
+
+ - Do not specify `SLICE99_PURE` for `Slice99_pack_to_(u8|u16|u32|u64)` as they use `SLICE99_ASSERT`.
+
 ## [0.4.0] - 2021-05-30
 
 ### Added

@@ -816,7 +816,7 @@ inline static char *Slice99_c_str(Slice99 self, char out[restrict]) {
  *
  * @note This function is defined only if `uint8_t` is supported.
  */
-inline static uint8_t SLICE99_PURE Slice99_pack_to_u8(Slice99 self) {
+inline static uint8_t Slice99_pack_to_u8(Slice99 self) {
     uint8_t n;
 
     SLICE99_ASSERT(Slice99_size(self) == sizeof(n));
@@ -839,7 +839,7 @@ inline static uint8_t SLICE99_PURE Slice99_pack_to_u8(Slice99 self) {
  *
  * @note This function is defined only if `uint16_t` is supported.
  */
-inline static uint16_t SLICE99_PURE Slice99_pack_to_u16(Slice99 self) {
+inline static uint16_t Slice99_pack_to_u16(Slice99 self) {
     uint16_t n;
 
     SLICE99_ASSERT(Slice99_size(self) == sizeof(n));
@@ -862,7 +862,7 @@ inline static uint16_t SLICE99_PURE Slice99_pack_to_u16(Slice99 self) {
  *
  * @note This function is defined only if `uint32_t` is supported.
  */
-inline static uint32_t SLICE99_PURE Slice99_pack_to_u32(Slice99 self) {
+inline static uint32_t Slice99_pack_to_u32(Slice99 self) {
     uint32_t n;
 
     SLICE99_ASSERT(Slice99_size(self) == sizeof(n));
@@ -885,7 +885,7 @@ inline static uint32_t SLICE99_PURE Slice99_pack_to_u32(Slice99 self) {
  *
  * @note This function is defined only if `uint64_t` is supported.
  */
-inline static uint64_t SLICE99_PURE Slice99_pack_to_u64(Slice99 self) {
+inline static uint64_t Slice99_pack_to_u64(Slice99 self) {
     uint64_t n;
 
     SLICE99_ASSERT(Slice99_size(self) == sizeof(n));
