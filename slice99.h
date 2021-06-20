@@ -825,6 +825,13 @@ inline static uint8_t Slice99_pack_to_u8(Slice99 self) {
     return n;
 }
 
+/**
+ * A shortcut to `Slice99_pack_to_u8(Slice99_sub(self, 0, sizeof(uint8_t)))`.
+ */
+inline static uint8_t Slice99_pack_to_u8_beginning(Slice99 self) {
+    return Slice99_pack_to_u8(Slice99_sub(self, 0, sizeof(uint8_t)));
+}
+
 #endif // UINT8_MAX
 
 // Check whether `uint16_t` is defined.
@@ -846,6 +853,13 @@ inline static uint16_t Slice99_pack_to_u16(Slice99 self) {
 
     SLICE99_MEMCPY(&n, self.ptr, sizeof(n));
     return n;
+}
+
+/**
+ * A shortcut to `Slice99_pack_to_u16(Slice99_sub(self, 0, sizeof(uint16_t)))`.
+ */
+inline static uint16_t Slice99_pack_to_u16_beginning(Slice99 self) {
+    return Slice99_pack_to_u16(Slice99_sub(self, 0, sizeof(uint16_t)));
 }
 
 #endif // UINT16_MAX
@@ -871,6 +885,13 @@ inline static uint32_t Slice99_pack_to_u32(Slice99 self) {
     return n;
 }
 
+/**
+ * A shortcut to `Slice99_pack_to_u32(Slice99_sub(self, 0, sizeof(uint32_t)))`.
+ */
+inline static uint32_t Slice99_pack_to_u32_beginning(Slice99 self) {
+    return Slice99_pack_to_u32(Slice99_sub(self, 0, sizeof(uint32_t)));
+}
+
 #endif // UINT32_MAX
 
 // Check whether `uint64_t` is defined.
@@ -892,6 +913,13 @@ inline static uint64_t Slice99_pack_to_u64(Slice99 self) {
 
     SLICE99_MEMCPY(&n, self.ptr, sizeof(n));
     return n;
+}
+
+/**
+ * A shortcut to `Slice99_pack_to_u64(Slice99_sub(self, 0, sizeof(uint64_t)))`.
+ */
+inline static uint64_t Slice99_pack_to_u64_beginning(Slice99 self) {
+    return Slice99_pack_to_u64(Slice99_sub(self, 0, sizeof(uint64_t)));
 }
 
 #endif // UINT64_MAX

@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+ - The `Slice99_pack_to_(u8|u16|u32|u64)_beginning` functions. They are like `Slice99_pack_to_(u8|u16|u32|u64)` but only take the beginning of a slice.
  - Specify `__attribute__((always_inline))` on `SLICE99_DEF_TYPED`-generated functions if compiling on GCC.
  - Typed slices of fundamental types:
    - `CharSlice99` of `char`.
