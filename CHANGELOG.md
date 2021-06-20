@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+## [0.4.1] - 2021-06-20
+
 ### Added
 
  - The `Slice99_pack_to_(u8|u16|u32|u64)_beginning` functions. They are like `Slice99_pack_to_(u8|u16|u32|u64)` but only take the beginning of a slice.
