@@ -132,19 +132,15 @@ SOFTWARE.
  * } name;
  * @endcode
  *
- * Also, it specialises all the functions operating on #Slice99. Every function is defined by the
- * following rules:
+ * Also, it specialises all the functions operating on #Slice99. Every function (except for
+ * #Slice99_from_str and #Slice99_c_str) is defined by the following rules:
  *
  *  - A function named `Slice99_*` becomes `name_*`.
  *  - `void *` is replaced by `T *`.
  *  - `Slice99` is replaced by `name`.
+ *  - `size_t item_size` parameters are removed (e.g., as in #Slice99_new, #Slice99_empty,
+ * #Slice99_from_ptrdiff).
  *  - All function preconditions, invariants, and postconditions remain the same.
- *
- * The exceptions are:
- *
- *  - #Slice99_new: the signature becomes `(T *ptr, size_t len) => name`.
- *  - #Slice99_from_ptrdiff: the signature becomes `(T *start, T *end) => name`.
- *  - #Slice99_from_str, #Slice99_c_str: their counterparts are not generated.
  *
  * # Examples
  *
