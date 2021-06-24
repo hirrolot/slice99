@@ -11,6 +11,5 @@ var menudata={children:[
 {text:"Globals",url:"globals.html",children:[
 {text:"All",url:"globals.html",children:[
 {text:"s",url:"globals.html#index_s"}]},
-{text:"Functions",url:"globals_func.html",children:[
-{text:"s",url:"globals_func.html#index_s"}]},
+{text:"Functions",url:"globals_func.html"},
 {text:"Macros",url:"globals_defs.html"}]}]}]}
