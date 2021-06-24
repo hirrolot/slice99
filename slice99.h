@@ -144,8 +144,7 @@ SOFTWARE.
  *
  *  - #Slice99_new: the signature becomes `(T *ptr, size_t len) => name`.
  *  - #Slice99_from_ptrdiff: the signature becomes `(T *start, T *end) => name`.
- *  - #Slice99_from_str, #Slice99_c_str, #Slice99_pack_to_u8, #Slice99_pack_to_u16,
- * #Slice99_pack_to_u32, #Slice99_pack_to_u64: their counterparts are not generated.
+ *  - #Slice99_from_str, #Slice99_c_str: their counterparts are not generated.
  *
  * # Examples
  *
@@ -803,126 +802,6 @@ inline static char *Slice99_c_str(Slice99 self, char out[restrict]) {
     out[Slice99_size(self)] = '\0';
     return out;
 }
-
-// Check whether `uint8_t` is defined.
-#ifdef UINT8_MAX
-
-/**
- * Packs @p self to `uint8_t`.
- *
- * @param[in] self The slice to be packed.
- *
- * @pre `Slice99_size(self) == sizeof(uint8_t)`
- *
- * @note This function is defined only if `uint8_t` is supported.
- */
-inline static uint8_t Slice99_pack_to_u8(Slice99 self) {
-    uint8_t n;
-
-    SLICE99_ASSERT(Slice99_size(self) == sizeof(n));
-
-    SLICE99_MEMCPY(&n, self.ptr, sizeof(n));
-    return n;
-}
-
-/**
- * A shortcut to `Slice99_pack_to_u8(Slice99_sub(self, 0, sizeof(uint8_t)))`.
- */
-inline static uint8_t Slice99_pack_to_u8_beginning(Slice99 self) {
-    return Slice99_pack_to_u8(Slice99_sub(self, 0, sizeof(uint8_t)));
-}
-
-#endif // UINT8_MAX
-
-// Check whether `uint16_t` is defined.
-#ifdef UINT16_MAX
-
-/**
- * Packs @p self to `uint16_t`.
- *
- * @param[in] self The slice to be packed.
- *
- * @pre `Slice99_size(self) == sizeof(uint16_t)`
- *
- * @note This function is defined only if `uint16_t` is supported.
- */
-inline static uint16_t Slice99_pack_to_u16(Slice99 self) {
-    uint16_t n;
-
-    SLICE99_ASSERT(Slice99_size(self) == sizeof(n));
-
-    SLICE99_MEMCPY(&n, self.ptr, sizeof(n));
-    return n;
-}
-
-/**
- * A shortcut to `Slice99_pack_to_u16(Slice99_sub(self, 0, sizeof(uint16_t)))`.
- */
-inline static uint16_t Slice99_pack_to_u16_beginning(Slice99 self) {
-    return Slice99_pack_to_u16(Slice99_sub(self, 0, sizeof(uint16_t)));
-}
-
-#endif // UINT16_MAX
-
-// Check whether `uint32_t` is defined.
-#ifdef UINT32_MAX
-
-/**
- * Packs @p self to `uint32_t`.
- *
- * @param[in] self The slice to be packed.
- *
- * @pre `Slice99_size(self) == sizeof(uint32_t)`
- *
- * @note This function is defined only if `uint32_t` is supported.
- */
-inline static uint32_t Slice99_pack_to_u32(Slice99 self) {
-    uint32_t n;
-
-    SLICE99_ASSERT(Slice99_size(self) == sizeof(n));
-
-    SLICE99_MEMCPY(&n, self.ptr, sizeof(n));
-    return n;
-}
-
-/**
- * A shortcut to `Slice99_pack_to_u32(Slice99_sub(self, 0, sizeof(uint32_t)))`.
- */
-inline static uint32_t Slice99_pack_to_u32_beginning(Slice99 self) {
-    return Slice99_pack_to_u32(Slice99_sub(self, 0, sizeof(uint32_t)));
-}
-
-#endif // UINT32_MAX
-
-// Check whether `uint64_t` is defined.
-#ifdef UINT64_MAX
-
-/**
- * Packs @p self to `uint64_t`.
- *
- * @param[in] self The slice to be packed.
- *
- * @pre `Slice99_size(self) == sizeof(uint64_t)`
- *
- * @note This function is defined only if `uint64_t` is supported.
- */
-inline static uint64_t Slice99_pack_to_u64(Slice99 self) {
-    uint64_t n;
-
-    SLICE99_ASSERT(Slice99_size(self) == sizeof(n));
-
-    SLICE99_MEMCPY(&n, self.ptr, sizeof(n));
-    return n;
-}
-
-/**
- * A shortcut to `Slice99_pack_to_u64(Slice99_sub(self, 0, sizeof(uint64_t)))`.
- */
-inline static uint64_t Slice99_pack_to_u64_beginning(Slice99 self) {
-    return Slice99_pack_to_u64(Slice99_sub(self, 0, sizeof(uint64_t)));
-}
-
-#endif // UINT64_MAX
 
 SLICE99_DEF_TYPED(CharSlice99, char);
 SLICE99_DEF_TYPED(SCharSlice99, signed char);

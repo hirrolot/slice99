@@ -682,34 +682,6 @@ TEST(to_c_str) {
     assert(strcmp(Slice99_c_str(slice, (char[4]){0}), "abc") == 0);
 }
 
-#define TEST_PACK_TO_Ux(x)                                                                         \
-    TEST(pack_to_u##x##_beginning) {                                                               \
-        uint##x##_t n = UINT##x##_MAX;                                                             \
-        Slice99 slice = Slice99_from_array((uint##x##_t[]){n});                                    \
-        assert(Slice99_pack_to_u##x##_beginning(slice) == n);                                      \
-    }
-
-TEST_PACK_TO_Ux(8)
-TEST_PACK_TO_Ux(16)
-TEST_PACK_TO_Ux(32)
-TEST_PACK_TO_Ux(64)
-
-#undef TEST_PACK_TO_Ux
-
-#define TEST_PACK_TO_Ux_BEGINNING(x)                                                               \
-    TEST(pack_to_u##x##_beginning) {                                                               \
-        uint##x##_t n = UINT##x##_MAX;                                                             \
-        Slice99 slice = Slice99_from_array((uint##x##_t[]){n, 123, 456});                          \
-        assert(Slice99_pack_to_u##x##_beginning(slice) == n);                                      \
-    }
-
-TEST_PACK_TO_Ux_BEGINNING(8)
-TEST_PACK_TO_Ux_BEGINNING(16)
-TEST_PACK_TO_Ux_BEGINNING(32)
-TEST_PACK_TO_Ux_BEGINNING(64)
-
-#undef TEST_PACK_TO_Ux_BEGINNING
-
 // Typed slice {
 
 typedef struct {
@@ -828,16 +800,6 @@ int main(void) {
     test_reverse();
     test_split_at();
     test_to_c_str();
-
-    test_pack_to_u8();
-    test_pack_to_u16();
-    test_pack_to_u32();
-    test_pack_to_u64();
-
-    test_pack_to_u8_beginning();
-    test_pack_to_u16_beginning();
-    test_pack_to_u32_beginning();
-    test_pack_to_u64_beginning();
 
     test_typed_slice();
     test_fundamentals();
