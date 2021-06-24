@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+## [0.5.0] - 2021-06-24
+
 ### Removed
 
  - `Slice99_pack_to_(u8|u16|u32|u64)` and `Slice99_pack_to_(u8|u16|u32|u64)_beginning` due to too specific domain.
