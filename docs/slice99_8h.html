@@ -272,6 +272,14 @@ Functions</h2></td></tr>
 <tr class="memitem:abdc32e4df51e3c7b7b19805327d10dff"><td class="memItemLeft" align="right" valign="top"><a id="abdc32e4df51e3c7b7b19805327d10dff"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>SLICE99_DEF_TYPED</b> (U64Slice99, uint64_t)</td></tr>
 <tr class="separator:abdc32e4df51e3c7b7b19805327d10dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27cbc4ab1aea40d209320bbf4f163104"><td class="memItemLeft" align="right" valign="top"><a id="a27cbc4ab1aea40d209320bbf4f163104"></a>
+static SLICE99_WARN_UNUSED_RESULT CharSlice99&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a27cbc4ab1aea40d209320bbf4f163104">CharSlice99_from_str</a> (char *str)</td></tr>
+<tr class="memdesc:a27cbc4ab1aea40d209320bbf4f163104"><td class="mdescLeft">&#160;</td><td class="mdescRight">The same as <a class="el" href="slice99_8h.html#a827f21894eb4424d835b93de680caa9e" title="Constructs a slice from str. ">Slice99_from_str</a>. <br /></td></tr>
+<tr class="separator:a27cbc4ab1aea40d209320bbf4f163104"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c6975ebc21476bb4a1eff57e1976e62"><td class="memItemLeft" align="right" valign="top"><a id="a7c6975ebc21476bb4a1eff57e1976e62"></a>
+static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a7c6975ebc21476bb4a1eff57e1976e62">CharSlice99_c_str</a> (CharSlice99 self, char out[restrict])</td></tr>
+<tr class="memdesc:a7c6975ebc21476bb4a1eff57e1976e62"><td class="mdescLeft">&#160;</td><td class="mdescRight">The same as <a class="el" href="slice99_8h.html#ab40720954fa063663c72d2d0e1cc61f3" title="Copies self to out and appends &#39;\0&#39; to the end. ">Slice99_c_str</a>. <br /></td></tr>
+<tr class="separator:a7c6975ebc21476bb4a1eff57e1976e62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A slice of some array. </p>
@@ -313,6 +321,7 @@ Functions</h2></td></tr>
 <li><code>size_t item_size</code> parameters are removed (e.g., as in <a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad" title="Constructs a slice. ">Slice99_new</a>, <a class="el" href="slice99_8h.html#ab994ee5ddd723fb1f09f77d209466b05" title="Constructs an empty slice. ">Slice99_empty</a>, <a class="el" href="slice99_8h.html#af4ddbf9b09c12cee18c2546c0e08d657" title="Constructs a slice residing between start (inclusively) and end (exclusively). ">Slice99_from_ptrdiff</a>).</li>
 <li>All function preconditions, invariants, and postconditions remain the same.</li>
 </ul>
+<p><a class="el" href="slice99_8h.html#a827f21894eb4424d835b93de680caa9e" title="Constructs a slice from str. ">Slice99_from_str</a> and <a class="el" href="slice99_8h.html#ab40720954fa063663c72d2d0e1cc61f3" title="Copies self to out and appends &#39;\0&#39; to the end. ">Slice99_c_str</a> are derived only for <code>CharSlice99</code>.</p>
 <h1>Examples</h1>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="slice99_8h.html">slice99.h</a>&gt;</span></div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div><div class="line">    <span class="keywordtype">double</span> x, y;</div><div class="line">} Point;</div><div class="line"></div><div class="line"><a class="code" href="slice99_8h.html#a557c011352fbc859d6c9ed3871a31c5e">SLICE99_DEF_TYPED</a>(MyPoints, Point);</div><div class="line"></div><div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">void</span>) {</div><div class="line">    MyPoints points =</div><div class="line">        <a class="code" href="slice99_8h.html#a910435545a29467d608f27e328cc429d">Slice99_typed_from_array</a>(MyPoints, (Point[]){{1.5, 32.5}, {12.0, 314.01}, {-134.10,</div><div class="line">-9.3}});</div><div class="line"></div><div class="line">    MyPoints first_two = MyPoints_sub(points, 0, 2);</div><div class="line">    Point *first = MyPoints_first(points);</div><div class="line">    <span class="keywordtype">bool</span> is_empty = MyPoints_is_empty(points);</div><div class="line">}</div></div><!-- fragment --> 
 </div>
