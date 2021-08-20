@@ -10,9 +10,10 @@
 
 #include <assert_algebraic.h>
 
+// Auxiliary stuff {
+
 #define TEST(name) static void test_##name(void)
 
-// A small eDSL for asserting a slice {
 #define ASSERT_SLICE(slice, expected_ptr, expected_item_size, expected_len)                        \
     do {                                                                                           \
         Slice99 slice_ = (slice);                                                                  \
@@ -25,11 +26,9 @@
 #define PTR
 #define ITEM_SIZE
 #define LEN
-// }
 
-// Property-based testing {
 static Slice99 gen_int_slice(void) {
-    const size_t len = rand() % (10);
+    const size_t len = rand() % 10;
     Slice99 data = Slice99_new(malloc(len * sizeof(int)), sizeof(int), len);
 
     for (ptrdiff_t i = 0; i < (ptrdiff_t)len; i++) {
@@ -38,9 +37,7 @@ static Slice99 gen_int_slice(void) {
 
     return data;
 }
-// }
 
-// Auxiliary functions {
 static int int_comparator(const void *lhs, const void *rhs) {
     return *(const int *)lhs - *(const int *)rhs;
 }
@@ -48,7 +45,8 @@ static int int_comparator(const void *lhs, const void *rhs) {
 static bool slice_int_eq(Slice99 lhs, Slice99 rhs) {
     return Slice99_eq(lhs, rhs, int_comparator);
 }
-// }
+
+// } (Auxiliary stuff)
 
 TEST(from_str) {
     // clang-format off
@@ -593,10 +591,12 @@ TEST(reverse_involutive) {
             abort();
         }
 
-        memcpy(saved_array, slice.ptr, sizeof(Slice99_size(slice)));
+        memcpy(saved_array, slice.ptr, Slice99_size(slice));
         Slice99 saved_slice = Slice99_new(saved_array, sizeof(int), slice.len);
 
         ASSERT_INVOLUTIVE(slice_rev_aux, Slice99_primitive_eq, saved_slice);
+
+        free(slice.ptr);
         free(saved_array);
     }
 }
@@ -765,6 +765,9 @@ TEST(typed_slice) {
 }
 
 TEST(fundamentals) {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-result"
+
     (void)CharSlice99_new((char[]){'a', 'b', 'c'}, 3);
     (void)SCharSlice99_new((signed char[]){'a', 'b', 'c'}, 3);
     (void)UCharSlice99_new((unsigned char[]){'a', 'b', 'c'}, 3);
@@ -795,6 +798,8 @@ TEST(fundamentals) {
     (void)I16Slice99_new((int16_t[]){1, 2, 3}, 3);
     (void)I32Slice99_new((int32_t[]){1, 2, 3}, 3);
     (void)I64Slice99_new((int64_t[]){1, 2, 3}, 3);
+
+#pragma GCC diagnostic pop
 }
 
 // } (Typed slice)
