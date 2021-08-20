@@ -142,7 +142,7 @@ SOFTWARE.
  * #Slice99_from_ptrdiff).
  *  - All function preconditions, invariants, and postconditions remain the same.
  *
- * #Slice99_from_str and #Slice99_c_str are defined only for #CharSlice99 (besides #Slice99).
+ * #Slice99_from_str and #Slice99_c_str are derived only for `CharSlice99`.
  *
  * # Examples
  *
