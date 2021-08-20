@@ -142,6 +142,8 @@ SOFTWARE.
  * #Slice99_from_ptrdiff).
  *  - All function preconditions, invariants, and postconditions remain the same.
  *
+ * #Slice99_from_str and #Slice99_c_str are defined only for #CharSlice99 (besides #Slice99).
+ *
  * # Examples
  *
  * @code
@@ -855,5 +857,19 @@ SLICE99_DEF_TYPED(I32Slice99, int32_t);
 SLICE99_DEF_TYPED(I64Slice99, int64_t);
 #endif
 // } (Signed integers)
+
+/**
+ * The same as #Slice99_from_str.
+ */
+inline static SLICE99_WARN_UNUSED_RESULT CharSlice99 CharSlice99_from_str(char *str) {
+    return SLICE99_TO_TYPED(Slice99_from_str(str), CharSlice99);
+}
+
+/**
+ * The same as #Slice99_c_str.
+ */
+inline static char *CharSlice99_c_str(CharSlice99 self, char out[restrict]) {
+    return Slice99_c_str(SLICE99_TO_UNTYPED(self), out);
+}
 
 #endif // SLICE99_H

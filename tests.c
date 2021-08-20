@@ -52,21 +52,41 @@ static bool slice_int_eq(Slice99 lhs, Slice99 rhs) {
 
 TEST(from_str) {
     // clang-format off
-    const char *str = "";
-    ASSERT_SLICE(
-        Slice99_from_str(""),
-        PTR str,
-        ITEM_SIZE sizeof(char),
-        LEN strlen(str)
-    );
+    {
+        const char *str = "";
+        ASSERT_SLICE(
+            Slice99_from_str(""),
+            PTR str,
+            ITEM_SIZE sizeof(char),
+            LEN strlen(str)
+        );
 
-    str = "abc";
-    ASSERT_SLICE(
-        Slice99_from_str("abc"),
-        PTR str,
-        ITEM_SIZE sizeof(char),
-        LEN strlen(str)
-    );
+        str = "abc";
+        ASSERT_SLICE(
+            Slice99_from_str("abc"),
+            PTR str,
+            ITEM_SIZE sizeof(char),
+            LEN strlen(str)
+        );
+    }
+
+    {
+        const char *str = "";
+        ASSERT_SLICE(
+            SLICE99_TO_UNTYPED(CharSlice99_from_str("")),
+            PTR str,
+            ITEM_SIZE sizeof(char),
+            LEN strlen(str)
+        );
+
+        str = "abc";
+        ASSERT_SLICE(
+            SLICE99_TO_UNTYPED(CharSlice99_from_str("abc")),
+            PTR str,
+            ITEM_SIZE sizeof(char),
+            LEN strlen(str)
+        );
+    }
     // clang-format on
 }
 
@@ -677,9 +697,15 @@ TEST(split_at) {
 // } (Slice99_split_at)
 
 TEST(to_c_str) {
-    Slice99 slice = Slice99_from_array((char[]){'a', 'b', 'c'});
+    {
+        Slice99 slice = Slice99_from_array((char[]){'a', 'b', 'c'});
+        assert(strcmp(Slice99_c_str(slice, (char[4]){0}), "abc") == 0);
+    }
 
-    assert(strcmp(Slice99_c_str(slice, (char[4]){0}), "abc") == 0);
+    {
+        CharSlice99 slice = Slice99_typed_from_array(CharSlice99, (char[]){'a', 'b', 'c'});
+        assert(strcmp(CharSlice99_c_str(slice, (char[4]){0}), "abc") == 0);
+    }
 }
 
 // Typed slice {

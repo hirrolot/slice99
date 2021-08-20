@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### Added
+
+ - `CharSlice99_from_str` & `CharSlice99_c_str` as equivalents of the corresponding `Slice99` functions.
+
 ## [0.5.0] - 2021-06-24
 
 ### Removed
