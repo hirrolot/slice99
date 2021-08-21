@@ -51,9 +51,9 @@ static bool slice_int_eq(Slice99 lhs, Slice99 rhs) {
 TEST(from_str) {
     // clang-format off
     {
-        const char *str = "";
+        char *str = "";
         ASSERT_SLICE(
-            Slice99_from_str(""),
+            Slice99_from_str(str),
             PTR str,
             ITEM_SIZE sizeof(char),
             LEN strlen(str)
@@ -61,7 +61,7 @@ TEST(from_str) {
 
         str = "abc";
         ASSERT_SLICE(
-            Slice99_from_str("abc"),
+            Slice99_from_str(str),
             PTR str,
             ITEM_SIZE sizeof(char),
             LEN strlen(str)
@@ -69,9 +69,9 @@ TEST(from_str) {
     }
 
     {
-        const char *str = "";
+        char *str = "";
         ASSERT_SLICE(
-            SLICE99_TO_UNTYPED(CharSlice99_from_str("")),
+            SLICE99_TO_UNTYPED(CharSlice99_from_str(str)),
             PTR str,
             ITEM_SIZE sizeof(char),
             LEN strlen(str)
@@ -79,7 +79,7 @@ TEST(from_str) {
 
         str = "abc";
         ASSERT_SLICE(
-            SLICE99_TO_UNTYPED(CharSlice99_from_str("abc")),
+            SLICE99_TO_UNTYPED(CharSlice99_from_str(str)),
             PTR str,
             ITEM_SIZE sizeof(char),
             LEN strlen(str)
@@ -708,7 +708,7 @@ TEST(to_c_str) {
     }
 }
 
-// Typed slice {
+// Typed slices {
 
 typedef struct {
     int x, y;
@@ -716,7 +716,7 @@ typedef struct {
 
 SLICE99_DEF_TYPED(MyPoints, Point);
 
-TEST(typed_slice) {
+TEST(def_typed) {
 #define TYPECHECK(fn, expected_type)                                                               \
     do {                                                                                           \
         expected_type = fn;                                                                        \
@@ -802,7 +802,28 @@ TEST(fundamentals) {
 #pragma GCC diagnostic pop
 }
 
-// } (Typed slice)
+TEST(to_typed) {
+    char *str = "abc";
+    const Slice99 x = Slice99_from_str(str);
+    CharSlice99 y = (CharSlice99)SLICE99_TO_TYPED(x);
+
+    assert(x.ptr == y.ptr);
+    assert(x.len == y.len);
+}
+
+TEST(to_untyped) {
+    // clang-format off
+    char *str = "abc";
+    ASSERT_SLICE(
+        SLICE99_TO_UNTYPED(CharSlice99_from_str(str)),
+        PTR str,
+        ITEM_SIZE sizeof(char),
+        LEN strlen(str)
+    );
+    // clang-format on
+}
+
+// } (Typed slices)
 
 int main(void) {
     srand((unsigned)time(NULL));
@@ -832,8 +853,10 @@ int main(void) {
     test_split_at();
     test_to_c_str();
 
-    test_typed_slice();
+    test_def_typed();
     test_fundamentals();
+    test_to_typed();
+    test_to_untyped();
 
     puts("All the tests have passed!");
 }

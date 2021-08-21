@@ -175,24 +175,24 @@ SOFTWARE.
     inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT name name##_new(                \
         T *ptr, size_t len) {                                                                      \
         const Slice99 result = Slice99_new((void *)ptr, sizeof(T), len);                           \
-        return SLICE99_TO_TYPED(result, name);                                                     \
+        return (name)SLICE99_TO_TYPED(result);                                                     \
     }                                                                                              \
                                                                                                    \
     inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT name name##_from_ptrdiff(       \
         T *start, T *end) {                                                                        \
         const Slice99 result = Slice99_from_ptrdiff((void *)start, (void *)end, sizeof(T));        \
-        return SLICE99_TO_TYPED(result, name);                                                     \
+        return (name)SLICE99_TO_TYPED(result);                                                     \
     }                                                                                              \
                                                                                                    \
     inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT name name##_empty(void) {       \
         const Slice99 result = Slice99_empty(sizeof(T));                                           \
-        return SLICE99_TO_TYPED(result, name);                                                     \
+        return (name)SLICE99_TO_TYPED(result);                                                     \
     }                                                                                              \
                                                                                                    \
     inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT name name##_update_len(         \
         name self, size_t new_len) {                                                               \
         const Slice99 result = Slice99_update_len(SLICE99_TO_UNTYPED(self), new_len);              \
-        return SLICE99_TO_TYPED(result, name);                                                     \
+        return (name)SLICE99_TO_TYPED(result);                                                     \
     }                                                                                              \
                                                                                                    \
     inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT                                 \
@@ -223,13 +223,13 @@ SOFTWARE.
     inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT name name##_sub(                \
         name self, ptrdiff_t start_idx, ptrdiff_t end_idx) {                                       \
         const Slice99 result = Slice99_sub(SLICE99_TO_UNTYPED(self), start_idx, end_idx);          \
-        return SLICE99_TO_TYPED(result, name);                                                     \
+        return (name)SLICE99_TO_TYPED(result);                                                     \
     }                                                                                              \
                                                                                                    \
     inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT name name##_advance(            \
         name self, ptrdiff_t offset) {                                                             \
         const Slice99 result = Slice99_advance(SLICE99_TO_UNTYPED(self), offset);                  \
-        return SLICE99_TO_TYPED(result, name);                                                     \
+        return (name)SLICE99_TO_TYPED(result);                                                     \
     }                                                                                              \
                                                                                                    \
     inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT bool name##_primitive_eq(       \
@@ -301,28 +301,50 @@ SOFTWARE.
                                                                                                    \
         Slice99_split_at(SLICE99_TO_UNTYPED(self), i, &lhs_untyped, &rhs_untyped);                 \
                                                                                                    \
-        *lhs = SLICE99_TO_TYPED(lhs_untyped, name);                                                \
-        *rhs = SLICE99_TO_TYPED(rhs_untyped, name);                                                \
+        *lhs = (name)SLICE99_TO_TYPED(lhs_untyped);                                                \
+        *rhs = (name)SLICE99_TO_TYPED(rhs_untyped);                                                \
     }                                                                                              \
                                                                                                    \
     struct slice99_priv_trailing_comma
 
 /**
- * Converts #Slice99 to the typed representation @p typed_slice_name.
+ * Converts #Slice99 to a typed representation.
  *
- * @pre @p slice must be an expression of type #Slice99.
- * @pre @p typed_slice_name must be a type name defined via #SLICE99_DEF_TYPED.
+ * @pre @p self must be an expression of type #Slice99.
+ *
+ * # Examples
+ *
+ * @code
+ * #include <slice99.h>
+ *
+ * int main(void) {
+ *     Slice99 x = Slice99_from_str("abc");
+ *     CharSlice99 y = (CharSlice99)SLICE99_TO_TYPED(x);
+ *     (void)y;
+ * }
+ * @endcode
  */
-#define SLICE99_TO_TYPED(slice, typed_slice_name)                                                  \
-    ((typed_slice_name){.ptr = (slice).ptr, .len = (slice).len})
+#define SLICE99_TO_TYPED(self)                                                                     \
+    { .ptr = (self).ptr, .len = (self).len }
 
 /**
- * Converts the typed slice @p typed_slice to #Slice99.
+ * Converts the typed slice @p self to #Slice99.
  *
- * @pre @p typed_slice must be an expression of type defined by #SLICE99_DEF_TYPED.
+ * @pre @p self must be an expression of type defined by #SLICE99_DEF_TYPED.
+ *
+ * # Examples
+ *
+ * @code
+ * #include <slice99.h>
+ *
+ * int main(void) {
+ *     CharSlice99 x = CharSlice99_from_str("abc");
+ *     Slice99 y = SLICE99_TO_UNTYPED(x);
+ *     (void)y;
+ * }
+ * @endcode
  */
-#define SLICE99_TO_UNTYPED(typed_slice)                                                            \
-    Slice99_new((typed_slice).ptr, sizeof(*(typed_slice).ptr), (typed_slice).len)
+#define SLICE99_TO_UNTYPED(self) Slice99_new((self).ptr, sizeof(*(self).ptr), (self).len)
 
 /**
  * Computes a number of items in an array expression.
@@ -862,7 +884,7 @@ SLICE99_DEF_TYPED(I64Slice99, int64_t);
  * The same as #Slice99_from_str.
  */
 inline static SLICE99_WARN_UNUSED_RESULT CharSlice99 CharSlice99_from_str(char *str) {
-    return SLICE99_TO_TYPED(Slice99_from_str(str), CharSlice99);
+    return (CharSlice99)SLICE99_TO_TYPED(Slice99_from_str(str));
 }
 
 /**
