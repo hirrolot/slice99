@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Slice99
-   &#160;<span id="projectnumber">0.5.1</span>
+   &#160;<span id="projectnumber">0.6.0</span>
    </div>
    <div id="projectbrief">Memory slices for C99</div>
   </td>
@@ -107,22 +107,22 @@ Macros</h2></td></tr>
 <tr class="memdesc:aa20d9d653b7c065db03d068ada57b89c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The major version number. <br /></td></tr>
 <tr class="separator:aa20d9d653b7c065db03d068ada57b89c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a577ef72a4eace6cfb5ca89f2518250"><td class="memItemLeft" align="right" valign="top"><a id="a8a577ef72a4eace6cfb5ca89f2518250"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a8a577ef72a4eace6cfb5ca89f2518250">SLICE99_MINOR</a>&#160;&#160;&#160;5</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a8a577ef72a4eace6cfb5ca89f2518250">SLICE99_MINOR</a>&#160;&#160;&#160;6</td></tr>
 <tr class="memdesc:a8a577ef72a4eace6cfb5ca89f2518250"><td class="mdescLeft">&#160;</td><td class="mdescRight">The minor version number. <br /></td></tr>
 <tr class="separator:a8a577ef72a4eace6cfb5ca89f2518250"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a910ddb4ba43cb60535cf6d1c3cb498a0"><td class="memItemLeft" align="right" valign="top"><a id="a910ddb4ba43cb60535cf6d1c3cb498a0"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a910ddb4ba43cb60535cf6d1c3cb498a0">SLICE99_PATCH</a>&#160;&#160;&#160;1</td></tr>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a910ddb4ba43cb60535cf6d1c3cb498a0">SLICE99_PATCH</a>&#160;&#160;&#160;0</td></tr>
 <tr class="memdesc:a910ddb4ba43cb60535cf6d1c3cb498a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The patch version number. <br /></td></tr>
 <tr class="separator:a910ddb4ba43cb60535cf6d1c3cb498a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a557c011352fbc859d6c9ed3871a31c5e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a557c011352fbc859d6c9ed3871a31c5e">SLICE99_DEF_TYPED</a>(name,  T)</td></tr>
 <tr class="memdesc:a557c011352fbc859d6c9ed3871a31c5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the strongly typed slice <code>name</code> containing items of type <code>T</code>.  <a href="#a557c011352fbc859d6c9ed3871a31c5e">More...</a><br /></td></tr>
 <tr class="separator:a557c011352fbc859d6c9ed3871a31c5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1268f7fbfc4e44efd9322b4123664e56"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a1268f7fbfc4e44efd9322b4123664e56">SLICE99_TO_TYPED</a>(slice,  typed_slice_name)&#160;&#160;&#160;((typed_slice_name){.ptr = (slice).ptr, .len = (slice).len})</td></tr>
-<tr class="memdesc:a1268f7fbfc4e44efd9322b4123664e56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts <a class="el" href="structSlice99.html" title="A slice of some array. ">Slice99</a> to the typed representation <code>typed_slice_name</code>.  <a href="#a1268f7fbfc4e44efd9322b4123664e56">More...</a><br /></td></tr>
-<tr class="separator:a1268f7fbfc4e44efd9322b4123664e56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace6a9c752806e590ca10c3f2131c8665"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#ace6a9c752806e590ca10c3f2131c8665">SLICE99_TO_UNTYPED</a>(typed_slice)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad">Slice99_new</a>((typed_slice).ptr, sizeof(*(typed_slice).ptr), (typed_slice).len)</td></tr>
-<tr class="memdesc:ace6a9c752806e590ca10c3f2131c8665"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the typed slice <code>typed_slice</code> to <a class="el" href="structSlice99.html" title="A slice of some array. ">Slice99</a>.  <a href="#ace6a9c752806e590ca10c3f2131c8665">More...</a><br /></td></tr>
-<tr class="separator:ace6a9c752806e590ca10c3f2131c8665"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e3a66e2441e671e725b50545328f14d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a3e3a66e2441e671e725b50545328f14d">SLICE99_TO_TYPED</a>(self)&#160;&#160;&#160;{ .ptr = (self).ptr, .len = (self).len }</td></tr>
+<tr class="memdesc:a3e3a66e2441e671e725b50545328f14d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts <a class="el" href="structSlice99.html" title="A slice of some array. ">Slice99</a> to a typed representation.  <a href="#a3e3a66e2441e671e725b50545328f14d">More...</a><br /></td></tr>
+<tr class="separator:a3e3a66e2441e671e725b50545328f14d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97fddbbb1c51ba529d7ca210c4ec4697"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a97fddbbb1c51ba529d7ca210c4ec4697">SLICE99_TO_UNTYPED</a>(self)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad">Slice99_new</a>((self).ptr, sizeof(*(self).ptr), (self).len)</td></tr>
+<tr class="memdesc:a97fddbbb1c51ba529d7ca210c4ec4697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the typed slice <code>self</code> to <a class="el" href="structSlice99.html" title="A slice of some array. ">Slice99</a>.  <a href="#a97fddbbb1c51ba529d7ca210c4ec4697">More...</a><br /></td></tr>
+<tr class="separator:a97fddbbb1c51ba529d7ca210c4ec4697"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36fc375eb1db0b3907825ea0720fbf0c"><td class="memItemLeft" align="right" valign="top"><a id="a36fc375eb1db0b3907825ea0720fbf0c"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a36fc375eb1db0b3907825ea0720fbf0c">SLICE99_ARRAY_LEN</a>(...)&#160;&#160;&#160;(sizeof(__VA_ARGS__) / sizeof((__VA_ARGS__)[0]))</td></tr>
 <tr class="memdesc:a36fc375eb1db0b3907825ea0720fbf0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a number of items in an array expression. <br /></td></tr>
@@ -385,8 +385,8 @@ static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 
 </div>
 </div>
-<a id="a1268f7fbfc4e44efd9322b4123664e56"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1268f7fbfc4e44efd9322b4123664e56">&#9670;&nbsp;</a></span>SLICE99_TO_TYPED</h2>
+<a id="a3e3a66e2441e671e725b50545328f14d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e3a66e2441e671e725b50545328f14d">&#9670;&nbsp;</a></span>SLICE99_TO_TYPED</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -395,31 +395,20 @@ static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
           <td class="memname">#define SLICE99_TO_TYPED</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">slice, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">typed_slice_name&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td>&#160;&#160;&#160;((typed_slice_name){.ptr = (slice).ptr, .len = (slice).len})</td>
+          <td class="paramname">self</td><td>)</td>
+          <td>&#160;&#160;&#160;{ .ptr = (self).ptr, .len = (self).len }</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Converts <a class="el" href="structSlice99.html" title="A slice of some array. ">Slice99</a> to the typed representation <code>typed_slice_name</code>. </p>
-<dl class="section pre"><dt>Precondition</dt><dd><code>slice</code> must be an expression of type <a class="el" href="structSlice99.html" title="A slice of some array. ">Slice99</a>. </dd>
-<dd>
-<code>typed_slice_name</code> must be a type name defined via <a class="el" href="slice99_8h.html#a557c011352fbc859d6c9ed3871a31c5e" title="Defines the strongly typed slice name containing items of type T. ">SLICE99_DEF_TYPED</a>. </dd></dl>
-
+<p>Converts <a class="el" href="structSlice99.html" title="A slice of some array. ">Slice99</a> to a typed representation. </p>
+<dl class="section pre"><dt>Precondition</dt><dd><code>self</code> must be an expression of type <a class="el" href="structSlice99.html" title="A slice of some array. ">Slice99</a>.</dd></dl>
+<h1>Examples</h1>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="slice99_8h.html">slice99.h</a>&gt;</span></div><div class="line"></div><div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">void</span>) {</div><div class="line">    <a class="code" href="structSlice99.html">Slice99</a> x = <a class="code" href="slice99_8h.html#a827f21894eb4424d835b93de680caa9e">Slice99_from_str</a>(<span class="stringliteral">&quot;abc&quot;</span>);</div><div class="line">    CharSlice99 y = (CharSlice99)<a class="code" href="slice99_8h.html#a3e3a66e2441e671e725b50545328f14d">SLICE99_TO_TYPED</a>(x);</div><div class="line">    (void)y;</div><div class="line">}</div></div><!-- fragment --> 
 </div>
 </div>
-<a id="ace6a9c752806e590ca10c3f2131c8665"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace6a9c752806e590ca10c3f2131c8665">&#9670;&nbsp;</a></span>SLICE99_TO_UNTYPED</h2>
+<a id="a97fddbbb1c51ba529d7ca210c4ec4697"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97fddbbb1c51ba529d7ca210c4ec4697">&#9670;&nbsp;</a></span>SLICE99_TO_UNTYPED</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -428,15 +417,16 @@ static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
           <td class="memname">#define SLICE99_TO_UNTYPED</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">typed_slice</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad">Slice99_new</a>((typed_slice).ptr, sizeof(*(typed_slice).ptr), (typed_slice).len)</td>
+          <td class="paramname">self</td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad">Slice99_new</a>((self).ptr, sizeof(*(self).ptr), (self).len)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Converts the typed slice <code>typed_slice</code> to <a class="el" href="structSlice99.html" title="A slice of some array. ">Slice99</a>. </p>
-<dl class="section pre"><dt>Precondition</dt><dd><code>typed_slice</code> must be an expression of type defined by <a class="el" href="slice99_8h.html#a557c011352fbc859d6c9ed3871a31c5e" title="Defines the strongly typed slice name containing items of type T. ">SLICE99_DEF_TYPED</a>. </dd></dl>
-
+<p>Converts the typed slice <code>self</code> to <a class="el" href="structSlice99.html" title="A slice of some array. ">Slice99</a>. </p>
+<dl class="section pre"><dt>Precondition</dt><dd><code>self</code> must be an expression of type defined by <a class="el" href="slice99_8h.html#a557c011352fbc859d6c9ed3871a31c5e" title="Defines the strongly typed slice name containing items of type T. ">SLICE99_DEF_TYPED</a>.</dd></dl>
+<h1>Examples</h1>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="slice99_8h.html">slice99.h</a>&gt;</span></div><div class="line"></div><div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">void</span>) {</div><div class="line">    CharSlice99 x = <a class="code" href="slice99_8h.html#a27cbc4ab1aea40d209320bbf4f163104">CharSlice99_from_str</a>(<span class="stringliteral">&quot;abc&quot;</span>);</div><div class="line">    <a class="code" href="structSlice99.html">Slice99</a> y = <a class="code" href="slice99_8h.html#a97fddbbb1c51ba529d7ca210c4ec4697">SLICE99_TO_UNTYPED</a>(x);</div><div class="line">    (void)y;</div><div class="line">}</div></div><!-- fragment --> 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>

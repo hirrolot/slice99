@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+## [0.6.0] - 2021-08-21
+
 ### Changed
 
  - `SLICE99_TO_TYPED(x, <T>)` => `(<T>)SLICE99_TO_TYPED(x)` [**BC**].

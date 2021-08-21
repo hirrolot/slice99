@@ -113,12 +113,12 @@ SOFTWARE.
 /**
  * The minor version number.
  */
-#define SLICE99_MINOR 5
+#define SLICE99_MINOR 6
 
 /**
  * The patch version number.
  */
-#define SLICE99_PATCH 1
+#define SLICE99_PATCH 0
 
 /**
  * Defines the strongly typed slice @p name containing items of type @p T.
