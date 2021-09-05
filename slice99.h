@@ -238,10 +238,10 @@ SOFTWARE.
     }                                                                                              \
                                                                                                    \
     inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT bool name##_eq(                 \
-        name lhs, name rhs, int (*comparator)(const T *, const T *)) {                             \
+        name lhs, name rhs, int (*cmp)(const T *, const T *)) {                                    \
         return Slice99_eq(                                                                         \
             SLICE99_TO_UNTYPED(lhs), SLICE99_TO_UNTYPED(rhs),                                      \
-            (int (*)(const void *, const void *))comparator);                                      \
+            (int (*)(const void *, const void *))cmp);                                             \
     }                                                                                              \
                                                                                                    \
     inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT bool                            \
@@ -251,10 +251,10 @@ SOFTWARE.
     }                                                                                              \
                                                                                                    \
     inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT bool name##_starts_with(        \
-        name self, name prefix, int (*comparator)(const T *, const T *)) {                         \
+        name self, name prefix, int (*comparcmpator)(const T *, const T *)) {                      \
         return Slice99_starts_with(                                                                \
             SLICE99_TO_UNTYPED(self), SLICE99_TO_UNTYPED(prefix),                                  \
-            (int (*)(const void *, const void *))comparator);                                      \
+            (int (*)(const void *, const void *))cmp);                                             \
     }                                                                                              \
                                                                                                    \
     inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT bool                            \
@@ -263,10 +263,10 @@ SOFTWARE.
     }                                                                                              \
                                                                                                    \
     inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT bool name##_ends_with(          \
-        name self, name postfix, int (*comparator)(const T *, const T *)) {                        \
+        name self, name postfix, int (*cmp)(const T *, const T *)) {                               \
         return Slice99_ends_with(                                                                  \
             SLICE99_TO_UNTYPED(self), SLICE99_TO_UNTYPED(postfix),                                 \
-            (int (*)(const void *, const void *))comparator);                                      \
+            (int (*)(const void *, const void *))cmp);                                             \
     }                                                                                              \
                                                                                                    \
     inline static SLICE99_ALWAYS_INLINE void name##_copy(name self, name other) {                  \
@@ -303,6 +303,10 @@ SOFTWARE.
                                                                                                    \
         *lhs = (name)SLICE99_TO_TYPED(lhs_untyped);                                                \
         *rhs = (name)SLICE99_TO_TYPED(rhs_untyped);                                                \
+    }                                                                                              \
+                                                                                                   \
+    inline static SLICE99_ALWAYS_INLINE T *name##_write_to_buffer(name self, T *restrict buffer) { \
+        return (T *)Slice99_write_to_buffer(SLICE99_TO_UNTYPED(self), (void *restrict)buffer);     \
     }                                                                                              \
                                                                                                    \
     struct slice99_priv_trailing_comma
@@ -585,26 +589,26 @@ inline static SLICE99_WARN_UNUSED_RESULT bool Slice99_primitive_eq(Slice99 lhs, 
  *
  * @param[in] lhs The first slice to be compared.
  * @param[in] rhs The second slice to be compared.
- * @param[in] comparator A function deciding whether two items are equal ot not (0 if equal, any
- * other value otherwise).
+ * @param[in] cmp The function deciding whether two items are equal ot not (0 if equal, any other
+ * value otherwise).
  *
  * @return `true` if @p lhs and @p rhs are equal, `false` otherwise.
  *
  * @pre `lhs.item_size == rhs.item_size`
- * @pre `comparator != NULL`
+ * @pre `cmp != NULL`
  * @pre `lhs.len` and `rhs.len` must be representable as `ptrdiff_t`.
  */
 inline static SLICE99_WARN_UNUSED_RESULT bool
-Slice99_eq(Slice99 lhs, Slice99 rhs, int (*comparator)(const void *, const void *)) {
+Slice99_eq(Slice99 lhs, Slice99 rhs, int (*cmp)(const void *, const void *)) {
     SLICE99_ASSERT(lhs.item_size == rhs.item_size);
-    SLICE99_ASSERT(comparator);
+    SLICE99_ASSERT(cmp);
 
     if (lhs.len != rhs.len) {
         return false;
     }
 
     for (ptrdiff_t i = 0; i < (ptrdiff_t)lhs.len; i++) {
-        if (comparator(Slice99_get(lhs, i), Slice99_get(rhs, i)) != 0) {
+        if (cmp(Slice99_get(lhs, i), Slice99_get(rhs, i)) != 0) {
             return false;
         }
     }
@@ -634,23 +638,23 @@ Slice99_primitive_starts_with(Slice99 self, Slice99 prefix) {
  *
  * @param[in] self The slice to be checked for @p prefix.
  * @param[in] prefix The slice to be checked whether it is a prefix of @p self.
- * @param[in] comparator A function deciding whether two items are equal ot not (0 if equal, any
- * other value otherwise).
+ * @param[in] cmp The function deciding whether two items are equal ot not (0 if equal, any other
+ * value otherwise).
  *
  * @return `true` if @p prefix is a prefix of @p self, otherwise `false`.
  *
  * @pre `self.item_size == prefix.item_size`
- * @pre `comparator != NULL`
+ * @pre `cmp != NULL`
  * @pre `prefix.len` must be representable as `ptrdiff_t`.
  */
 inline static SLICE99_WARN_UNUSED_RESULT bool
-Slice99_starts_with(Slice99 self, Slice99 prefix, int (*comparator)(const void *, const void *)) {
+Slice99_starts_with(Slice99 self, Slice99 prefix, int (*cmp)(const void *, const void *)) {
     SLICE99_ASSERT(self.item_size == prefix.item_size);
-    SLICE99_ASSERT(comparator);
+    SLICE99_ASSERT(cmp);
 
     return self.len < prefix.len
                ? false
-               : Slice99_eq(Slice99_sub(self, 0, (ptrdiff_t)prefix.len), prefix, comparator);
+               : Slice99_eq(Slice99_sub(self, 0, (ptrdiff_t)prefix.len), prefix, cmp);
 }
 
 /**
@@ -678,26 +682,26 @@ Slice99_primitive_ends_with(Slice99 self, Slice99 postfix) {
  *
  * @param[in] self The slice to be checked for @p postfix.
  * @param[in] postfix The slice to be checked whether it is a postfix of @p self.
- * @param[in] comparator A function deciding whether two items are equal ot not (0 if equal, any
- * other value otherwise).
+ * @param[in] cmp The function deciding whether two items are equal ot not (0 if equal, any other
+ * value otherwise).
  *
  * @return `true` if @p postfix is a postfix of @p self, otherwise `false`.
  *
  * @pre `self.item_size == postfix.item_size`
- * @pre `comparator != NULL`
+ * @pre `cmp != NULL`
  * @pre `self.len` and `postfix.len` must be representable as `ptrdiff_t`.
  */
 inline static SLICE99_WARN_UNUSED_RESULT bool
-Slice99_ends_with(Slice99 self, Slice99 postfix, int (*comparator)(const void *, const void *)) {
+Slice99_ends_with(Slice99 self, Slice99 postfix, int (*cmp)(const void *, const void *)) {
     SLICE99_ASSERT(self.item_size == postfix.item_size);
-    SLICE99_ASSERT(comparator);
+    SLICE99_ASSERT(cmp);
 
     return self.len < postfix.len
                ? false
                : Slice99_eq(
                      Slice99_sub(
                          self, (ptrdiff_t)self.len - (ptrdiff_t)postfix.len, (ptrdiff_t)self.len),
-                     postfix, comparator);
+                     postfix, cmp);
 }
 
 /**
@@ -806,7 +810,7 @@ Slice99_split_at(Slice99 self, size_t i, Slice99 *restrict lhs, Slice99 *restric
 /**
  * Copies @p self to @p out and appends '\0' to the end.
  *
- * @param[in] self The slice which will be copied.
+ * @param[in] self The slice that will be copied.
  * @param[in] out The memory area to which @p self and the null character will be copied.
  *
  * @return The pointer @p out.
@@ -821,6 +825,33 @@ inline static char *Slice99_c_str(Slice99 self, char out[restrict]) {
     SLICE99_MEMCPY(out, self.ptr, Slice99_size(self));
     out[Slice99_size(self)] = '\0';
     return out;
+}
+
+/**
+ * Writes @p self to @p buffer, returning the next position of @p buffer to write to.
+ *
+ * This function is no different from `memcpy` except for the return value. It is useful when you
+ * want to write a sequence of slices to some memory buffer, e.g., to a packet header:
+ *
+ * @code
+ * header = Slice99_write_to_buffer(data1, header);
+ * header = Slice99_write_to_buffer(data2, header);
+ * // ...
+ * @endcode
+ *
+ * @param[in] self The slice that will be written to @p buffer.
+ * @param[out] buffer The memory area to write to.
+ *
+ * @return `(char *)buffer + Slice99_size(self)`
+ *
+ * @pre @p buffer must be capable of holding `Slice99_size(self)` bytes.
+ */
+inline static void *Slice99_write_to_buffer(Slice99 self, void *restrict buffer) {
+    SLICE99_ASSERT(buffer);
+
+    SLICE99_MEMCPY(buffer, self.ptr, Slice99_size(self));
+
+    return (char *)buffer + Slice99_size(self);
 }
 
 SLICE99_DEF_TYPED(CharSlice99, char);

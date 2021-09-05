@@ -38,14 +38,13 @@ static Slice99 gen_int_slice(void) {
     return data;
 }
 
-static int int_comparator(const void *lhs, const void *rhs) {
+static int cmp_ints(const void *lhs, const void *rhs) {
     return *(const int *)lhs - *(const int *)rhs;
 }
 
 static bool slice_int_eq(Slice99 lhs, Slice99 rhs) {
-    return Slice99_eq(lhs, rhs, int_comparator);
+    return Slice99_eq(lhs, rhs, cmp_ints);
 }
-
 // } (Auxiliary stuff)
 
 TEST(from_str) {
@@ -251,7 +250,6 @@ TEST(advance) {
     // clang-format on
 }
 
-// Slice99_primitive_eq {
 TEST(primitive_eq_basic) {
     char str[] = "12345";
 
@@ -285,9 +283,7 @@ TEST(primitive_eq) {
     test_primitive_eq_basic();
     test_primitive_eq_is_equivalence();
 }
-// } (Slice99_primitive_eq)
 
-// Slice99_eq {
 TEST(eq_basic) {
     Slice99 slice_1 = Slice99_from_array((int[]){1, 2, 3, 4, 5}),
             slice_2 = Slice99_from_array((int[]){1, 2, 3, 4, 5}),
@@ -317,9 +313,7 @@ TEST(eq) {
     test_eq_basic();
     test_eq_is_equivalence();
 }
-// } (Slice99_eq)
 
-// Slice99_primitive_starts_with {
 TEST(primitive_starts_with_basic) {
     Slice99 slice = Slice99_from_array((int[]){1, 2, 3, 4, 5});
 
@@ -362,10 +356,8 @@ TEST(primitive_starts_with) {
     test_primitive_starts_with_partial_order();
     test_primitive_starts_with_empty_slice_is_min();
 }
-// } (Slice99_primitive_starts_with)
 
-// Slice99_starts_with {
-#define STARTS_WITH(slice, prefix) Slice99_starts_with(slice, prefix, int_comparator)
+#define STARTS_WITH(slice, prefix) Slice99_starts_with(slice, prefix, cmp_ints)
 
 TEST(starts_with_basic) {
     Slice99 slice = Slice99_from_array((int[]){1, 2, 3, 4, 5});
@@ -385,7 +377,7 @@ TEST(starts_with_partial_order) {
             gen_int_slice(),
         };
 
-#define EQ(slice, other) Slice99_eq(slice, other, int_comparator)
+#define EQ(slice, other) Slice99_eq(slice, other, cmp_ints)
 
         ASSERT_PARTIAL_ORDER(STARTS_WITH, EQ, slices[0], slices[1], slices[2]);
 
@@ -414,9 +406,7 @@ TEST(starts_with) {
 }
 
 #undef STARTS_WITH
-// } (Slice99_starts_with)
 
-// Slice99_primitive_ends_with {
 TEST(primitive_ends_with_basic) {
     Slice99 slice = Slice99_from_array((int[]){1, 2, 3, 4, 5});
 
@@ -459,10 +449,8 @@ TEST(primitive_ends_with) {
     test_primitive_ends_with_partial_order();
     test_primitive_ends_with_empty_slice_is_max();
 }
-// } (Slice99_primitive_ends_with)
 
-// Slice99_ends_with {
-#define ENDS_WITH(slice, postfix) Slice99_ends_with(slice, postfix, int_comparator)
+#define ENDS_WITH(slice, postfix) Slice99_ends_with(slice, postfix, cmp_ints)
 
 TEST(ends_with_basic) {
     Slice99 slice = Slice99_from_array((int[]){1, 2, 3, 4, 5});
@@ -482,7 +470,7 @@ TEST(ends_with_partial_order) {
             gen_int_slice(),
         };
 
-#define EQ(slice, other) Slice99_eq(slice, other, int_comparator)
+#define EQ(slice, other) Slice99_eq(slice, other, cmp_ints)
 
         ASSERT_PARTIAL_ORDER(ENDS_WITH, EQ, slices[0], slices[1], slices[2]);
 
@@ -511,7 +499,6 @@ TEST(ends_with) {
 }
 
 #undef ENDS_WITH
-// } (Slice99_ends_with)
 
 TEST(copy) {
     int data[] = {1, 2, 3, 4, 5};
@@ -562,7 +549,6 @@ TEST(swap_with_slice) {
     assert(memcmp(rhs.ptr, (const int[]){1, 2, 3, 4, 5}, Slice99_size(rhs)) == 0);
 }
 
-// Slice99_reverse {
 TEST(reverse_basic) {
     int backup;
 
@@ -605,9 +591,7 @@ TEST(reverse) {
     test_reverse_basic();
     test_reverse_involutive();
 }
-// } (Slice99_reverse)
 
-// Slice99_split_at {
 TEST(split_at_empty_slice) {
     Slice99 slice = Slice99_empty(1), lhs, rhs;
     Slice99_split_at(slice, 0, &lhs, &rhs);
@@ -694,7 +678,6 @@ TEST(split_at) {
     test_split_at_beginning();
     test_split_at_end();
 }
-// } (Slice99_split_at)
 
 TEST(to_c_str) {
     {
@@ -708,7 +691,20 @@ TEST(to_c_str) {
     }
 }
 
-// Typed slices {
+TEST(write_to_buffer) {
+    char buffer[8] = {0};
+    char *buffer_ptr = buffer;
+
+    const char data1[] = {'a', 'b', 'c'}, data2[] = {'d', 'e', 'f'};
+
+    buffer_ptr = Slice99_write_to_buffer(Slice99_from_array(data1), buffer_ptr);
+    assert(buffer + sizeof(data1) == buffer_ptr);
+    assert(memcmp(buffer_ptr, data1, sizeof data1) == 0);
+
+    buffer_ptr = Slice99_write_to_buffer(Slice99_from_array(data2), buffer_ptr);
+    assert(buffer + sizeof(data1) + sizeof(data2) == buffer_ptr);
+    assert(memcmp(buffer_ptr, data2, sizeof data2) == 0);
+}
 
 typedef struct {
     int x, y;
@@ -753,6 +749,7 @@ TEST(def_typed) {
     TYPECHECK(MyPoints_reverse, void (*_)(MyPoints, Point * restrict));
     TYPECHECK(
         MyPoints_split_at, void (*_)(MyPoints, size_t, MyPoints * restrict, MyPoints * restrict));
+    TYPECHECK(MyPoints_write_to_buffer, Point * (*_)(MyPoints, Point * restrict));
 
 #undef TYPECHECK
 
@@ -823,8 +820,6 @@ TEST(to_untyped) {
     // clang-format on
 }
 
-// } (Typed slices)
-
 int main(void) {
     srand((unsigned)time(NULL));
 
@@ -852,6 +847,7 @@ int main(void) {
     test_reverse();
     test_split_at();
     test_to_c_str();
+    test_write_to_buffer();
 
     test_def_typed();
     test_fundamentals();
