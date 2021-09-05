@@ -691,21 +691,6 @@ TEST(to_c_str) {
     }
 }
 
-TEST(write_to_buffer) {
-    char buffer[8] = {0};
-    void *buffer_ptr = buffer;
-
-    char data1[] = {'a', 'b', 'c'}, data2[] = {'d', 'e', 'f'};
-
-    buffer_ptr = Slice99_write_to_buffer(Slice99_from_array(data1), buffer_ptr);
-    assert(buffer + sizeof(data1) == buffer_ptr);
-    assert(memcmp(buffer, data1, sizeof data1) == 0);
-
-    buffer_ptr = Slice99_write_to_buffer(Slice99_from_array(data2), buffer_ptr);
-    assert(buffer + sizeof(data1) + sizeof(data2) == buffer_ptr);
-    assert(memcmp(buffer + sizeof(data1), data2, sizeof data2) == 0);
-}
-
 typedef struct {
     int x, y;
 } Point;
@@ -749,7 +734,6 @@ TEST(def_typed) {
     TYPECHECK(MyPoints_reverse, void (*_)(MyPoints, Point * restrict));
     TYPECHECK(
         MyPoints_split_at, void (*_)(MyPoints, size_t, MyPoints * restrict, MyPoints * restrict));
-    TYPECHECK(MyPoints_write_to_buffer, Point * (*_)(MyPoints, Point * restrict));
 
 #undef TYPECHECK
 
@@ -847,7 +831,6 @@ int main(void) {
     test_reverse();
     test_split_at();
     test_to_c_str();
-    test_write_to_buffer();
 
     test_def_typed();
     test_fundamentals();

@@ -305,10 +305,6 @@ SOFTWARE.
         *rhs = (name)SLICE99_TO_TYPED(rhs_untyped);                                                \
     }                                                                                              \
                                                                                                    \
-    inline static SLICE99_ALWAYS_INLINE T *name##_write_to_buffer(name self, T *restrict buffer) { \
-        return (T *)Slice99_write_to_buffer(SLICE99_TO_UNTYPED(self), (void *restrict)buffer);     \
-    }                                                                                              \
-                                                                                                   \
     struct slice99_priv_trailing_comma
 
 /**
@@ -825,33 +821,6 @@ inline static char *Slice99_c_str(Slice99 self, char out[restrict]) {
     SLICE99_MEMCPY(out, self.ptr, Slice99_size(self));
     out[Slice99_size(self)] = '\0';
     return out;
-}
-
-/**
- * Writes @p self to @p buffer, returning the next position of @p buffer to write to.
- *
- * This function is no different from `memcpy` except for the return value. It is useful when you
- * want to write a sequence of slices to some memory buffer, e.g., to a packet header:
- *
- * @code
- * header = Slice99_write_to_buffer(data1, header);
- * header = Slice99_write_to_buffer(data2, header);
- * // ...
- * @endcode
- *
- * @param[in] self The slice that will be written to @p buffer.
- * @param[out] buffer The memory area to write to.
- *
- * @return `(char *)buffer + Slice99_size(self)`
- *
- * @pre @p buffer must be capable of holding `Slice99_size(self)` bytes.
- */
-inline static void *Slice99_write_to_buffer(Slice99 self, void *restrict buffer) {
-    SLICE99_ASSERT(buffer);
-
-    SLICE99_MEMCPY(buffer, self.ptr, Slice99_size(self));
-
-    return (char *)buffer + Slice99_size(self);
 }
 
 SLICE99_DEF_TYPED(CharSlice99, char);
