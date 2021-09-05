@@ -693,17 +693,17 @@ TEST(to_c_str) {
 
 TEST(write_to_buffer) {
     char buffer[8] = {0};
-    char *buffer_ptr = buffer;
+    void *buffer_ptr = buffer;
 
-    const char data1[] = {'a', 'b', 'c'}, data2[] = {'d', 'e', 'f'};
+    char data1[] = {'a', 'b', 'c'}, data2[] = {'d', 'e', 'f'};
 
     buffer_ptr = Slice99_write_to_buffer(Slice99_from_array(data1), buffer_ptr);
     assert(buffer + sizeof(data1) == buffer_ptr);
-    assert(memcmp(buffer_ptr, data1, sizeof data1) == 0);
+    assert(memcmp(buffer, data1, sizeof data1) == 0);
 
     buffer_ptr = Slice99_write_to_buffer(Slice99_from_array(data2), buffer_ptr);
     assert(buffer + sizeof(data1) + sizeof(data2) == buffer_ptr);
-    assert(memcmp(buffer_ptr, data2, sizeof data2) == 0);
+    assert(memcmp(buffer + sizeof(data1), data2, sizeof data2) == 0);
 }
 
 typedef struct {

@@ -251,7 +251,7 @@ SOFTWARE.
     }                                                                                              \
                                                                                                    \
     inline static SLICE99_ALWAYS_INLINE SLICE99_WARN_UNUSED_RESULT bool name##_starts_with(        \
-        name self, name prefix, int (*comparcmpator)(const T *, const T *)) {                      \
+        name self, name prefix, int (*cmp)(const T *, const T *)) {                                \
         return Slice99_starts_with(                                                                \
             SLICE99_TO_UNTYPED(self), SLICE99_TO_UNTYPED(prefix),                                  \
             (int (*)(const void *, const void *))cmp);                                             \
