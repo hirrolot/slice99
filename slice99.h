@@ -361,8 +361,8 @@ SOFTWARE.
  * const uint16_t x = 123;
  * const uint32_t y = 456;
  *
- * header = SLICE99_WRITE_TO_BUFFER(header, x);
- * header = SLICE99_WRITE_TO_BUFFER(header, y);
+ * header = SLICE99_APPEND(header, x);
+ * header = SLICE99_APPEND(header, y);
  * // ...
  * @endcode
  *
@@ -374,9 +374,9 @@ SOFTWARE.
  * @pre @p buffer must be capable of holding at least `sizeof(obj)` bytes.
  * @pre @p buffer and @p obj must be non-overlapping.
  *
- * @see #SLICE99_WRITE_ARRAY_TO_BUFFER
+ * @see #SLICE99_APPEND_ARRAY
  */
-#define SLICE99_WRITE_TO_BUFFER(buffer, obj)                                                       \
+#define SLICE99_APPEND(buffer, obj)                                                                \
     ((char *)SLICE99_MEMCPY((buffer), &(obj), sizeof(obj)) + sizeof(obj))
 
 /**
@@ -392,9 +392,9 @@ SOFTWARE.
  * @pre @p buffer must be capable of holding at least `sizeof(ptr[0]) * len` bytes.
  * @pre @p buffer and @p ptr must be non-overlapping.
  *
- * @see #SLICE99_WRITE_TO_BUFFER
+ * @see #SLICE99_APPEND
  */
-#define SLICE99_WRITE_ARRAY_TO_BUFFER(buffer, ptr, len)                                            \
+#define SLICE99_APPEND_ARRAY(buffer, ptr, len)                                                     \
     ((char *)SLICE99_MEMCPY((buffer), (ptr), sizeof((ptr)[0]) * (len)) + sizeof((ptr)[0]) * (len))
 
 #ifdef UINT8_MAX

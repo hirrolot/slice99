@@ -71,7 +71,7 @@ TEST(write_to_buffer) {
 
 #define TEST_WRITE(obj_start, val)                                                                 \
     do {                                                                                           \
-        buffer_ptr = SLICE99_WRITE_TO_BUFFER(buffer_ptr, val);                                     \
+        buffer_ptr = SLICE99_APPEND(buffer_ptr, val);                                              \
         assert(obj_start + sizeof val == buffer_ptr);                                              \
         assert(memcmp(obj_start, &val, sizeof val) == 0);                                          \
     } while (0)
@@ -87,7 +87,7 @@ TEST(write_array_to_buffer) {
     int data[] = {1, 2, 3, 4, 5};
     int buffer[SLICE99_ARRAY_LEN(data)] = {0};
 
-    void *buffer_ptr = SLICE99_WRITE_ARRAY_TO_BUFFER(buffer, (int *)data, SLICE99_ARRAY_LEN(data));
+    void *buffer_ptr = SLICE99_APPEND_ARRAY(buffer, (int *)data, SLICE99_ARRAY_LEN(data));
     assert(buffer + SLICE99_ARRAY_LEN(data) == buffer_ptr);
     assert(memcmp(buffer, data, sizeof data) == 0);
 }
