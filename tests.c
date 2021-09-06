@@ -27,32 +27,25 @@
 #define ITEM_SIZE
 #define LEN
 
-static Slice99 gen_int_slice(void) {
-    const size_t len = rand() % 10;
-    Slice99 data = Slice99_new(malloc(len * sizeof(int)), sizeof(int), len);
-
-    for (ptrdiff_t i = 0; i < (ptrdiff_t)len; i++) {
-        *(int *)Slice99_get(data, i) = rand() % INT_MAX;
-    }
-
-    return data;
-}
-
-static int cmp_ints(const void *lhs, const void *rhs) {
+static int int_cmp(const void *lhs, const void *rhs) {
     return *(const int *)lhs - *(const int *)rhs;
 }
 
-static bool slice_int_eq(Slice99 lhs, Slice99 rhs) {
-    return Slice99_eq(lhs, rhs, cmp_ints);
+static bool int_eq(Slice99 lhs, Slice99 rhs) {
+    return Slice99_eq(lhs, rhs, int_cmp);
 }
 
-typedef struct {
-    int x;
-    long long y;
-} Foo;
+static Slice99 random_int_slice(void) {
+    const size_t len = rand() % 10;
+    int *buffer = malloc(len * sizeof buffer[0]);
+    assert(buffer);
 
-static const int n = 123;
-static const Foo foo = {.x = 456, .y = -193993};
+    for (size_t i = 0; i < len; i++) {
+        buffer[i] = rand() % INT_MAX;
+    }
+
+    return Slice99_new(buffer, sizeof buffer[0], len);
+}
 // } (Auxiliary stuff)
 
 TEST(array_len) {
@@ -66,7 +59,14 @@ TEST(array_len) {
 }
 
 TEST(write_to_buffer) {
-    char buffer[sizeof n + sizeof foo] = {0};
+    const int n = 123;
+    const int array[] = {1, 2, 3};
+    const struct {
+        int x;
+        long long y;
+    } foo = {.x = 456, .y = -193993};
+
+    char buffer[sizeof n + sizeof array + sizeof foo] = {0};
     void *buffer_ptr = buffer;
 
 #define TEST_WRITE(obj_start, val)                                                                 \
@@ -77,17 +77,25 @@ TEST(write_to_buffer) {
     } while (0)
 
     TEST_WRITE(buffer, n);
-    TEST_WRITE(buffer + sizeof n, foo);
+    TEST_WRITE(buffer + sizeof n, array);
+    TEST_WRITE(buffer + sizeof n + sizeof array, foo);
 
 #undef TEST_WRITE
 }
 
 TEST(to_octets) {
+    const int n = 123;
+    const int array[] = {1, 2, 3};
+    const struct {
+        int x;
+        long long y;
+    } foo = {.x = 456, .y = -193993};
+
 #define TEST_TO_OCTETS(obj)                                                                        \
     do {                                                                                           \
         U8Slice99 result = SLICE99_TO_OCTETS(obj);                                                 \
-        assert(sizeof(obj) == result.len);                                                         \
-        assert(memcmp(&(obj), result.ptr, sizeof(obj)) == 0);                                      \
+        assert(sizeof obj == result.len);                                                          \
+        assert(memcmp(&(obj), result.ptr, sizeof obj) == 0);                                       \
     } while (0)
 
 #ifdef __clang__
@@ -96,6 +104,7 @@ TEST(to_octets) {
 #endif
 
     TEST_TO_OCTETS(n);
+    TEST_TO_OCTETS(array);
     TEST_TO_OCTETS(foo);
 
 #ifdef __clang__
@@ -112,7 +121,7 @@ TEST(from_str) {
         ASSERT_SLICE(
             Slice99_from_str(str),
             PTR str,
-            ITEM_SIZE sizeof(char),
+            ITEM_SIZE sizeof str[0],
             LEN strlen(str)
         );
 
@@ -120,7 +129,7 @@ TEST(from_str) {
         ASSERT_SLICE(
             Slice99_from_str(str),
             PTR str,
-            ITEM_SIZE sizeof(char),
+            ITEM_SIZE sizeof str[0],
             LEN strlen(str)
         );
     }
@@ -130,7 +139,7 @@ TEST(from_str) {
         ASSERT_SLICE(
             SLICE99_TO_UNTYPED(CharSlice99_from_str(str)),
             PTR str,
-            ITEM_SIZE sizeof(char),
+            ITEM_SIZE sizeof str[0],
             LEN strlen(str)
         );
 
@@ -138,7 +147,7 @@ TEST(from_str) {
         ASSERT_SLICE(
             SLICE99_TO_UNTYPED(CharSlice99_from_str(str)),
             PTR str,
-            ITEM_SIZE sizeof(char),
+            ITEM_SIZE sizeof str[0],
             LEN strlen(str)
         );
     }
@@ -150,24 +159,23 @@ TEST(from_ptrdiff) {
 
     // clang-format off
     ASSERT_SLICE(
-        Slice99_from_ptrdiff(data, data, sizeof(int)),
+        Slice99_from_ptrdiff(data, data, sizeof data[0]),
         PTR data,
-        ITEM_SIZE sizeof(int),
+        ITEM_SIZE sizeof data[0],
         LEN 0
     );
 
     ASSERT_SLICE(
-        Slice99_from_ptrdiff(data, data + SLICE99_ARRAY_LEN(data),
-        sizeof(int)),
+        Slice99_from_ptrdiff(data, data + SLICE99_ARRAY_LEN(data), sizeof data[0]),
         PTR data,
-        ITEM_SIZE sizeof(int),
+        ITEM_SIZE sizeof data[0],
         LEN SLICE99_ARRAY_LEN(data)
     );
 
     ASSERT_SLICE(
-        Slice99_from_ptrdiff(data + 1, data + 4, sizeof(int)),
+        Slice99_from_ptrdiff(data + 1, data + 4, sizeof data[0]),
         PTR data + 1,
-        ITEM_SIZE sizeof(int),
+        ITEM_SIZE sizeof data[0],
         LEN 3
     );
     // clang-format on
@@ -181,7 +189,7 @@ TEST(from_typed_ptr) {
     ASSERT_SLICE(
         slice,
         PTR data,
-        ITEM_SIZE sizeof(int),
+        ITEM_SIZE sizeof data[0],
         LEN 5
     );
     // clang-format on
@@ -240,35 +248,35 @@ TEST(sub) {
     ASSERT_SLICE(
         Slice99_sub(Slice99_from_array(data), 0, 0),
         PTR data,
-        ITEM_SIZE sizeof(int),
+        ITEM_SIZE sizeof data[0],
         LEN 0
     );
 
     ASSERT_SLICE(
         Slice99_sub(Slice99_from_array(data), 0, 3),
         PTR data,
-        ITEM_SIZE sizeof(int),
+        ITEM_SIZE sizeof data[0],
         LEN 3
     );
 
     ASSERT_SLICE(
         Slice99_sub(Slice99_from_array(data), 2, 4),
         PTR data + 2,
-        ITEM_SIZE sizeof(int),
+        ITEM_SIZE sizeof data[0],
         LEN 2
     );
 
     ASSERT_SLICE(
-        Slice99_sub(Slice99_new(data + 2, sizeof(int), 3), -2, 1),
+        Slice99_sub(Slice99_new(data + 2, sizeof data[0], 3), -2, 1),
         PTR data,
-        ITEM_SIZE sizeof(int),
+        ITEM_SIZE sizeof data[0],
         LEN 3
     );
 
     ASSERT_SLICE(
-        Slice99_sub(Slice99_new(data + 3, sizeof(int), 2), -2, -1),
+        Slice99_sub(Slice99_new(data + 3, sizeof data[0], 2), -2, -1),
         PTR data + 1,
-        ITEM_SIZE sizeof(int),
+        ITEM_SIZE sizeof data[0],
         LEN 1
     );
     // clang-format on
@@ -281,28 +289,28 @@ TEST(advance) {
     ASSERT_SLICE(
         Slice99_advance(Slice99_from_array(data), 0),
         PTR data,
-        ITEM_SIZE sizeof(int),
+        ITEM_SIZE sizeof data[0],
         LEN 5
     );
 
     ASSERT_SLICE(
         Slice99_advance(Slice99_from_array(data), 1),
         PTR data + 1,
-        ITEM_SIZE sizeof(int),
+        ITEM_SIZE sizeof data[0],
         LEN 4
     );
 
     ASSERT_SLICE(
         Slice99_advance(Slice99_from_array(data), 5),
         PTR data + 5,
-        ITEM_SIZE sizeof(int),
+        ITEM_SIZE sizeof data[0],
         LEN 0
     );
 
     ASSERT_SLICE(
-        Slice99_advance(Slice99_new(data + 1, sizeof(int), 4), -1),
+        Slice99_advance(Slice99_new(data + 1, sizeof data[0], 4), -1),
         PTR data,
-        ITEM_SIZE sizeof(int),
+        ITEM_SIZE sizeof data[0],
         LEN 5
     );
     // clang-format on
@@ -324,9 +332,9 @@ TEST(primitive_eq_basic) {
 TEST(primitive_eq_is_equivalence) {
     for (size_t i = 0; i < 100; i++) {
         Slice99 slices[] = {
-            gen_int_slice(),
-            gen_int_slice(),
-            gen_int_slice(),
+            random_int_slice(),
+            random_int_slice(),
+            random_int_slice(),
         };
 
         ASSERT_EQUIVALENCE(Slice99_primitive_eq, slices[0], slices[1], slices[2]);
@@ -354,12 +362,12 @@ TEST(eq_basic) {
 TEST(eq_is_equivalence) {
     for (size_t i = 0; i < 100; i++) {
         Slice99 slices[] = {
-            gen_int_slice(),
-            gen_int_slice(),
-            gen_int_slice(),
+            random_int_slice(),
+            random_int_slice(),
+            random_int_slice(),
         };
 
-        ASSERT_EQUIVALENCE(slice_int_eq, slices[0], slices[1], slices[2]);
+        ASSERT_EQUIVALENCE(int_eq, slices[0], slices[1], slices[2]);
 
         free(slices[0].ptr);
         free(slices[1].ptr);
@@ -385,9 +393,9 @@ TEST(primitive_starts_with_basic) {
 TEST(primitive_starts_with_partial_order) {
     for (size_t i = 0; i < 100; i++) {
         Slice99 slices[] = {
-            gen_int_slice(),
-            gen_int_slice(),
-            gen_int_slice(),
+            random_int_slice(),
+            random_int_slice(),
+            random_int_slice(),
         };
 
         ASSERT_PARTIAL_ORDER(
@@ -401,10 +409,8 @@ TEST(primitive_starts_with_partial_order) {
 
 TEST(primitive_starts_with_empty_slice_is_min) {
     for (size_t i = 0; i < 100; i++) {
-        Slice99 slice = gen_int_slice();
-
+        Slice99 slice = random_int_slice();
         assert(Slice99_primitive_starts_with(slice, Slice99_empty(sizeof(int))));
-
         free(slice.ptr);
     }
 }
@@ -415,7 +421,7 @@ TEST(primitive_starts_with) {
     test_primitive_starts_with_empty_slice_is_min();
 }
 
-#define STARTS_WITH(slice, prefix) Slice99_starts_with(slice, prefix, cmp_ints)
+#define STARTS_WITH(slice, prefix) Slice99_starts_with(slice, prefix, int_cmp)
 
 TEST(starts_with_basic) {
     Slice99 slice = Slice99_from_array((int[]){1, 2, 3, 4, 5});
@@ -430,12 +436,12 @@ TEST(starts_with_basic) {
 TEST(starts_with_partial_order) {
     for (size_t i = 0; i < 100; i++) {
         Slice99 slices[] = {
-            gen_int_slice(),
-            gen_int_slice(),
-            gen_int_slice(),
+            random_int_slice(),
+            random_int_slice(),
+            random_int_slice(),
         };
 
-#define EQ(slice, other) Slice99_eq(slice, other, cmp_ints)
+#define EQ(slice, other) Slice99_eq(slice, other, int_cmp)
 
         ASSERT_PARTIAL_ORDER(STARTS_WITH, EQ, slices[0], slices[1], slices[2]);
 
@@ -449,10 +455,8 @@ TEST(starts_with_partial_order) {
 
 TEST(starts_with_empty_slice_is_min) {
     for (size_t i = 0; i < 100; i++) {
-        Slice99 slice = gen_int_slice();
-
+        Slice99 slice = random_int_slice();
         assert(STARTS_WITH(slice, Slice99_empty(sizeof(int))));
-
         free(slice.ptr);
     }
 }
@@ -478,9 +482,9 @@ TEST(primitive_ends_with_basic) {
 TEST(primitive_ends_with_partial_order) {
     for (size_t i = 0; i < 100; i++) {
         Slice99 slices[] = {
-            gen_int_slice(),
-            gen_int_slice(),
-            gen_int_slice(),
+            random_int_slice(),
+            random_int_slice(),
+            random_int_slice(),
         };
 
         ASSERT_PARTIAL_ORDER(
@@ -494,10 +498,8 @@ TEST(primitive_ends_with_partial_order) {
 
 TEST(primitive_ends_with_empty_slice_is_max) {
     for (size_t i = 0; i < 100; i++) {
-        Slice99 slice = gen_int_slice();
-
+        Slice99 slice = random_int_slice();
         assert(Slice99_primitive_ends_with(slice, Slice99_empty(sizeof(int))));
-
         free(slice.ptr);
     }
 }
@@ -508,7 +510,7 @@ TEST(primitive_ends_with) {
     test_primitive_ends_with_empty_slice_is_max();
 }
 
-#define ENDS_WITH(slice, postfix) Slice99_ends_with(slice, postfix, cmp_ints)
+#define ENDS_WITH(slice, postfix) Slice99_ends_with(slice, postfix, int_cmp)
 
 TEST(ends_with_basic) {
     Slice99 slice = Slice99_from_array((int[]){1, 2, 3, 4, 5});
@@ -523,12 +525,12 @@ TEST(ends_with_basic) {
 TEST(ends_with_partial_order) {
     for (size_t i = 0; i < 100; i++) {
         Slice99 slices[] = {
-            gen_int_slice(),
-            gen_int_slice(),
-            gen_int_slice(),
+            random_int_slice(),
+            random_int_slice(),
+            random_int_slice(),
         };
 
-#define EQ(slice, other) Slice99_eq(slice, other, cmp_ints)
+#define EQ(slice, other) Slice99_eq(slice, other, int_cmp)
 
         ASSERT_PARTIAL_ORDER(ENDS_WITH, EQ, slices[0], slices[1], slices[2]);
 
@@ -542,10 +544,8 @@ TEST(ends_with_partial_order) {
 
 TEST(ends_with_empty_slice_is_max) {
     for (size_t i = 0; i < 100; i++) {
-        Slice99 slice = gen_int_slice();
-
+        Slice99 slice = random_int_slice();
         assert(ENDS_WITH(slice, Slice99_empty(sizeof(int))));
-
         free(slice.ptr);
     }
 }
@@ -559,31 +559,54 @@ TEST(ends_with) {
 #undef ENDS_WITH
 
 TEST(copy) {
-    int data[] = {1, 2, 3, 4, 5};
-    int copied[SLICE99_ARRAY_LEN(data)];
+#define CHECK_COPY                                                                                 \
+    do {                                                                                           \
+        const int expected[] = {2, 3, 4, 5};                                                       \
+        assert(memcmp(dst.ptr, expected, sizeof expected) == 0);                                   \
+    } while (0)
 
-    Slice99_copy(Slice99_from_array(copied), Slice99_from_array(data));
-    assert(memcmp(data, copied, sizeof(data)) == 0);
-    memset(copied, 0, sizeof(copied));
+    {
+        Slice99 dst = Slice99_from_array((int[]){1, 2, 3, 4, 5}),
+                src = Slice99_sub(dst, 1, (ptrdiff_t)dst.len);
 
-    // Check that copy occurs even if a destination slice is empty.
-    Slice99_copy(Slice99_new(copied, sizeof(int), 0), Slice99_from_array(data));
-    assert(memcmp(data, copied, sizeof(data)) == 0);
-    memset(copied, 0, sizeof(copied));
+        Slice99_copy(dst, src);
+        CHECK_COPY;
+    }
+
+    {
+        Slice99 dst = Slice99_from_array((int[]){1, 2, 3, 4, 5}),
+                src = Slice99_sub(dst, 1, (ptrdiff_t)dst.len);
+
+        Slice99_copy(Slice99_update_len(dst, 0), src);
+        CHECK_COPY;
+    }
+
+#undef CHECK_COPY
 }
 
+// clang-format off
 TEST(copy_non_overlapping) {
-    Slice99 slice = Slice99_from_array((int[]){1, 2, 3, 4, 5});
+#define CHECK_COPY assert(memcmp(copied, data, sizeof data) == 0)
 
-    Slice99_copy(slice, Slice99_sub(slice, 1, (ptrdiff_t)slice.len));
-    assert(memcmp(slice.ptr, (const int[]){2, 3, 4, 5}, sizeof(int) * 4) == 0);
+    {
+        int data[] = {1, 2, 3, 4, 5};
+        int copied[SLICE99_ARRAY_LEN(data)];
 
-    // Check that copy occurs even if a destination slice is empty.
-    int data[] = {1, 2, 3, 4, 5};
-    int copied[SLICE99_ARRAY_LEN(data)];
-    Slice99_copy(Slice99_new(copied, sizeof(int), 0), Slice99_from_array(data));
-    assert(memcmp(data, copied, sizeof(data)) == 0);
+        Slice99_copy_non_overlapping(Slice99_from_array(copied), Slice99_from_array(data));
+        CHECK_COPY;
+    }
+
+    {
+        int data[] = {1, 2, 3, 4, 5};
+        int copied[SLICE99_ARRAY_LEN(data)];
+
+        Slice99_copy_non_overlapping(Slice99_new(copied, sizeof copied[0], 0), Slice99_from_array(data));
+        CHECK_COPY;
+    }
+
+#undef CHECK_COPY
 }
+// clang-format on
 
 TEST(swap) {
     int backup;
@@ -598,26 +621,28 @@ TEST(swap) {
 TEST(swap_with_slice) {
     int backup;
 
-    Slice99 lhs = Slice99_from_array((int[]){1, 2, 3, 4, 5}),
-            rhs = Slice99_from_array((int[]){6, 7, 8, 9, 0});
+#define LHS_DATA 1, 2, 3, 4, 5
+#define RHS_DATA 6, 7, 8, 9, 0
+
+    int lhs_data[] = {LHS_DATA}, rhs_data[] = {RHS_DATA};
+    Slice99 lhs = Slice99_from_array(lhs_data), rhs = Slice99_from_array(rhs_data);
 
     Slice99_swap_with_slice(lhs, rhs, &backup);
 
-    assert(memcmp(lhs.ptr, (const int[]){6, 7, 8, 9, 0}, Slice99_size(lhs)) == 0);
-    assert(memcmp(rhs.ptr, (const int[]){1, 2, 3, 4, 5}, Slice99_size(rhs)) == 0);
+    assert(memcmp(lhs.ptr, (int[]){RHS_DATA}, sizeof rhs_data) == 0);
+    assert(memcmp(rhs.ptr, (int[]){LHS_DATA}, sizeof lhs_data) == 0);
+
+#undef LHS_DATA
+#undef RHS_DATA
 }
 
 TEST(reverse_basic) {
     int backup;
+    int data[] = {1, 2, 3, 4, 5};
 
-    char empty_str[] = "";
-    Slice99 slice = Slice99_new(empty_str, 1, 0);
+    Slice99 slice = Slice99_from_array(data);
     Slice99_reverse(slice, &backup);
-    assert(memcmp(slice.ptr, empty_str, Slice99_size(slice)) == 0);
-
-    slice = Slice99_from_array((int[]){1, 2, 3, 4, 5});
-    Slice99_reverse(slice, &backup);
-    assert(memcmp(slice.ptr, (const int[]){5, 4, 3, 2, 1}, Slice99_size(slice)) == 0);
+    assert(memcmp(slice.ptr, data, Slice99_size(slice)) == 0);
 }
 
 static Slice99 slice_rev_aux(Slice99 slice) {
@@ -628,15 +653,12 @@ static Slice99 slice_rev_aux(Slice99 slice) {
 
 TEST(reverse_involutive) {
     for (size_t i = 0; i < 100; i++) {
-        Slice99 slice = gen_int_slice();
+        Slice99 slice = random_int_slice();
 
-        int *saved_array;
-        if ((saved_array = malloc(Slice99_size(slice))) == NULL) {
-            abort();
-        }
-
+        int *saved_array = malloc(Slice99_size(slice));
+        assert(saved_array);
         memcpy(saved_array, slice.ptr, Slice99_size(slice));
-        Slice99 saved_slice = Slice99_new(saved_array, sizeof(int), slice.len);
+        Slice99 saved_slice = Slice99_new(saved_array, sizeof saved_array[0], slice.len);
 
         ASSERT_INVOLUTIVE(slice_rev_aux, Slice99_primitive_eq, saved_slice);
 
@@ -856,7 +878,7 @@ TEST(to_untyped) {
     ASSERT_SLICE(
         SLICE99_TO_UNTYPED(CharSlice99_from_str(str)),
         PTR str,
-        ITEM_SIZE sizeof(char),
+        ITEM_SIZE sizeof str[0],
         LEN strlen(str)
     );
     // clang-format on
