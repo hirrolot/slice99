@@ -1,18 +1,21 @@
 #!/bin/bash
 
+export COMMON_OPTIONS="-I. -Iassert-algebraic -std=c99 -o tests -fsanitize=address -Wno-padded -Werror"
+
+echo "Testing Cppcheck"
 cppcheck tests.c
 
-# Test Clang with scan-build.
-scan-build --use-analyzer=/usr/bin/clang clang tests.c -I. -Iassert-algebraic -Weverything -std=c99 -o tests -fsanitize=address -Wno-padded
+echo "Testing Clang..."
+scan-build --use-analyzer=/usr/bin/clang clang tests.c ${COMMON_OPTIONS} -Weverything
 ./tests
+
+echo "Testing GCC..."
+gcc tests.c ${COMMON_OPTIONS} -Wall -Wextra -pedantic
+./tests
+
 rm tests
 
-# Test GCC.
-gcc tests.c -I. -Iassert-algebraic -Wall -Wextra -pedantic -std=c99 -o tests -fsanitize=address -Wno-padded
-./tests
-rm tests
-
-# Check the examples.
+echo "Testing the examples..."
 mkdir -p examples/build
 cd examples/build
 cmake ..

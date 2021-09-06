@@ -352,10 +352,10 @@ SOFTWARE.
 #define SLICE99_ARRAY_LEN(...) (sizeof(__VA_ARGS__) / sizeof((__VA_ARGS__)[0]))
 
 /**
- * Copies @p val to @p buffer, returning the next position of @p buffer to write to.
+ * Copies @p obj to @p buffer, returning the next position of @p buffer to write to.
  *
  * This macro is no different from `memcpy` except for the return value. It is useful when you
- * want to write a sequence of items to some memory buffer, e.g., to a packet header:
+ * want to write a sequence of objects to some memory buffer, e.g., to a packet header:
  *
  * @code
  * const uint16_t x = 123;
@@ -367,14 +367,27 @@ SOFTWARE.
  * @endcode
  *
  * @param[out] buffer The memory area to write to.
- * @param[in] val The object (lvalue) that will be copied to @p buffer, byte-by-byte.
+ * @param[in] obj The object (lvalue) that will be copied to @p buffer, byte-by-byte.
  *
- * @return `(char *)buffer + sizeof(val)`
+ * @return `(char *)buffer + sizeof(obj)`
  *
- * @pre @p buffer must be capable of holding at least `sizeof(val)` bytes.
+ * @pre @p buffer must be capable of holding at least `sizeof(obj)` bytes.
  */
-#define SLICE99_WRITE_TO_BUFFER(buffer, val)                                                       \
-    ((char *)SLICE99_MEMCPY((buffer), &(val), sizeof(val)) + sizeof(val))
+#define SLICE99_WRITE_TO_BUFFER(buffer, obj)                                                       \
+    ((char *)SLICE99_MEMCPY((buffer), &(obj), sizeof(obj)) + sizeof(obj))
+
+#ifdef UINT8_MAX
+
+/**
+ * Constructs `U8Slice99` from @p obj.
+ *
+ * @param[in] obj The object (lvalue) to which the resulting slice will point to.
+ *
+ * @return An octet slice pointing to @p obj of length `sizeof(obj)`.
+ */
+#define SLICE99_TO_OCTETS(obj) U8Slice99_new((uint8_t *)&(obj), sizeof(obj))
+
+#endif
 
 /**
  * Constructs a slice from an array expression.
@@ -918,125 +931,5 @@ inline static SLICE99_WARN_UNUSED_RESULT CharSlice99 CharSlice99_from_str(char *
 inline static char *CharSlice99_c_str(CharSlice99 self, char out[restrict]) {
     return Slice99_c_str(SLICE99_TO_UNTYPED(self), out);
 }
-#define SLICE99_PRIV_DEF_FROM_INT(T, shortcut)                                                     \
-    inline static U8Slice99 U8Slice99_from_##shortcut(T *val) {                                    \
-        SLICE99_ASSERT(val);                                                                       \
-                                                                                                   \
-        return U8Slice99_new((uint8_t *)val, sizeof(T));                                           \
-    }
-
-#ifdef UINT8_MAX
-
-// Unsigned integers {
-#ifdef UINT8_MAX
-/**
- * Constructs an octet slice from `uint8_t *`.
- *
- * @param[in] val The pointer that will be converted to an octet pointer.
- *
- * @return A slice pointing to @p val of length `sizeof *val`.
- *
- * @pre `val != NULL`
- */
-SLICE99_PRIV_DEF_FROM_INT(uint8_t, u8)
-#endif
-
-#ifdef UINT16_MAX
-/**
- * Constructs an octet slice from `uint16_t *`.
- *
- * @param[in] val The pointer that will be converted to an octet pointer.
- *
- * @return A slice pointing to @p val of length `sizeof *val`.
- *
- * @pre `val != NULL`
- */
-SLICE99_PRIV_DEF_FROM_INT(uint16_t, u16)
-#endif
-
-#ifdef UINT32_MAX
-/**
- * Constructs an octet slice from `uint32_t *`.
- *
- * @param[in] val The pointer that will be converted to an octet pointer.
- *
- * @return A slice pointing to @p val of length `sizeof *val`.
- *
- * @pre `val != NULL`
- */
-SLICE99_PRIV_DEF_FROM_INT(uint32_t, u32)
-#endif
-
-#ifdef UINT64_MAX
-/**
- * Constructs an octet slice from `uint64_t *`.
- *
- * @param[in] val The pointer that will be converted to an octet pointer.
- *
- * @return A slice pointing to @p val of length `sizeof *val`.
- *
- * @pre `val != NULL`
- */
-SLICE99_PRIV_DEF_FROM_INT(uint64_t, u64)
-#endif
-// } (Unsigned integers)
-
-// Signed integers {
-#ifdef INT8_MAX
-/**
- * Constructs an octet slice from `int8_t *`.
- *
- * @param[in] val The pointer that will be converted to an octet pointer.
- *
- * @return A slice pointing to @p val of length `sizeof *val`.
- *
- * @pre `val != NULL`
- */
-SLICE99_PRIV_DEF_FROM_INT(int8_t, i8)
-#endif
-
-#ifdef INT16_MAX
-/**
- * Constructs an octet slice from `int16_t *`.
- *
- * @param[in] val The pointer that will be converted to an octet pointer.
- *
- * @return A slice pointing to @p val of length `sizeof *val`.
- *
- * @pre `val != NULL`
- */
-SLICE99_PRIV_DEF_FROM_INT(int16_t, i16)
-#endif
-
-#ifdef INT32_MAX
-/**
- * Constructs an octet slice from `int32_t *`.
- *
- * @param[in] val The pointer that will be converted to an octet pointer.
- *
- * @return A slice pointing to @p val of length `sizeof *val`.
- *
- * @pre `val != NULL`
- */
-SLICE99_PRIV_DEF_FROM_INT(int32_t, i32)
-#endif
-
-#ifdef INT64_MAX
-/**
- * Constructs an octet slice from `int64_t *`.
- *
- * @param[in] val The pointer that will be converted to an octet pointer.
- *
- * @return A slice pointing to @p val of length `sizeof *val`.
- *
- * @pre `val != NULL`
- */
-SLICE99_PRIV_DEF_FROM_INT(int64_t, i64)
-#endif
-// } (Signed integers)
-
-#endif // UINT8_MAX
-
-#undef SLICE99_PRIV_DEF_FROM_INT
 
 #endif // SLICE99_H

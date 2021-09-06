@@ -45,6 +45,14 @@ static int cmp_ints(const void *lhs, const void *rhs) {
 static bool slice_int_eq(Slice99 lhs, Slice99 rhs) {
     return Slice99_eq(lhs, rhs, cmp_ints);
 }
+
+typedef struct {
+    int x;
+    long long y;
+} Foo;
+
+static const int n = 123;
+static const Foo foo = {.x = 456, .y = -193993};
 // } (Auxiliary stuff)
 
 TEST(array_len) {
@@ -58,14 +66,6 @@ TEST(array_len) {
 }
 
 TEST(write_to_buffer) {
-    typedef struct {
-        int x;
-        long long y;
-    } Foo;
-
-    const int n = 123;
-    const Foo foo = {.x = 456, .y = -193993};
-
     char buffer[sizeof n + sizeof foo] = {0};
     void *buffer_ptr = buffer;
 
@@ -80,6 +80,29 @@ TEST(write_to_buffer) {
     TEST_WRITE(buffer + sizeof n, foo);
 
 #undef TEST_WRITE
+}
+
+TEST(to_octets) {
+#define TEST_TO_OCTETS(obj)                                                                        \
+    do {                                                                                           \
+        U8Slice99 result = SLICE99_TO_OCTETS(obj);                                                 \
+        assert(sizeof(obj) == result.len);                                                         \
+        assert(memcmp(&(obj), result.ptr, sizeof(obj)) == 0);                                      \
+    } while (0)
+
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wcast-qual"
+#endif
+
+    TEST_TO_OCTETS(n);
+    TEST_TO_OCTETS(foo);
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+
+#undef TEST_TO_OCTETS
 }
 
 TEST(from_str) {
@@ -726,28 +749,6 @@ TEST(to_c_str) {
     }
 }
 
-TEST(u8_from_ints) {
-#define TEST_FROM_INT(T, shortcut)                                                                 \
-    do {                                                                                           \
-        T n = 123;                                                                                 \
-        U8Slice99 result = U8Slice99_from_##shortcut(&n);                                          \
-        assert(sizeof(T) == result.len);                                                           \
-        assert(memcmp((const void *)&n, (const void *)result.ptr, sizeof(T)) == 0);                \
-    } while (0)
-
-    TEST_FROM_INT(uint8_t, u8);
-    TEST_FROM_INT(uint16_t, u16);
-    TEST_FROM_INT(uint32_t, u32);
-    TEST_FROM_INT(uint64_t, u64);
-
-    TEST_FROM_INT(int8_t, i8);
-    TEST_FROM_INT(int16_t, i16);
-    TEST_FROM_INT(int32_t, i32);
-    TEST_FROM_INT(int64_t, i64);
-
-#undef TEST_FROM_INT
-}
-
 typedef struct {
     int x, y;
 } Point;
@@ -866,6 +867,7 @@ int main(void) {
 
     test_array_len();
     test_write_to_buffer();
+    test_to_octets();
     test_from_str();
     test_from_ptrdiff();
     test_from_typed_ptr();
@@ -890,7 +892,6 @@ int main(void) {
     test_reverse();
     test_split_at();
     test_to_c_str();
-    test_u8_from_ints();
 
     test_def_typed();
     test_fundamentals();
