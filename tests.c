@@ -706,6 +706,28 @@ TEST(write_to_buffer) {
     assert(memcmp(buffer + sizeof(data1), data2, sizeof data2) == 0);
 }
 
+TEST(u8_from_ints) {
+#define TEST_FROM_INT(T, shortcut)                                                                 \
+    do {                                                                                           \
+        T n = 123;                                                                                 \
+        U8Slice99 result = U8Slice99_from_##shortcut(&n);                                          \
+        assert(sizeof(T) == result.len);                                                           \
+        assert(memcmp((const void *)&n, (const void *)result.ptr, sizeof(T)) == 0);                \
+    } while (0)
+
+    TEST_FROM_INT(uint8_t, u8);
+    TEST_FROM_INT(uint16_t, u16);
+    TEST_FROM_INT(uint32_t, u32);
+    TEST_FROM_INT(uint64_t, u64);
+
+    TEST_FROM_INT(int8_t, i8);
+    TEST_FROM_INT(int16_t, i16);
+    TEST_FROM_INT(int32_t, i32);
+    TEST_FROM_INT(int64_t, i64);
+
+#undef TEST_FROM_INT
+}
+
 typedef struct {
     int x, y;
 } Point;
@@ -848,6 +870,7 @@ int main(void) {
     test_split_at();
     test_to_c_str();
     test_write_to_buffer();
+    test_u8_from_ints();
 
     test_def_typed();
     test_fundamentals();

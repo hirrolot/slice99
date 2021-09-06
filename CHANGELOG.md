@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
  - `Slice99_write_to_buffer` to write a slice to a memory buffer.
+ - `U8Slice99_from_(u8|u16|u32|u64|i8|i16|i32|i64)` to obtain an octet slice from a fixed-width number.
 
 ## [0.6.0] - 2021-08-21
 
