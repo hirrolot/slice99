@@ -2,7 +2,7 @@
 
 export COMMON_OPTIONS="-I. -Iassert-algebraic -std=c99 -o tests -fsanitize=address -Wno-padded -Werror"
 
-echo "Testing Cppcheck"
+echo "Testing Cppcheck..."
 cppcheck tests.c
 
 echo "Testing Clang..."

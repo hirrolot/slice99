@@ -1,3 +1,3 @@
 #!/bin/bash
 
-find slice99.h examples tests.c -iname *.h -o -iname *.c -path examples/build -prune | xargs clang-format -i
+clang-format -i slice99.h tests.c examples/*.c
