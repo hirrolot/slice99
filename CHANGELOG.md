@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### Added
+
+ - `Slice99_write_to_buffer` to write a slice to a memory buffer.
+
 ## [0.6.0] - 2021-08-21
 
 ### Changed
