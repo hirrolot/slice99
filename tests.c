@@ -47,6 +47,41 @@ static bool slice_int_eq(Slice99 lhs, Slice99 rhs) {
 }
 // } (Auxiliary stuff)
 
+TEST(array_len) {
+    const char x[10];
+    const int y[86];
+    const double z[291];
+
+    assert(SLICE99_ARRAY_LEN(x) == sizeof x / sizeof x[0]);
+    assert(SLICE99_ARRAY_LEN(y) == sizeof y / sizeof y[0]);
+    assert(SLICE99_ARRAY_LEN(z) == sizeof z / sizeof z[0]);
+}
+
+TEST(write_to_buffer) {
+    typedef struct {
+        int x;
+        long long y;
+    } Foo;
+
+    const int n = 123;
+    const Foo foo = {.x = 456, .y = -193993};
+
+    char buffer[sizeof n + sizeof foo] = {0};
+    void *buffer_ptr = buffer;
+
+#define TEST_WRITE(obj_start, val)                                                                 \
+    do {                                                                                           \
+        buffer_ptr = SLICE99_WRITE_TO_BUFFER(buffer_ptr, val);                                     \
+        assert(obj_start + sizeof val == buffer_ptr);                                              \
+        assert(memcmp(obj_start, &val, sizeof val) == 0);                                          \
+    } while (0)
+
+    TEST_WRITE(buffer, n);
+    TEST_WRITE(buffer + sizeof n, foo);
+
+#undef TEST_WRITE
+}
+
 TEST(from_str) {
     // clang-format off
     {
@@ -691,21 +726,6 @@ TEST(to_c_str) {
     }
 }
 
-TEST(write_to_buffer) {
-    char buffer[8] = {0};
-    void *buffer_ptr = buffer;
-
-    char data1[] = {'a', 'b', 'c'}, data2[] = {'d', 'e', 'f'};
-
-    buffer_ptr = Slice99_write_to_buffer(Slice99_from_array(data1), buffer_ptr);
-    assert(buffer + sizeof(data1) == buffer_ptr);
-    assert(memcmp(buffer, data1, sizeof data1) == 0);
-
-    buffer_ptr = Slice99_write_to_buffer(Slice99_from_array(data2), buffer_ptr);
-    assert(buffer + sizeof(data1) + sizeof(data2) == buffer_ptr);
-    assert(memcmp(buffer + sizeof(data1), data2, sizeof data2) == 0);
-}
-
 TEST(u8_from_ints) {
 #define TEST_FROM_INT(T, shortcut)                                                                 \
     do {                                                                                           \
@@ -771,7 +791,6 @@ TEST(def_typed) {
     TYPECHECK(MyPoints_reverse, void (*_)(MyPoints, Point * restrict));
     TYPECHECK(
         MyPoints_split_at, void (*_)(MyPoints, size_t, MyPoints * restrict, MyPoints * restrict));
-    TYPECHECK(MyPoints_write_to_buffer, Point * (*_)(MyPoints, Point * restrict));
 
 #undef TYPECHECK
 
@@ -845,6 +864,8 @@ TEST(to_untyped) {
 int main(void) {
     srand((unsigned)time(NULL));
 
+    test_array_len();
+    test_write_to_buffer();
     test_from_str();
     test_from_ptrdiff();
     test_from_typed_ptr();
@@ -869,7 +890,6 @@ int main(void) {
     test_reverse();
     test_split_at();
     test_to_c_str();
-    test_write_to_buffer();
     test_u8_from_ints();
 
     test_def_typed();

@@ -3,12 +3,12 @@
 cppcheck tests.c
 
 # Test Clang with scan-build.
-scan-build --use-analyzer=/usr/bin/clang clang tests.c -I. -Iassert-algebraic -Weverything -std=c99 -o tests -fsanitize=address
+scan-build --use-analyzer=/usr/bin/clang clang tests.c -I. -Iassert-algebraic -Weverything -std=c99 -o tests -fsanitize=address -Wno-padded
 ./tests
 rm tests
 
 # Test GCC.
-gcc tests.c -I. -Iassert-algebraic -Wall -Wextra -pedantic -std=c99 -o tests -fsanitize=address
+gcc tests.c -I. -Iassert-algebraic -Wall -Wextra -pedantic -std=c99 -o tests -fsanitize=address -Wno-padded
 ./tests
 rm tests
 
