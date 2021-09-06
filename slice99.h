@@ -372,6 +372,7 @@ SOFTWARE.
  * @return `(char *)buffer + sizeof(obj)`
  *
  * @pre @p buffer must be capable of holding at least `sizeof(obj)` bytes.
+ * @pre @p buffer and @p obj must be non-overlapping.
  */
 #define SLICE99_WRITE_TO_BUFFER(buffer, obj)                                                       \
     ((char *)SLICE99_MEMCPY((buffer), &(obj), sizeof(obj)) + sizeof(obj))
