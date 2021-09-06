@@ -373,9 +373,29 @@ SOFTWARE.
  *
  * @pre @p buffer must be capable of holding at least `sizeof(obj)` bytes.
  * @pre @p buffer and @p obj must be non-overlapping.
+ *
+ * @see #SLICE99_WRITE_ARRAY_TO_BUFFER
  */
 #define SLICE99_WRITE_TO_BUFFER(buffer, obj)                                                       \
     ((char *)SLICE99_MEMCPY((buffer), &(obj), sizeof(obj)) + sizeof(obj))
+
+/**
+ * Copies the array of length @p len accessible through @p ptr into @p buffer, returning the next
+ * position of @p buffer to write to.
+ *
+ * @param[out] buffer The memory area to write to.
+ * @param[in] ptr The pointer to the first item of the array to be copied byte-by-byte.
+ * @param[in] len The length of the array accessible through @p ptr.
+ *
+ * @return `(char *)buffer + (sizeof(ptr[0]) * len)`
+ *
+ * @pre @p buffer must be capable of holding at least `sizeof(ptr[0]) * len` bytes.
+ * @pre @p buffer and @p ptr must be non-overlapping.
+ *
+ * @see #SLICE99_WRITE_TO_BUFFER
+ */
+#define SLICE99_WRITE_ARRAY_TO_BUFFER(buffer, ptr, len)                                            \
+    ((char *)SLICE99_MEMCPY((buffer), (ptr), sizeof((ptr)[0]) * (len)) + sizeof((ptr)[0]) * (len))
 
 #ifdef UINT8_MAX
 
@@ -850,7 +870,6 @@ Slice99_split_at(Slice99 self, size_t i, Slice99 *restrict lhs, Slice99 *restric
  *
  * @return The pointer @p out.
  *
- * @pre `out != NULL`
  * @pre @p out must be capable of writing `Slice99_size(self) + 1` bytes.
  * @pre @p out must not overlap with @p self.
  */

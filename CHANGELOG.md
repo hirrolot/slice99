@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
- - `SLICE99_WRITE_TO_BUFFER` to write an object to a memory buffer.
+ - `SLICE99_WRITE(_ARRAY)_TO_BUFFER` to write an object/array to a memory buffer.
  - `SLICE99_TO_OCTETS` to convert an object to `U8Slice99`.
 
 ### Fixed

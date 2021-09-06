@@ -83,6 +83,15 @@ TEST(write_to_buffer) {
 #undef TEST_WRITE
 }
 
+TEST(write_array_to_buffer) {
+    int data[] = {1, 2, 3, 4, 5};
+    int buffer[SLICE99_ARRAY_LEN(data)] = {0};
+
+    void *buffer_ptr = SLICE99_WRITE_ARRAY_TO_BUFFER(buffer, (int *)data, SLICE99_ARRAY_LEN(data));
+    assert(buffer + SLICE99_ARRAY_LEN(data) == buffer_ptr);
+    assert(memcmp(buffer, data, sizeof data) == 0);
+}
+
 TEST(to_octets) {
     const int n = 123;
     const int array[] = {1, 2, 3};
@@ -889,6 +898,7 @@ int main(void) {
 
     test_array_len();
     test_write_to_buffer();
+    test_write_array_to_buffer();
     test_to_octets();
     test_from_str();
     test_from_ptrdiff();
