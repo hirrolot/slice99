@@ -156,9 +156,8 @@ SOFTWARE.
  * SLICE99_DEF_TYPED(MyPoints, Point);
  *
  * int main(void) {
- *     MyPoints points =
- *         Slice99_typed_from_array(MyPoints, (Point[]){{1.5, 32.5}, {12.0, 314.01}, {-134.10,
- * -9.3}});
+ *     MyPoints points = (MyPoints)Slice99_typed_from_array(
+ *         (Point[]){{1.5, 32.5}, {12.0, 314.01}, {-134.10, -9.3}});
  *
  *     MyPoints first_two = MyPoints_sub(points, 0, 2);
  *     Point *first = MyPoints_first(points);
@@ -383,16 +382,7 @@ SOFTWARE.
  * Copies the array of length @p len accessible through @p ptr into @p buffer, returning the next
  * position of @p buffer to write to.
  *
- * @param[out] buffer The memory area to write to.
- * @param[in] ptr The pointer to the first item of the array to be copied byte-by-byte.
- * @param[in] len The length of the array accessible through @p ptr.
- *
- * @return `(char *)buffer + (sizeof(ptr[0]) * len)`
- *
- * @pre @p buffer must be capable of holding at least `sizeof(ptr[0]) * len` bytes.
- * @pre @p buffer and @p ptr must be non-overlapping.
- *
- * @see #SLICE99_APPEND
+ * This function has the same requirements and a return value as of #SLICE99_APPEND.
  */
 #define SLICE99_APPEND_ARRAY(buffer, ptr, len)                                                     \
     ((char *)SLICE99_MEMCPY((buffer), (ptr), sizeof((ptr)[0]) * (len)) + sizeof((ptr)[0]) * (len))
@@ -421,9 +411,20 @@ SOFTWARE.
 
 /**
  * The same as #Slice99_from_array but for typed slices.
+ *
+ * # Examples
+ *
+ * @code
+ * #include <slice99.h>
+ *
+ * int main(void) {
+ *     IntSlice99 x = (IntSlice99)Slice99_typed_from_array((int[]){1, 2, 3});
+ *     (void)x;
+ * }
+ * @endcode
  */
-#define Slice99_typed_from_array(typed_slice_name, ...)                                            \
-    typed_slice_name##_new((__VA_ARGS__), SLICE99_ARRAY_LEN(__VA_ARGS__))
+#define Slice99_typed_from_array(...)                                                              \
+    { .ptr = (__VA_ARGS__), .len = SLICE99_ARRAY_LEN(__VA_ARGS__) }
 
 /**
  * Constructs a slice from a pointer of a non-`void` type and a length.

@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - `SLICE99_APPEND(_ARRAY)` to write an object/array to a memory buffer.
  - `SLICE99_TO_OCTETS` to convert an object to `U8Slice99`.
 
+### Changed
+
+ - `Slice99_typed_from_array(T, x)` => `(T)Slice99_typed_from_array(x)` [**BC**].
+
 ### Fixed
 
  - Show `(I8|I16|I32|I64)Slice99` type definitions in the docs.
@@ -19,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
- - `SLICE99_TO_TYPED(x, <T>)` => `(<T>)SLICE99_TO_TYPED(x)` [**BC**].
+ - `SLICE99_TO_TYPED(x, T)` => `(T)SLICE99_TO_TYPED(x)` [**BC**].
 
 ## [0.5.1] - 2021-08-20
 

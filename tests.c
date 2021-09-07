@@ -775,7 +775,7 @@ TEST(to_c_str) {
     }
 
     {
-        CharSlice99 slice = Slice99_typed_from_array(CharSlice99, (char[]){'a', 'b', 'c'});
+        CharSlice99 slice = (CharSlice99)Slice99_typed_from_array((char[]){'a', 'b', 'c'});
         assert(strcmp(CharSlice99_c_str(slice, (char[4]){0}), "abc") == 0);
     }
 }
@@ -829,7 +829,7 @@ TEST(def_typed) {
     // Slice99_typed_from_array
     {
         MyPoints points =
-            Slice99_typed_from_array(MyPoints, (Point[]){{1, 32}, {12, 314}, {-134, -9}});
+            (MyPoints)Slice99_typed_from_array((Point[]){{1, 32}, {12, 314}, {-134, -9}});
         (void)points;
     }
 }
