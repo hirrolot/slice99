@@ -90,6 +90,7 @@ Another use case of Slice99 is zero-copy parsers: you can return slices from you
 You can define a strongly typed slice with `SLICE99_DEF_TYPED`:
 
 ```c
+
 #include <slice99.h>
 
 typedef struct {
@@ -99,8 +100,8 @@ typedef struct {
 SLICE99_DEF_TYPED(MyPoints, Point);
 
 int main(void) {
-    MyPoints points =
-        Slice99_typed_from_array(MyPoints, (Point[]){{1.5, 32.5}, {12.0, 314.01}, {-134.10, -9.3}});
+    MyPoints points = (MyPoints)Slice99_typed_from_array(
+        (Point[]){{1.5, 32.5}, {12.0, 314.01}, {-134.10, -9.3}});
 
     MyPoints first_two = MyPoints_sub(points, 0, 2);
     Point *first = MyPoints_first(points);
