@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+## [0.7.0] - 2021-09-07
+
 ### Added
 
  - `SLICE99_APPEND(_ARRAY)` to write an object/array to a memory buffer.

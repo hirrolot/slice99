@@ -113,7 +113,7 @@ SOFTWARE.
 /**
  * The minor version number.
  */
-#define SLICE99_MINOR 6
+#define SLICE99_MINOR 7
 
 /**
  * The patch version number.

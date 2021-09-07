@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['slice99_5fappend',['SLICE99_APPEND',['../slice99_8h.html#ade9d7971e5940ca105fe84079766c4a9',1,'slice99.h']]],
+  ['slice99_5fappend_5farray',['SLICE99_APPEND_ARRAY',['../slice99_8h.html#a602156c96682543a687b6c9d783f7c87',1,'slice99.h']]],
   ['slice99_5farray_5flen',['SLICE99_ARRAY_LEN',['../slice99_8h.html#a36fc375eb1db0b3907825ea0720fbf0c',1,'slice99.h']]],
   ['slice99_5fassert',['SLICE99_ASSERT',['../slice99_8h.html#a29d489b28cf4d2cf56a17a2617990fee',1,'slice99.h']]],
   ['slice99_5fdef_5ftyped',['SLICE99_DEF_TYPED',['../slice99_8h.html#a557c011352fbc859d6c9ed3871a31c5e',1,'slice99.h']]],
@@ -12,7 +14,8 @@ var searchData=
   ['slice99_5fminor',['SLICE99_MINOR',['../slice99_8h.html#a8a577ef72a4eace6cfb5ca89f2518250',1,'slice99.h']]],
   ['slice99_5fpatch',['SLICE99_PATCH',['../slice99_8h.html#a910ddb4ba43cb60535cf6d1c3cb498a0',1,'slice99.h']]],
   ['slice99_5fstrlen',['SLICE99_STRLEN',['../slice99_8h.html#a74ab39995ce273807783bb0006d9d85d',1,'slice99.h']]],
+  ['slice99_5fto_5foctets',['SLICE99_TO_OCTETS',['../slice99_8h.html#af5300ed70f13eda8357c6833e7710a51',1,'slice99.h']]],
   ['slice99_5fto_5ftyped',['SLICE99_TO_TYPED',['../slice99_8h.html#a3e3a66e2441e671e725b50545328f14d',1,'slice99.h']]],
   ['slice99_5fto_5funtyped',['SLICE99_TO_UNTYPED',['../slice99_8h.html#a97fddbbb1c51ba529d7ca210c4ec4697',1,'slice99.h']]],
-  ['slice99_5ftyped_5ffrom_5farray',['Slice99_typed_from_array',['../slice99_8h.html#a910435545a29467d608f27e328cc429d',1,'slice99.h']]]
+  ['slice99_5ftyped_5ffrom_5farray',['Slice99_typed_from_array',['../slice99_8h.html#a71ea7b96fe0a7ac510adb7005e863c49',1,'slice99.h']]]
 ];
