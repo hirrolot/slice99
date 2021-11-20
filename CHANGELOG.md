@@ -4,9 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## unreleased
 
-## [0.7.0] - 2021-09-07
+## 0.7.0 - 2021-09-07
 
 ### Added
 
@@ -21,25 +21,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
  - Show `(I8|I16|I32|I64)Slice99` type definitions in the docs.
 
-## [0.6.0] - 2021-08-21
+## 0.6.0 - 2021-08-21
 
 ### Changed
 
  - `SLICE99_TO_TYPED(x, T)` => `(T)SLICE99_TO_TYPED(x)` [**BC**].
 
-## [0.5.1] - 2021-08-20
+## 0.5.1 - 2021-08-20
 
 ### Added
 
  - `CharSlice99_from_str` & `CharSlice99_c_str` as equivalents of the corresponding `Slice99` functions.
 
-## [0.5.0] - 2021-06-24
+## 0.5.0 - 2021-06-24
 
 ### Removed
 
  - `Slice99_pack_to_(u8|u16|u32|u64)` and `Slice99_pack_to_(u8|u16|u32|u64)_beginning` due to too specific domain.
 
-## [0.4.1] - 2021-06-20
+## 0.4.1 - 2021-06-20
 
 ### Added
 
@@ -74,7 +74,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
  - Do not specify `SLICE99_PURE` for `Slice99_pack_to_(u8|u16|u32|u64)` as they use `SLICE99_ASSERT`.
 
-## [0.4.0] - 2021-05-30
+## 0.4.0 - 2021-05-30
 
 ### Added
 
@@ -96,7 +96,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    - The `Slice99Maybe` type.
    - The `Slice99Maybe_(just|nothing)`, functions.
 
-## [0.3.0] - 2021-03-27
+## 0.3.0 - 2021-03-27
 
 ### Added
 
@@ -111,13 +111,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
  - `Slice99_array_len` -> `SLICE99_ARRAY_LEN`.
 
-## [0.2.1] - 2021-02-21
+## 0.2.1 - 2021-02-21
 
 ### Added
 
  - `Slice99_pack_to_(u8|u16|u32|u64)` to pack a slice into an integer.
 
-## [0.2.0] - 2021-02-11
+## 0.2.0 - 2021-02-11
 
 ### Added
 
@@ -140,7 +140,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    - `Slice99_sub(_cast_type)` -> `Slice99_sub`.
    - `Slice99_swap` -> `Slice99_swap`.
 
-## [0.1.0] - 2021-01-02
+## 0.1.0 - 2021-01-02
 
 ### Added
 
