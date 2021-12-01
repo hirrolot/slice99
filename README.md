@@ -50,12 +50,7 @@ int main(void) {
 
 The main type is [`Slice99`]. It represents a pointer to some array accompanied with an array item size and its length. The utilities `Slice99_*` are used to manipulate this type.
 
-To install Slice99, just copy [`slice99.h`](slice99.h) to your code base (or use [Git submodules]) and then `#include <slice99.h>` where necessary.
-
-Enjoy!
-
 [`Slice99`]: https://hirrolot.github.io/slice99/structSlice99.html
-[Git submodules]: https://git-scm.com/book/en/v2/Git-Tools-Submodules
 
 ## Motivation
 
@@ -84,6 +79,41 @@ void foo(Slice99 buffer) {
 ```
 
 Another use case of Slice99 is zero-copy parsers: you can return slices from your parser pointing to actual data, without `malloc`ing and `memcpy`ing just to append `'\0'` each time.
+
+## Installation
+
+Slice99 consists of just one header `slice99.h` and nothing else; therefore, the only thing you need to tell your compiler is to add `slice99` to include directories.
+
+If you use CMake, the recommended way is either [`FetchContent`] or [`add_subdirectory`], e.g.:
+
+[`FetchContent`]: https://cmake.org/cmake/help/latest/module/FetchContent.html
+[`add_subdirectory`]: https://cmake.org/cmake/help/latest/command/add_subdirectory.html
+
+```cmake
+include(FetchContent)
+
+FetchContent_Declare(
+    slice99
+    URL https://github.com/Hirrolot/slice99/archive/refs/tags/v1.2.3.tar.gz // v1.2.3
+)
+
+FetchContent_MakeAvailable(slice99)
+
+target_link_libraries(MyProject slice99)
+```
+
+Using [`add_subdirectory`]:
+
+```cmake
+add_subdirectory(slice99)
+target_link_libraries(MyProject slice99)
+```
+
+In the latter case, I encourage you to download Slice99 as a [Git submodule] to be able to update it with `git submodule update --remote` when necessary.
+
+[Git submodule]: https://git-scm.com/book/en/v2/Git-Tools-Submodules
+
+Happy hacking!
 
 ## Typed slices
 
