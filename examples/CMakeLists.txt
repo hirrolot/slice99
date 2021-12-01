@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 project(examples LANGUAGES C)
 
-include_directories(..)
+add_subdirectory(.. build)
 
 if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
   add_compile_options(-Weverything)
@@ -11,6 +11,12 @@ endif()
 
 add_executable(demo demo.c)
 
-foreach(TARGET ${BUILDSYSTEM_TARGETS})
-  set_target_properties(TARGET PROPERTIES C_STANDARD 99 C_STANDARD_REQUIRED ON)
+get_property(
+  EXAMPLES
+  DIRECTORY .
+  PROPERTY BUILDSYSTEM_TARGETS)
+
+foreach(TARGET ${EXAMPLES})
+  set_target_properties(${TARGET} PROPERTIES C_STANDARD 99 C_STANDARD_REQUIRED
+                                                           ON)
 endforeach()
