@@ -94,7 +94,7 @@ include(FetchContent)
 
 FetchContent_Declare(
     slice99
-    URL https://github.com/Hirrolot/slice99/archive/refs/tags/v1.2.3.tar.gz // v1.2.3
+    URL https://github.com/Hirrolot/slice99/archive/refs/tags/v1.2.3.tar.gz # v1.2.3
 )
 
 FetchContent_MakeAvailable(slice99)
