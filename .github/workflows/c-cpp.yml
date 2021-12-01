@@ -17,11 +17,8 @@ jobs:
     - name: Update Git submodules
       run: git submodule update --init
 
-    - name: Install dev tooling
-      run: sudo apt install cppcheck clang-tools
-
     - name: Test
-      run: bash scripts/test.sh
+      run: bash scripts/test-all.sh
 
     - name: Check code formatting
       run: bash scripts/check-fmt.sh
