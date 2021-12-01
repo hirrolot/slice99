@@ -17,8 +17,7 @@ include(FetchContent)
 
 FetchContent_Declare(
     assert-algebraic
-    GIT_REPOSITORY https://github.com/Hirrolot/assert-algebraic.git
-    GIT_TAG master # TODO: change it.
+    URL https://github.com/Hirrolot/assert-algebraic/archive/refs/tags/v0.2.0.tar.gz
 )
 
 FetchContent_MakeAvailable(assert-algebraic)
