@@ -162,7 +162,7 @@ This library automatically defines typed slices of several fundamental types. I 
 
  1. Update the `PROJECT_NUMBER` field in `Doxyfile`.
  2. Update `SLICE99_MAJOR`, `SLICE99_MINOR`, and `SLICE99_PATCH` in `slice99.h`. 
- 3. Run `./scripts/docs.sh` to generate newest docs.
+ 3. Run `./scripts/docs.sh` to generate the newest docs.
  4. Update `CHANGELOG.md`.
  5. Release the project in [GitHub Releases].
 
