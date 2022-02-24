@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## unreleased
 
+### Fixed
+
+ - Return a `void *` pointer from `SLICE99_APPEND(_ARRAY)`.
+
 ## 0.7.2 - 2021-12-09
 
 ### Fixed

@@ -103,6 +103,12 @@ SOFTWARE.
 
 #endif
 
+#ifndef SLICE99_ANSI_C
+#define SLICE99_RESTRICT restrict
+#else
+#define SLICE99_RESTRICT
+#endif
+
 #endif // DOXYGEN_IGNORE
 
 /**
@@ -277,22 +283,23 @@ SOFTWARE.
     }                                                                                              \
                                                                                                    \
     inline static SLICE99_ALWAYS_INLINE void name##_swap(                                          \
-        name self, ptrdiff_t lhs, ptrdiff_t rhs, T *restrict backup) {                             \
-        Slice99_swap(SLICE99_TO_UNTYPED(self), lhs, rhs, (void *restrict)backup);                  \
+        name self, ptrdiff_t lhs, ptrdiff_t rhs, T *SLICE99_RESTRICT backup) {                     \
+        Slice99_swap(SLICE99_TO_UNTYPED(self), lhs, rhs, (void *SLICE99_RESTRICT)backup);          \
     }                                                                                              \
                                                                                                    \
     inline static SLICE99_ALWAYS_INLINE void name##_swap_with_slice(                               \
-        name self, name other, T *restrict backup) {                                               \
+        name self, name other, T *SLICE99_RESTRICT backup) {                                       \
         Slice99_swap_with_slice(                                                                   \
-            SLICE99_TO_UNTYPED(self), SLICE99_TO_UNTYPED(other), (void *restrict)backup);          \
+            SLICE99_TO_UNTYPED(self), SLICE99_TO_UNTYPED(other), (void *SLICE99_RESTRICT)backup);  \
     }                                                                                              \
                                                                                                    \
-    inline static SLICE99_ALWAYS_INLINE void name##_reverse(name self, T *restrict backup) {       \
-        Slice99_reverse(SLICE99_TO_UNTYPED(self), (void *restrict)backup);                         \
+    inline static SLICE99_ALWAYS_INLINE void name##_reverse(                                       \
+        name self, T *SLICE99_RESTRICT backup) {                                                   \
+        Slice99_reverse(SLICE99_TO_UNTYPED(self), (void *SLICE99_RESTRICT)backup);                 \
     }                                                                                              \
                                                                                                    \
     inline static SLICE99_ALWAYS_INLINE void name##_split_at(                                      \
-        name self, size_t i, name *restrict lhs, name *restrict rhs) {                             \
+        name self, size_t i, name *SLICE99_RESTRICT lhs, name *SLICE99_RESTRICT rhs) {             \
         SLICE99_ASSERT(lhs);                                                                       \
         SLICE99_ASSERT(rhs);                                                                       \
                                                                                                    \
@@ -368,7 +375,7 @@ SOFTWARE.
  * @param[out] buffer The memory area to write to.
  * @param[in] obj The object (lvalue) that will be copied to @p buffer, byte-by-byte.
  *
- * @return `(char *)buffer + sizeof(obj)`
+ * @return `(void *)buffer + sizeof(obj)`
  *
  * @pre @p buffer must be capable of holding at least `sizeof(obj)` bytes.
  * @pre @p buffer and @p obj must be non-overlapping.
@@ -376,7 +383,7 @@ SOFTWARE.
  * @see #SLICE99_APPEND_ARRAY
  */
 #define SLICE99_APPEND(buffer, obj)                                                                \
-    ((char *)SLICE99_MEMCPY((buffer), &(obj), sizeof(obj)) + sizeof(obj))
+    ((void *)((char *)SLICE99_MEMCPY((buffer), &(obj), sizeof(obj)) + sizeof(obj)))
 
 /**
  * Copies the array of length @p len accessible through @p ptr into @p buffer, returning the next
@@ -385,7 +392,8 @@ SOFTWARE.
  * This function has the same requirements and a return value as of #SLICE99_APPEND.
  */
 #define SLICE99_APPEND_ARRAY(buffer, ptr, len)                                                     \
-    ((char *)SLICE99_MEMCPY((buffer), (ptr), sizeof((ptr)[0]) * (len)) + sizeof((ptr)[0]) * (len))
+    ((void                                                                                         \
+          *)((char *)SLICE99_MEMCPY((buffer), (ptr), sizeof((ptr)[0]) * (len)) + sizeof((ptr)[0]) * (len)))
 
 #ifdef UINT8_MAX
 
@@ -791,7 +799,8 @@ inline static void Slice99_copy_non_overlapping(Slice99 self, Slice99 other) {
  * @pre @p backup must not overlap with `Slice99_get(self, lhs)` and `Slice99_get(self, rhs)`.
  * @pre `Slice99_get(self, lhs)` and `Slice99_get(self, rhs)` must not overlap.
  */
-inline static void Slice99_swap(Slice99 self, ptrdiff_t lhs, ptrdiff_t rhs, void *restrict backup) {
+inline static void
+Slice99_swap(Slice99 self, ptrdiff_t lhs, ptrdiff_t rhs, void *SLICE99_RESTRICT backup) {
     SLICE99_ASSERT(backup);
 
     SLICE99_MEMCPY((backup), Slice99_get(self, lhs), (self).item_size);
@@ -812,7 +821,8 @@ inline static void Slice99_swap(Slice99 self, ptrdiff_t lhs, ptrdiff_t rhs, void
  * @pre @p self and @p other must not overlap.
  * @pre `self.len` must be representable as `ptrdiff_t`.
  */
-inline static void Slice99_swap_with_slice(Slice99 self, Slice99 other, void *restrict backup) {
+inline static void
+Slice99_swap_with_slice(Slice99 self, Slice99 other, void *SLICE99_RESTRICT backup) {
     SLICE99_ASSERT(self.len == other.len);
     SLICE99_ASSERT(self.item_size == other.item_size);
 
@@ -832,7 +842,7 @@ inline static void Slice99_swap_with_slice(Slice99 self, Slice99 other, void *re
  * @pre `backup != NULL`
  * @pre `self.len` must be representable as `ptrdiff_t`.
  */
-inline static void Slice99_reverse(Slice99 self, void *restrict backup) {
+inline static void Slice99_reverse(Slice99 self, void *SLICE99_RESTRICT backup) {
     SLICE99_ASSERT(backup);
 
     for (ptrdiff_t i = 0; i < (ptrdiff_t)self.len / 2; i++) {
@@ -853,8 +863,8 @@ inline static void Slice99_reverse(Slice99 self, void *restrict backup) {
  * @pre `rhs != NULL`
  * @pre `self.len` and @p i must be representable as `ptrdiff_t`.
  */
-inline static void
-Slice99_split_at(Slice99 self, size_t i, Slice99 *restrict lhs, Slice99 *restrict rhs) {
+inline static void Slice99_split_at(
+    Slice99 self, size_t i, Slice99 *SLICE99_RESTRICT lhs, Slice99 *SLICE99_RESTRICT rhs) {
     SLICE99_ASSERT(i <= self.len);
     SLICE99_ASSERT(lhs);
     SLICE99_ASSERT(rhs);
@@ -874,7 +884,7 @@ Slice99_split_at(Slice99 self, size_t i, Slice99 *restrict lhs, Slice99 *restric
  * @pre @p out must be capable of writing `Slice99_size(self) + 1` bytes.
  * @pre @p out must not overlap with @p self.
  */
-inline static char *Slice99_c_str(Slice99 self, char out[restrict]) {
+inline static char *Slice99_c_str(Slice99 self, char out[SLICE99_RESTRICT]) {
     SLICE99_ASSERT(out);
 
     SLICE99_MEMCPY(out, self.ptr, Slice99_size(self));
@@ -949,7 +959,7 @@ inline static SLICE99_WARN_UNUSED_RESULT CharSlice99 CharSlice99_from_str(char *
 /**
  * The same as #Slice99_c_str.
  */
-inline static char *CharSlice99_c_str(CharSlice99 self, char out[restrict]) {
+inline static char *CharSlice99_c_str(CharSlice99 self, char out[SLICE99_RESTRICT]) {
     return Slice99_c_str(SLICE99_TO_UNTYPED(self), out);
 }
 
