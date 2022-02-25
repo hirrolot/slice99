@@ -24,7 +24,7 @@ SOFTWARE.
 
 /**
  * @file
- * A slice of some array.
+ * @brief A slice of some array.
  *
  * The macros #SLICE99_ASSERT, #SLICE99_MEMCMP, #SLICE99_MEMCPY, #SLICE99_MEMMOVE, and
  * #SLICE99_STRLEN are automatically defined in case they have not been defined before including
