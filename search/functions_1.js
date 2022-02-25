@@ -1,7 +1,7 @@
 var searchData=
 [
   ['slice99_5fadvance_54',['Slice99_advance',['../slice99_8h.html#ab364d098941c1f0d6c9316dd845198d3',1,'slice99.h']]],
-  ['slice99_5fc_5fstr_55',['Slice99_c_str',['../slice99_8h.html#a8ff747c8f803c91305a73cb1ca4542e5',1,'slice99.h']]],
+  ['slice99_5fc_5fstr_55',['Slice99_c_str',['../slice99_8h.html#ab40720954fa063663c72d2d0e1cc61f3',1,'slice99.h']]],
   ['slice99_5fcopy_56',['Slice99_copy',['../slice99_8h.html#af0633af9b428c3c28e0476c65c4bb5dc',1,'slice99.h']]],
   ['slice99_5fcopy_5fnon_5foverlapping_57',['Slice99_copy_non_overlapping',['../slice99_8h.html#ab6e9856494623751a31202d2f1d94409',1,'slice99.h']]],
   ['slice99_5fempty_58',['Slice99_empty',['../slice99_8h.html#ab994ee5ddd723fb1f09f77d209466b05',1,'slice99.h']]],
@@ -17,12 +17,12 @@ var searchData=
   ['slice99_5fprimitive_5fends_5fwith_68',['Slice99_primitive_ends_with',['../slice99_8h.html#ab9bf868bf051593e87c7d163a09e7a7b',1,'slice99.h']]],
   ['slice99_5fprimitive_5feq_69',['Slice99_primitive_eq',['../slice99_8h.html#a776f924703cf8a4f30804bb2dd82f91e',1,'slice99.h']]],
   ['slice99_5fprimitive_5fstarts_5fwith_70',['Slice99_primitive_starts_with',['../slice99_8h.html#a5089ecf9f17b19a9a5f6d4d587721ca1',1,'slice99.h']]],
-  ['slice99_5freverse_71',['Slice99_reverse',['../slice99_8h.html#a167e9caec05682c9d7e43a69ce94680f',1,'slice99.h']]],
+  ['slice99_5freverse_71',['Slice99_reverse',['../slice99_8h.html#a51f4ba9696f12fa0cf82fa018828e9a9',1,'slice99.h']]],
   ['slice99_5fsize_72',['Slice99_size',['../slice99_8h.html#a2c1981dc6bf18ca36407f2160846c816',1,'slice99.h']]],
-  ['slice99_5fsplit_5fat_73',['Slice99_split_at',['../slice99_8h.html#ad2f1f9ad9299361f814c879fbea53e69',1,'slice99.h']]],
+  ['slice99_5fsplit_5fat_73',['Slice99_split_at',['../slice99_8h.html#a292232b30f8add259cc03a87e5c96d86',1,'slice99.h']]],
   ['slice99_5fstarts_5fwith_74',['Slice99_starts_with',['../slice99_8h.html#ab117148890c8538a0a51f456ac99bf66',1,'slice99.h']]],
   ['slice99_5fsub_75',['Slice99_sub',['../slice99_8h.html#afa7fd2226d3ed730fb6be0381ca3b4fe',1,'slice99.h']]],
-  ['slice99_5fswap_76',['Slice99_swap',['../slice99_8h.html#a7c3b82b544fe470feaa67a88a53961e2',1,'slice99.h']]],
-  ['slice99_5fswap_5fwith_5fslice_77',['Slice99_swap_with_slice',['../slice99_8h.html#a489bf5a23b37d3cc89bdaa129a25d4ce',1,'slice99.h']]],
+  ['slice99_5fswap_76',['Slice99_swap',['../slice99_8h.html#a20fcf4b3348c53d782cc5ca280c19105',1,'slice99.h']]],
+  ['slice99_5fswap_5fwith_5fslice_77',['Slice99_swap_with_slice',['../slice99_8h.html#a64763843fbfeea0099a7bae8a3fcd941',1,'slice99.h']]],
   ['slice99_5fupdate_5flen_78',['Slice99_update_len',['../slice99_8h.html#a0b671c453b415d9ca3d231626bd73ba0',1,'slice99.h']]]
 ];
