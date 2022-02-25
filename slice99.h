@@ -375,7 +375,7 @@ SOFTWARE.
  * @param[out] buffer The memory area to write to.
  * @param[in] obj The object (lvalue) that will be copied to @p buffer, byte-by-byte.
  *
- * @return `(void *)buffer + sizeof(obj)`
+ * @return `(void *)((char *)buffer + sizeof(obj))`
  *
  * @pre @p buffer must be capable of holding at least `sizeof(obj)` bytes.
  * @pre @p buffer and @p obj must be non-overlapping.
