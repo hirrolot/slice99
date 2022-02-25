@@ -22,3 +22,21 @@ jobs:
 
     - name: Check code formatting
       run: bash scripts/check-fmt.sh
+
+  deploy-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Doxygen
+        run: sudo apt install doxygen graphviz
+
+      - name: Build the docs
+        run: bash scripts/docs.sh
+
+      - name: Deploy the docs
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+           github_token: ${{ secrets.GITHUB_TOKEN }}
+           publish_dir: ./docs/
