@@ -148,6 +148,9 @@ Macros</h2></td></tr>
 <tr class="memitem:af8c2fd6a232198b3c511c19f3546b41b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#af8c2fd6a232198b3c511c19f3546b41b">Slice99_from_typed_ptr</a>(ptr,  len)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad">Slice99_new</a>(ptr, sizeof(*ptr), len)</td></tr>
 <tr class="memdesc:af8c2fd6a232198b3c511c19f3546b41b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a slice from a pointer of a non-<code>void</code> type and a length.  <a href="slice99_8h.html#af8c2fd6a232198b3c511c19f3546b41b">More...</a><br /></td></tr>
 <tr class="separator:af8c2fd6a232198b3c511c19f3546b41b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d5a302eda984cab417bfa9c7688c126"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a0d5a302eda984cab417bfa9c7688c126">CharSlice99_alloca_c_str</a>(self)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a7c6975ebc21476bb4a1eff57e1976e62">CharSlice99_c_str</a>((self), alloca((self).len))</td></tr>
+<tr class="memdesc:a0d5a302eda984cab417bfa9c7688c126"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes a null-terminated string out of <code>CharSlice99</code> using <code>alloca</code>.  <a href="slice99_8h.html#a0d5a302eda984cab417bfa9c7688c126">More...</a><br /></td></tr>
+<tr class="separator:a0d5a302eda984cab417bfa9c7688c126"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -308,6 +311,27 @@ static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 <div class="textblock"><p>A slice of some array. </p>
 <p>The macros <a class="el" href="slice99_8h.html#a29d489b28cf4d2cf56a17a2617990fee" title="Like assert.">SLICE99_ASSERT</a>, <a class="el" href="slice99_8h.html#a4ad6e85e51121b718c704bc6f7c16cd7" title="Like memcmp.">SLICE99_MEMCMP</a>, <a class="el" href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c" title="Like memcpy.">SLICE99_MEMCPY</a>, <a class="el" href="slice99_8h.html#afa5c9f55ad339be88c60744fadb239f6" title="Like memmove.">SLICE99_MEMMOVE</a>, and <a class="el" href="slice99_8h.html#a74ab39995ce273807783bb0006d9d85d" title="Like strlen.">SLICE99_STRLEN</a> are automatically defined in case they have not been defined before including this header file. They represent the corresponding standard library's functions, although actual implementations can differ. If you develop software for a freestanding environment, these macros must be defined beforehand. </p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a0d5a302eda984cab417bfa9c7688c126"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d5a302eda984cab417bfa9c7688c126">&#9670;&nbsp;</a></span>CharSlice99_alloca_c_str</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CharSlice99_alloca_c_str</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">self</td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a7c6975ebc21476bb4a1eff57e1976e62">CharSlice99_c_str</a>((self), alloca((self).len))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Makes a null-terminated string out of <code>CharSlice99</code> using <code>alloca</code>. </p>
+<p>The same as <a class="el" href="slice99_8h.html#a7c6975ebc21476bb4a1eff57e1976e62" title="The same as Slice99_c_str.">CharSlice99_c_str</a>, except that the second parameter is allocated using <code>alloca</code>. Do not use this macro for big strings to avoid stack overflow. </p>
+
+</div>
+</div>
 <a id="ade9d7971e5940ca105fe84079766c4a9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ade9d7971e5940ca105fe84079766c4a9">&#9670;&nbsp;</a></span>SLICE99_APPEND</h2>
 

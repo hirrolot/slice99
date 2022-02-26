@@ -1,21 +1,4 @@
 var searchData=
 [
-  ['slice99_5fappend_82',['SLICE99_APPEND',['../slice99_8h.html#ade9d7971e5940ca105fe84079766c4a9',1,'slice99.h']]],
-  ['slice99_5fappend_5farray_83',['SLICE99_APPEND_ARRAY',['../slice99_8h.html#a602156c96682543a687b6c9d783f7c87',1,'slice99.h']]],
-  ['slice99_5farray_5flen_84',['SLICE99_ARRAY_LEN',['../slice99_8h.html#a36fc375eb1db0b3907825ea0720fbf0c',1,'slice99.h']]],
-  ['slice99_5fassert_85',['SLICE99_ASSERT',['../slice99_8h.html#a29d489b28cf4d2cf56a17a2617990fee',1,'slice99.h']]],
-  ['slice99_5fdef_5ftyped_86',['SLICE99_DEF_TYPED',['../slice99_8h.html#a557c011352fbc859d6c9ed3871a31c5e',1,'slice99.h']]],
-  ['slice99_5ffrom_5farray_87',['Slice99_from_array',['../slice99_8h.html#aee899fa7bd6ee37b88c0bf229213d97e',1,'slice99.h']]],
-  ['slice99_5ffrom_5ftyped_5fptr_88',['Slice99_from_typed_ptr',['../slice99_8h.html#af8c2fd6a232198b3c511c19f3546b41b',1,'slice99.h']]],
-  ['slice99_5fmajor_89',['SLICE99_MAJOR',['../slice99_8h.html#aa20d9d653b7c065db03d068ada57b89c',1,'slice99.h']]],
-  ['slice99_5fmemcmp_90',['SLICE99_MEMCMP',['../slice99_8h.html#a4ad6e85e51121b718c704bc6f7c16cd7',1,'slice99.h']]],
-  ['slice99_5fmemcpy_91',['SLICE99_MEMCPY',['../slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c',1,'slice99.h']]],
-  ['slice99_5fmemmove_92',['SLICE99_MEMMOVE',['../slice99_8h.html#afa5c9f55ad339be88c60744fadb239f6',1,'slice99.h']]],
-  ['slice99_5fminor_93',['SLICE99_MINOR',['../slice99_8h.html#a8a577ef72a4eace6cfb5ca89f2518250',1,'slice99.h']]],
-  ['slice99_5fpatch_94',['SLICE99_PATCH',['../slice99_8h.html#a910ddb4ba43cb60535cf6d1c3cb498a0',1,'slice99.h']]],
-  ['slice99_5fstrlen_95',['SLICE99_STRLEN',['../slice99_8h.html#a74ab39995ce273807783bb0006d9d85d',1,'slice99.h']]],
-  ['slice99_5fto_5foctets_96',['SLICE99_TO_OCTETS',['../slice99_8h.html#af5300ed70f13eda8357c6833e7710a51',1,'slice99.h']]],
-  ['slice99_5fto_5ftyped_97',['SLICE99_TO_TYPED',['../slice99_8h.html#a3e3a66e2441e671e725b50545328f14d',1,'slice99.h']]],
-  ['slice99_5fto_5funtyped_98',['SLICE99_TO_UNTYPED',['../slice99_8h.html#a97fddbbb1c51ba529d7ca210c4ec4697',1,'slice99.h']]],
-  ['slice99_5ftyped_5ffrom_5farray_99',['Slice99_typed_from_array',['../slice99_8h.html#a71ea7b96fe0a7ac510adb7005e863c49',1,'slice99.h']]]
+  ['charslice99_5falloca_5fc_5fstr_83',['CharSlice99_alloca_c_str',['../slice99_8h.html#a0d5a302eda984cab417bfa9c7688c126',1,'slice99.h']]]
 ];

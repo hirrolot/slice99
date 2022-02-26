@@ -581,7 +581,9 @@ $(function() {
 <div class="line"><a name="l00954"></a><span class="lineno">  954</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="slice99_8h.html#ab40720954fa063663c72d2d0e1cc61f3">Slice99_c_str</a>(<a class="code" href="slice99_8h.html#a97fddbbb1c51ba529d7ca210c4ec4697">SLICE99_TO_UNTYPED</a>(<span class="keyword">self</span>), out);</div>
 <div class="line"><a name="l00955"></a><span class="lineno">  955</span>&#160;}</div>
 <div class="line"><a name="l00956"></a><span class="lineno">  956</span>&#160; </div>
-<div class="line"><a name="l00957"></a><span class="lineno">  957</span>&#160;<span class="preprocessor">#endif // SLICE99_H</span></div>
+<div class="line"><a name="l00963"></a><span class="lineno"><a class="line" href="slice99_8h.html#a0d5a302eda984cab417bfa9c7688c126">  963</a></span>&#160;<span class="preprocessor">#define CharSlice99_alloca_c_str(self) CharSlice99_c_str((self), alloca((self).len))</span></div>
+<div class="line"><a name="l00964"></a><span class="lineno">  964</span>&#160; </div>
+<div class="line"><a name="l00965"></a><span class="lineno">  965</span>&#160;<span class="preprocessor">#endif // SLICE99_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aslice99_8h_html_afa5c9f55ad339be88c60744fadb239f6"><div class="ttname"><a href="slice99_8h.html#afa5c9f55ad339be88c60744fadb239f6">SLICE99_MEMMOVE</a></div><div class="ttdeci">#define SLICE99_MEMMOVE</div><div class="ttdoc">Like memmove.</div><div class="ttdef"><b>Definition:</b> slice99.h:75</div></div>
 <div class="ttc" id="aslice99_8h_html_ab9bf868bf051593e87c7d163a09e7a7b"><div class="ttname"><a href="slice99_8h.html#ab9bf868bf051593e87c7d163a09e7a7b">Slice99_primitive_ends_with</a></div><div class="ttdeci">static SLICE99_WARN_UNUSED_RESULT bool Slice99_primitive_ends_with(Slice99 self, Slice99 postfix)</div><div class="ttdoc">Checks whether postfix is a postfix of self, byte-by-byte.</div><div class="ttdef"><b>Definition:</b> slice99.h:728</div></div>
