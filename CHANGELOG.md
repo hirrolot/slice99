@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## unreleased
 
+### Fixed
+
+ - Segfault: allocate space for a null terminator in `CharSlice99_alloca_c_str`.
+
 ## 0.7.4 - 2022-02-26
 
 ### Added

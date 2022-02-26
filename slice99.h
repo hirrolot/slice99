@@ -960,6 +960,6 @@ inline static char *CharSlice99_c_str(CharSlice99 self, char out[restrict]) {
  * The same as #CharSlice99_c_str, except that the second parameter is allocated using `alloca`. Do
  * not use this macro for big strings to avoid stack overflow.
  */
-#define CharSlice99_alloca_c_str(self) CharSlice99_c_str((self), alloca((self).len))
+#define CharSlice99_alloca_c_str(self) CharSlice99_c_str((self), alloca((self).len + 1))
 
 #endif // SLICE99_H
