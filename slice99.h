@@ -118,7 +118,7 @@ SOFTWARE.
 /**
  * The patch version number.
  */
-#define SLICE99_PATCH 3
+#define SLICE99_PATCH 4
 
 /**
  * Defines the strongly typed slice @p name containing items of type @p T.

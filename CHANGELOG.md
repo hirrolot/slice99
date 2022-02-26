@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## unreleased
 
+## 0.7.4 - 2022-02-26
+
 ### Added
 
  - `CharSlice99_alloca_c_str`, which allocates a C-string using `alloca`.
