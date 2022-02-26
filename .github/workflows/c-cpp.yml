@@ -14,8 +14,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Update Git submodules
-      run: git submodule update --init
+    - name: Download run-clang-format
+      run: git submodule update --init run-clang-format
 
     - name: Test
       run: bash scripts/test-all.sh
