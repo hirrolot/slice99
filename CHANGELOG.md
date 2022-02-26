@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
  - `CharSlice99_alloca_c_str`, which allocates a C-string using `alloca`.
 
+### Fixed
+
+ - Surround the `ptr` parameter of `Slice99_from_typed_ptr` with parentheses to avoid macro expansion issues.
+
 ## 0.7.3 - 2022-02-25
 
 ### Fixed

@@ -435,7 +435,7 @@ SOFTWARE.
  * @param[in] ptr The pointer of the resulting slice. Must not point to `void`.
  * @param[in] len The length of the resulting slice.
  */
-#define Slice99_from_typed_ptr(ptr, len) Slice99_new(ptr, sizeof(*ptr), len)
+#define Slice99_from_typed_ptr(ptr, len) Slice99_new(ptr, sizeof(*(ptr)), len)
 
 /**
  * A slice of some array.
