@@ -320,7 +320,7 @@ $(function() {
 <div class="line"><a name="l00427"></a><span class="lineno"><a class="line" href="slice99_8h.html#a71ea7b96fe0a7ac510adb7005e863c49">  427</a></span>&#160;<span class="preprocessor">#define Slice99_typed_from_array(...)                                                              \</span></div>
 <div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;<span class="preprocessor">    { .ptr = (__VA_ARGS__), .len = SLICE99_ARRAY_LEN(__VA_ARGS__) }</span></div>
 <div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160; </div>
-<div class="line"><a name="l00438"></a><span class="lineno"><a class="line" href="slice99_8h.html#af8c2fd6a232198b3c511c19f3546b41b">  438</a></span>&#160;<span class="preprocessor">#define Slice99_from_typed_ptr(ptr, len) Slice99_new(ptr, sizeof(*ptr), len)</span></div>
+<div class="line"><a name="l00438"></a><span class="lineno"><a class="line" href="slice99_8h.html#af8c2fd6a232198b3c511c19f3546b41b">  438</a></span>&#160;<span class="preprocessor">#define Slice99_from_typed_ptr(ptr, len) Slice99_new(ptr, sizeof(*(ptr)), len)</span></div>
 <div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160; </div>
 <div class="line"><a name="l00448"></a><span class="lineno"><a class="line" href="structSlice99.html">  448</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
 <div class="line"><a name="l00452"></a><span class="lineno"><a class="line" href="structSlice99.html#a1e583c6b18eb901fbe18a7872528c097">  452</a></span>&#160;    <span class="keywordtype">void</span> *<a class="code" href="structSlice99.html#a1e583c6b18eb901fbe18a7872528c097">ptr</a>;</div>

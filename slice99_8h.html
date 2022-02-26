@@ -145,7 +145,7 @@ Macros</h2></td></tr>
 <tr class="memitem:a71ea7b96fe0a7ac510adb7005e863c49"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a71ea7b96fe0a7ac510adb7005e863c49">Slice99_typed_from_array</a>(...)&#160;&#160;&#160;{ .ptr = (__VA_ARGS__), .len = <a class="el" href="slice99_8h.html#a36fc375eb1db0b3907825ea0720fbf0c">SLICE99_ARRAY_LEN</a>(__VA_ARGS__) }</td></tr>
 <tr class="memdesc:a71ea7b96fe0a7ac510adb7005e863c49"><td class="mdescLeft">&#160;</td><td class="mdescRight">The same as <a class="el" href="slice99_8h.html#aee899fa7bd6ee37b88c0bf229213d97e" title="Constructs a slice from an array expression.">Slice99_from_array</a> but for typed slices.  <a href="slice99_8h.html#a71ea7b96fe0a7ac510adb7005e863c49">More...</a><br /></td></tr>
 <tr class="separator:a71ea7b96fe0a7ac510adb7005e863c49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8c2fd6a232198b3c511c19f3546b41b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#af8c2fd6a232198b3c511c19f3546b41b">Slice99_from_typed_ptr</a>(ptr,  len)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad">Slice99_new</a>(ptr, sizeof(*ptr), len)</td></tr>
+<tr class="memitem:af8c2fd6a232198b3c511c19f3546b41b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#af8c2fd6a232198b3c511c19f3546b41b">Slice99_from_typed_ptr</a>(ptr,  len)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad">Slice99_new</a>(ptr, sizeof(*(ptr)), len)</td></tr>
 <tr class="memdesc:af8c2fd6a232198b3c511c19f3546b41b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a slice from a pointer of a non-<code>void</code> type and a length.  <a href="slice99_8h.html#af8c2fd6a232198b3c511c19f3546b41b">More...</a><br /></td></tr>
 <tr class="separator:af8c2fd6a232198b3c511c19f3546b41b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d5a302eda984cab417bfa9c7688c126"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a0d5a302eda984cab417bfa9c7688c126">CharSlice99_alloca_c_str</a>(self)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a7c6975ebc21476bb4a1eff57e1976e62">CharSlice99_c_str</a>((self), alloca((self).len))</td></tr>
@@ -523,7 +523,7 @@ static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad">Slice99_new</a>(ptr, sizeof(*ptr), len)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a45e1af2b78b1d2189eddd20214d3c0ad">Slice99_new</a>(ptr, sizeof(*(ptr)), len)</td>
         </tr>
       </table>
 </div><div class="memdoc">
