@@ -954,4 +954,12 @@ inline static char *CharSlice99_c_str(CharSlice99 self, char out[restrict]) {
     return Slice99_c_str(SLICE99_TO_UNTYPED(self), out);
 }
 
+/**
+ * Makes a null-terminated string out of `CharSlice99` using `alloca`.
+ *
+ * The same as #CharSlice99_c_str, except that the second parameter is allocated using `alloca`. Do
+ * not use this macro for big strings to avoid stack overflow.
+ */
+#define CharSlice99_alloca_c_str(self) CharSlice99_c_str((self), alloca((self).len))
+
 #endif // SLICE99_H

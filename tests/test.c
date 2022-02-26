@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include <alloca.h>
+
 #include <assert_algebraic.h>
 
 // Auxiliary stuff {
@@ -775,8 +777,10 @@ TEST(to_c_str) {
     }
 
     {
-        CharSlice99 slice = (CharSlice99)Slice99_typed_from_array((char[]){'a', 'b', 'c'});
-        assert(strcmp(CharSlice99_c_str(slice, (char[4]){0}), "abc") == 0);
+        CharSlice99 char_slice = (CharSlice99)Slice99_typed_from_array((char[]){'a', 'b', 'c'});
+
+        assert(strcmp(CharSlice99_c_str(char_slice, (char[4]){0}), "abc") == 0);
+        assert(strcmp(CharSlice99_alloca_c_str(char_slice), "abc") == 0);
     }
 }
 
