@@ -97,12 +97,15 @@ SOFTWARE.
 #define SLICE99_CONST         __attribute__((const))
 #define SLICE99_PURE          __attribute__((pure))
 #define SLICE99_ALWAYS_INLINE __attribute__((always_inline))
+#define SLICE99_FORMAT_HINT(archetype, string_idx, first_to_check)                                 \
+    __attribute__((format(archetype, string_idx, first_to_check)))
 
 #else
 
 #define SLICE99_CONST
 #define SLICE99_PURE
 #define SLICE99_ALWAYS_INLINE
+#define SLICE99_FORMAT_HINT(_archetype, _string_idx, _first_to_check)
 
 #endif
 
@@ -988,6 +991,17 @@ inline static char *CharSlice99_c_str(CharSlice99 self, char out[restrict]) {
 #define SLICE99_SNPRINTF snprintf
 #endif
 
+#ifndef DOXYGEN_IGNORE
+
+// Doxygen fails to parse function declarations with function-like macro invocations.
+
+#define SLICE99_FORMAT_HINT_2_0 SLICE99_FORMAT_HINT(printf, 2, 0)
+#define SLICE99_FORMAT_HINT_2_3 SLICE99_FORMAT_HINT(printf, 2, 3)
+#define SLICE99_FORMAT_HINT_3_0 SLICE99_FORMAT_HINT(printf, 3, 0)
+#define SLICE99_FORMAT_HINT_3_4 SLICE99_FORMAT_HINT(printf, 3, 4)
+
+#endif // DOXYGEN_IGNORE
+
 /**
  * Prints a formatted string to @p out and returns the corresponding character slice.
  *
@@ -1003,7 +1017,7 @@ inline static char *CharSlice99_c_str(CharSlice99 self, char out[restrict]) {
  * @pre `out != NULL`
  * @pre `fmt != NULL`
  */
-inline static SLICE99_WARN_UNUSED_RESULT CharSlice99
+inline static SLICE99_WARN_UNUSED_RESULT SLICE99_FORMAT_HINT_2_0 CharSlice99
 CharSlice99_vfmt(char out[restrict], const char *restrict fmt, va_list list) {
     SLICE99_ASSERT(out);
     SLICE99_ASSERT(fmt);
@@ -1017,7 +1031,7 @@ CharSlice99_vfmt(char out[restrict], const char *restrict fmt, va_list list) {
  *
  * Defined only if `SLICE99_DISABLE_STDIO` is **not** defined.
  */
-inline static SLICE99_WARN_UNUSED_RESULT CharSlice99
+inline static SLICE99_WARN_UNUSED_RESULT SLICE99_FORMAT_HINT_2_3 CharSlice99
 CharSlice99_fmt(char out[restrict], const char *restrict fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
@@ -1031,7 +1045,7 @@ CharSlice99_fmt(char out[restrict], const char *restrict fmt, ...) {
  *
  * Defined only if `SLICE99_DISABLE_STDIO` is **not** defined.
  */
-inline static SLICE99_WARN_UNUSED_RESULT CharSlice99
+inline static SLICE99_WARN_UNUSED_RESULT SLICE99_FORMAT_HINT_3_0 CharSlice99
 CharSlice99_vnfmt(char out[restrict], size_t bufsz, const char *restrict fmt, va_list list) {
     SLICE99_VSNPRINTF(out, bufsz, fmt, list);
     return CharSlice99_from_str(out);
@@ -1042,7 +1056,7 @@ CharSlice99_vnfmt(char out[restrict], size_t bufsz, const char *restrict fmt, va
  *
  * Defined only if `SLICE99_DISABLE_STDIO` is **not** defined.
  */
-inline static SLICE99_WARN_UNUSED_RESULT CharSlice99
+inline static SLICE99_WARN_UNUSED_RESULT SLICE99_FORMAT_HINT_3_4 CharSlice99
 CharSlice99_nfmt(char out[restrict], size_t bufsz, const char *restrict fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
@@ -1050,6 +1064,15 @@ CharSlice99_nfmt(char out[restrict], size_t bufsz, const char *restrict fmt, ...
     va_end(ap);
     return result;
 }
+
+#ifndef DOXYGEN_IGNORE
+
+#undef SLICE99_FORMAT_HINT_2_0
+#undef SLICE99_FORMAT_HINT_2_3
+#undef SLICE99_FORMAT_HINT_3_0
+#undef SLICE99_FORMAT_HINT_3_4
+
+#endif // DOXYGEN_IGNORE
 
 /**
  * Printfs a formatted string to a character slice using `alloca`.
