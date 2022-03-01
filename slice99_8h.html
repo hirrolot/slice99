@@ -151,6 +151,18 @@ Macros</h2></td></tr>
 <tr class="memitem:a0d5a302eda984cab417bfa9c7688c126"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a0d5a302eda984cab417bfa9c7688c126">CharSlice99_alloca_c_str</a>(self)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#a7c6975ebc21476bb4a1eff57e1976e62">CharSlice99_c_str</a>((self), alloca((self).len + 1))</td></tr>
 <tr class="memdesc:a0d5a302eda984cab417bfa9c7688c126"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes a null-terminated string out of <code>CharSlice99</code> using <code>alloca</code>.  <a href="slice99_8h.html#a0d5a302eda984cab417bfa9c7688c126">More...</a><br /></td></tr>
 <tr class="separator:a0d5a302eda984cab417bfa9c7688c126"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a019a212186f638e4ea2102bd6037da77"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a019a212186f638e4ea2102bd6037da77">SLICE99_VSPRINTF</a>&#160;&#160;&#160;vsprintf</td></tr>
+<tr class="memdesc:a019a212186f638e4ea2102bd6037da77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Like <code>vsprintf</code>.  <a href="slice99_8h.html#a019a212186f638e4ea2102bd6037da77">More...</a><br /></td></tr>
+<tr class="separator:a019a212186f638e4ea2102bd6037da77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6adf08f392e64a52e7c1f429d35686d0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a6adf08f392e64a52e7c1f429d35686d0">SLICE99_VSNPRINTF</a>&#160;&#160;&#160;vsnprintf</td></tr>
+<tr class="memdesc:a6adf08f392e64a52e7c1f429d35686d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Like <code>vsnprintf</code>.  <a href="slice99_8h.html#a6adf08f392e64a52e7c1f429d35686d0">More...</a><br /></td></tr>
+<tr class="separator:a6adf08f392e64a52e7c1f429d35686d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58ede7b349cfc96557c0717e5a09fd23"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a58ede7b349cfc96557c0717e5a09fd23">SLICE99_SNPRINTF</a>&#160;&#160;&#160;snprintf</td></tr>
+<tr class="memdesc:a58ede7b349cfc96557c0717e5a09fd23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Like <code>snprintf</code>.  <a href="slice99_8h.html#a58ede7b349cfc96557c0717e5a09fd23">More...</a><br /></td></tr>
+<tr class="separator:a58ede7b349cfc96557c0717e5a09fd23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3adecfc89de5b65a8cb8f30ba26911b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#af3adecfc89de5b65a8cb8f30ba26911b">CharSlice99_alloca_fmt</a>(fmt, ...)&#160;&#160;&#160;<a class="el" href="slice99_8h.html#ac9985598133d2a83ea7ffc17a5ab20ed">CharSlice99_fmt</a>(alloca(<a class="el" href="slice99_8h.html#a58ede7b349cfc96557c0717e5a09fd23">SLICE99_SNPRINTF</a>(NULL, 0, (fmt), __VA_ARGS__) + 1), (fmt), __VA_ARGS__)</td></tr>
+<tr class="memdesc:af3adecfc89de5b65a8cb8f30ba26911b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Printfs a formatted string to a character slice using <code>alloca</code>.  <a href="slice99_8h.html#af3adecfc89de5b65a8cb8f30ba26911b">More...</a><br /></td></tr>
+<tr class="separator:af3adecfc89de5b65a8cb8f30ba26911b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -306,10 +318,22 @@ static SLICE99_WARN_UNUSED_RESULT CharSlice99&#160;</td><td class="memItemRight"
 static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a7c6975ebc21476bb4a1eff57e1976e62">CharSlice99_c_str</a> (CharSlice99 self, char out[restrict])</td></tr>
 <tr class="memdesc:a7c6975ebc21476bb4a1eff57e1976e62"><td class="mdescLeft">&#160;</td><td class="mdescRight">The same as <a class="el" href="slice99_8h.html#ab40720954fa063663c72d2d0e1cc61f3" title="Copies self to out and appends &#39;\0&#39; to the end.">Slice99_c_str</a>. <br /></td></tr>
 <tr class="separator:a7c6975ebc21476bb4a1eff57e1976e62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e4c2ce107d7d47fa40bcc0ad1e33833"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT CharSlice99&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a6e4c2ce107d7d47fa40bcc0ad1e33833">CharSlice99_vfmt</a> (char out[restrict], const char *restrict fmt, va_list list)</td></tr>
+<tr class="memdesc:a6e4c2ce107d7d47fa40bcc0ad1e33833"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints a formatted string to <code>out</code> and returns the corresponding character slice.  <a href="slice99_8h.html#a6e4c2ce107d7d47fa40bcc0ad1e33833">More...</a><br /></td></tr>
+<tr class="separator:a6e4c2ce107d7d47fa40bcc0ad1e33833"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9985598133d2a83ea7ffc17a5ab20ed"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT CharSlice99&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#ac9985598133d2a83ea7ffc17a5ab20ed">CharSlice99_fmt</a> (char out[restrict], const char *restrict fmt,...)</td></tr>
+<tr class="memdesc:ac9985598133d2a83ea7ffc17a5ab20ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="slice99_8h.html#a6e4c2ce107d7d47fa40bcc0ad1e33833" title="Prints a formatted string to out and returns the corresponding character slice.">CharSlice99_vfmt</a> twin.  <a href="slice99_8h.html#ac9985598133d2a83ea7ffc17a5ab20ed">More...</a><br /></td></tr>
+<tr class="separator:ac9985598133d2a83ea7ffc17a5ab20ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5d655888e12c888f02fe516b0e57470"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT CharSlice99&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#ab5d655888e12c888f02fe516b0e57470">CharSlice99_vnfmt</a> (char out[restrict], size_t bufsz, const char *restrict fmt, va_list list)</td></tr>
+<tr class="memdesc:ab5d655888e12c888f02fe516b0e57470"><td class="mdescLeft">&#160;</td><td class="mdescRight">The same as <a class="el" href="slice99_8h.html#a6e4c2ce107d7d47fa40bcc0ad1e33833" title="Prints a formatted string to out and returns the corresponding character slice.">CharSlice99_vfmt</a> but writes at most <code>bufsz - 1</code> characters.  <a href="slice99_8h.html#ab5d655888e12c888f02fe516b0e57470">More...</a><br /></td></tr>
+<tr class="separator:ab5d655888e12c888f02fe516b0e57470"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90d9b920e3cc1e21b4071b96b6af7236"><td class="memItemLeft" align="right" valign="top">static SLICE99_WARN_UNUSED_RESULT CharSlice99&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="slice99_8h.html#a90d9b920e3cc1e21b4071b96b6af7236">CharSlice99_nfmt</a> (char out[restrict], size_t bufsz, const char *restrict fmt,...)</td></tr>
+<tr class="memdesc:a90d9b920e3cc1e21b4071b96b6af7236"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="slice99_8h.html#ab5d655888e12c888f02fe516b0e57470" title="The same as CharSlice99_vfmt but writes at most bufsz - 1 characters.">CharSlice99_vnfmt</a> twin.  <a href="slice99_8h.html#a90d9b920e3cc1e21b4071b96b6af7236">More...</a><br /></td></tr>
+<tr class="separator:a90d9b920e3cc1e21b4071b96b6af7236"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A slice of some array. </p>
-<p>The macros <a class="el" href="slice99_8h.html#a29d489b28cf4d2cf56a17a2617990fee" title="Like assert.">SLICE99_ASSERT</a>, <a class="el" href="slice99_8h.html#a4ad6e85e51121b718c704bc6f7c16cd7" title="Like memcmp.">SLICE99_MEMCMP</a>, <a class="el" href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c" title="Like memcpy.">SLICE99_MEMCPY</a>, <a class="el" href="slice99_8h.html#afa5c9f55ad339be88c60744fadb239f6" title="Like memmove.">SLICE99_MEMMOVE</a>, and <a class="el" href="slice99_8h.html#a74ab39995ce273807783bb0006d9d85d" title="Like strlen.">SLICE99_STRLEN</a> are automatically defined in case they have not been defined before including this header file. They represent the corresponding standard library's functions, although actual implementations can differ. If you develop software for a freestanding environment, these macros must be defined beforehand. </p>
+<p>Some macros are automatically defined in case they have not been defined before including this header file; these are: <a class="el" href="slice99_8h.html#a29d489b28cf4d2cf56a17a2617990fee" title="Like assert.">SLICE99_ASSERT</a>, <a class="el" href="slice99_8h.html#a4ad6e85e51121b718c704bc6f7c16cd7" title="Like memcmp.">SLICE99_MEMCMP</a>, <a class="el" href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c" title="Like memcpy.">SLICE99_MEMCPY</a>, <a class="el" href="slice99_8h.html#afa5c9f55ad339be88c60744fadb239f6" title="Like memmove.">SLICE99_MEMMOVE</a>, <a class="el" href="slice99_8h.html#a74ab39995ce273807783bb0006d9d85d" title="Like strlen.">SLICE99_STRLEN</a>, <a class="el" href="slice99_8h.html#a019a212186f638e4ea2102bd6037da77" title="Like vsprintf.">SLICE99_VSPRINTF</a>, <a class="el" href="slice99_8h.html#a6adf08f392e64a52e7c1f429d35686d0" title="Like vsnprintf.">SLICE99_VSNPRINTF</a>, and <a class="el" href="slice99_8h.html#a58ede7b349cfc96557c0717e5a09fd23" title="Like snprintf.">SLICE99_SNPRINTF</a>. They represent the corresponding standard library's functions, although actual implementations can differ. If you develop software for a freestanding environment, these macros must be defined beforehand. If you do not want to implement string formatting macros from <code>stdio.h</code>, define <code>SLICE99_DISABLE_STDIO</code> and <a class="el" href="structSlice99.html" title="A slice of some array.">Slice99</a> will not require them from you. </p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a0d5a302eda984cab417bfa9c7688c126"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0d5a302eda984cab417bfa9c7688c126">&#9670;&nbsp;</a></span>CharSlice99_alloca_c_str</h2>
@@ -329,6 +353,38 @@ static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 
 <p>Makes a null-terminated string out of <code>CharSlice99</code> using <code>alloca</code>. </p>
 <p>The same as <a class="el" href="slice99_8h.html#a7c6975ebc21476bb4a1eff57e1976e62" title="The same as Slice99_c_str.">CharSlice99_c_str</a>, except that the second parameter is allocated using <code>alloca</code>. Do not use this macro for big strings to avoid stack overflow. </p>
+
+</div>
+</div>
+<a id="af3adecfc89de5b65a8cb8f30ba26911b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3adecfc89de5b65a8cb8f30ba26911b">&#9670;&nbsp;</a></span>CharSlice99_alloca_fmt</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CharSlice99_alloca_fmt</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">fmt, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="slice99_8h.html#ac9985598133d2a83ea7ffc17a5ab20ed">CharSlice99_fmt</a>(alloca(<a class="el" href="slice99_8h.html#a58ede7b349cfc96557c0717e5a09fd23">SLICE99_SNPRINTF</a>(NULL, 0, (fmt), __VA_ARGS__) + 1), (fmt), __VA_ARGS__)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Printfs a formatted string to a character slice using <code>alloca</code>. </p>
+<p>The same as <a class="el" href="slice99_8h.html#ac9985598133d2a83ea7ffc17a5ab20ed" title="The CharSlice99_vfmt twin.">CharSlice99_fmt</a>, except that the first parameter is allocated using <code>alloca</code>. Do not use this macro for big strings to avoid stack overflow.</p>
+<p>Defined only if <code>SLICE99_DISABLE_STDIO</code> is <b>not</b> defined. </p>
 
 </div>
 </div>
@@ -540,6 +596,23 @@ static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 
 </div>
 </div>
+<a id="a58ede7b349cfc96557c0717e5a09fd23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58ede7b349cfc96557c0717e5a09fd23">&#9670;&nbsp;</a></span>SLICE99_SNPRINTF</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SLICE99_SNPRINTF&#160;&#160;&#160;snprintf</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Like <code>snprintf</code>. </p>
+<p>Defined only if it has not been defined previously <b>and</b> <code>SLICE99_DISABLE_STDIO</code> is <b>not</b> defined. </p>
+
+</div>
+</div>
 <a id="af5300ed70f13eda8357c6833e7710a51"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af5300ed70f13eda8357c6833e7710a51">&#9670;&nbsp;</a></span>SLICE99_TO_OCTETS</h2>
 
@@ -652,7 +725,245 @@ static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 </div><!-- fragment --> 
 </div>
 </div>
+<a id="a6adf08f392e64a52e7c1f429d35686d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6adf08f392e64a52e7c1f429d35686d0">&#9670;&nbsp;</a></span>SLICE99_VSNPRINTF</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SLICE99_VSNPRINTF&#160;&#160;&#160;vsnprintf</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Like <code>vsnprintf</code>. </p>
+<p>Defined only if it has not been defined previously <b>and</b> <code>SLICE99_DISABLE_STDIO</code> is <b>not</b> defined. </p>
+
+</div>
+</div>
+<a id="a019a212186f638e4ea2102bd6037da77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a019a212186f638e4ea2102bd6037da77">&#9670;&nbsp;</a></span>SLICE99_VSPRINTF</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SLICE99_VSPRINTF&#160;&#160;&#160;vsprintf</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Like <code>vsprintf</code>. </p>
+<p>Defined only if it has not been defined previously <b>and</b> <code>SLICE99_DISABLE_STDIO</code> is <b>not</b> defined. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ac9985598133d2a83ea7ffc17a5ab20ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9985598133d2a83ea7ffc17a5ab20ed">&#9670;&nbsp;</a></span>CharSlice99_fmt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT CharSlice99 CharSlice99_fmt </td>
+          <td>(</td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>out</em>[restrict], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *restrict&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The <a class="el" href="slice99_8h.html#a6e4c2ce107d7d47fa40bcc0ad1e33833" title="Prints a formatted string to out and returns the corresponding character slice.">CharSlice99_vfmt</a> twin. </p>
+<p>Defined only if <code>SLICE99_DISABLE_STDIO</code> is <b>not</b> defined. </p>
+
+</div>
+</div>
+<a id="a90d9b920e3cc1e21b4071b96b6af7236"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90d9b920e3cc1e21b4071b96b6af7236">&#9670;&nbsp;</a></span>CharSlice99_nfmt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT CharSlice99 CharSlice99_nfmt </td>
+          <td>(</td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>out</em>[restrict], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>bufsz</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *restrict&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The <a class="el" href="slice99_8h.html#ab5d655888e12c888f02fe516b0e57470" title="The same as CharSlice99_vfmt but writes at most bufsz - 1 characters.">CharSlice99_vnfmt</a> twin. </p>
+<p>Defined only if <code>SLICE99_DISABLE_STDIO</code> is <b>not</b> defined. </p>
+
+</div>
+</div>
+<a id="a6e4c2ce107d7d47fa40bcc0ad1e33833"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e4c2ce107d7d47fa40bcc0ad1e33833">&#9670;&nbsp;</a></span>CharSlice99_vfmt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT CharSlice99 CharSlice99_vfmt </td>
+          <td>(</td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>out</em>[restrict], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *restrict&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">va_list&#160;</td>
+          <td class="paramname"><em>list</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Prints a formatted string to <code>out</code> and returns the corresponding character slice. </p>
+<p>Defined only if <code>SLICE99_DISABLE_STDIO</code> is <b>not</b> defined.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>The buffer that must be capable of holding all characters that will be written by <a class="el" href="slice99_8h.html#a019a212186f638e4ea2102bd6037da77" title="Like vsprintf.">SLICE99_VSPRINTF</a>. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">fmt</td><td>The <code>printf</code>-like format string. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">list</td><td>The variadic function arguments reified into <code>va_list</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A character slice constructed from <code>out</code>.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><code>out != NULL</code> </dd>
+<dd>
+<code>fmt != NULL</code> </dd></dl>
+
+</div>
+</div>
+<a id="ab5d655888e12c888f02fe516b0e57470"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5d655888e12c888f02fe516b0e57470">&#9670;&nbsp;</a></span>CharSlice99_vnfmt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static SLICE99_WARN_UNUSED_RESULT CharSlice99 CharSlice99_vnfmt </td>
+          <td>(</td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>out</em>[restrict], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>bufsz</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *restrict&#160;</td>
+          <td class="paramname"><em>fmt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">va_list&#160;</td>
+          <td class="paramname"><em>list</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The same as <a class="el" href="slice99_8h.html#a6e4c2ce107d7d47fa40bcc0ad1e33833" title="Prints a formatted string to out and returns the corresponding character slice.">CharSlice99_vfmt</a> but writes at most <code>bufsz - 1</code> characters. </p>
+<p>Defined only if <code>SLICE99_DISABLE_STDIO</code> is <b>not</b> defined. </p>
+
+</div>
+</div>
 <a id="ab364d098941c1f0d6c9316dd845198d3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab364d098941c1f0d6c9316dd845198d3">&#9670;&nbsp;</a></span>Slice99_advance()</h2>
 
@@ -1856,16 +2167,16 @@ static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 </div>
 </div>
 </div><!-- contents -->
-<div class="ttc" id="aslice99_8h_html_a557c011352fbc859d6c9ed3871a31c5e"><div class="ttname"><a href="slice99_8h.html#a557c011352fbc859d6c9ed3871a31c5e">SLICE99_DEF_TYPED</a></div><div class="ttdeci">#define SLICE99_DEF_TYPED(name, T)</div><div class="ttdoc">Defines the strongly typed slice name containing items of type T.</div><div class="ttdef"><b>Definition:</b> slice99.h:168</div></div>
-<div class="ttc" id="aslice99_8h_html_a827f21894eb4424d835b93de680caa9e"><div class="ttname"><a href="slice99_8h.html#a827f21894eb4424d835b93de680caa9e">Slice99_from_str</a></div><div class="ttdeci">static SLICE99_WARN_UNUSED_RESULT Slice99 Slice99_from_str(char *str)</div><div class="ttdoc">Constructs a slice from str.</div><div class="ttdef"><b>Definition:</b> slice99.h:490</div></div>
-<div class="ttc" id="astructSlice99_html"><div class="ttname"><a href="structSlice99.html">Slice99</a></div><div class="ttdoc">A slice of some array.</div><div class="ttdef"><b>Definition:</b> slice99.h:448</div></div>
-<div class="ttc" id="aslice99_8h_html_a7306a32a97b3b8a5f05c7b052618930c"><div class="ttname"><a href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c">SLICE99_MEMCPY</a></div><div class="ttdeci">#define SLICE99_MEMCPY</div><div class="ttdoc">Like memcpy.</div><div class="ttdef"><b>Definition:</b> slice99.h:69</div></div>
-<div class="ttc" id="aslice99_8h_html_a27cbc4ab1aea40d209320bbf4f163104"><div class="ttname"><a href="slice99_8h.html#a27cbc4ab1aea40d209320bbf4f163104">CharSlice99_from_str</a></div><div class="ttdeci">static SLICE99_WARN_UNUSED_RESULT CharSlice99 CharSlice99_from_str(char *str)</div><div class="ttdoc">The same as Slice99_from_str.</div><div class="ttdef"><b>Definition:</b> slice99.h:946</div></div>
+<div class="ttc" id="aslice99_8h_html_a557c011352fbc859d6c9ed3871a31c5e"><div class="ttname"><a href="slice99_8h.html#a557c011352fbc859d6c9ed3871a31c5e">SLICE99_DEF_TYPED</a></div><div class="ttdeci">#define SLICE99_DEF_TYPED(name, T)</div><div class="ttdoc">Defines the strongly typed slice name containing items of type T.</div><div class="ttdef"><b>Definition:</b> slice99.h:171</div></div>
+<div class="ttc" id="aslice99_8h_html_a827f21894eb4424d835b93de680caa9e"><div class="ttname"><a href="slice99_8h.html#a827f21894eb4424d835b93de680caa9e">Slice99_from_str</a></div><div class="ttdeci">static SLICE99_WARN_UNUSED_RESULT Slice99 Slice99_from_str(char *str)</div><div class="ttdoc">Constructs a slice from str.</div><div class="ttdef"><b>Definition:</b> slice99.h:493</div></div>
+<div class="ttc" id="astructSlice99_html"><div class="ttname"><a href="structSlice99.html">Slice99</a></div><div class="ttdoc">A slice of some array.</div><div class="ttdef"><b>Definition:</b> slice99.h:451</div></div>
+<div class="ttc" id="aslice99_8h_html_a7306a32a97b3b8a5f05c7b052618930c"><div class="ttname"><a href="slice99_8h.html#a7306a32a97b3b8a5f05c7b052618930c">SLICE99_MEMCPY</a></div><div class="ttdeci">#define SLICE99_MEMCPY</div><div class="ttdoc">Like memcpy.</div><div class="ttdef"><b>Definition:</b> slice99.h:72</div></div>
+<div class="ttc" id="aslice99_8h_html_a27cbc4ab1aea40d209320bbf4f163104"><div class="ttname"><a href="slice99_8h.html#a27cbc4ab1aea40d209320bbf4f163104">CharSlice99_from_str</a></div><div class="ttdeci">static SLICE99_WARN_UNUSED_RESULT CharSlice99 CharSlice99_from_str(char *str)</div><div class="ttdoc">The same as Slice99_from_str.</div><div class="ttdef"><b>Definition:</b> slice99.h:949</div></div>
 <div class="ttc" id="aslice99_8h_html"><div class="ttname"><a href="slice99_8h.html">slice99.h</a></div><div class="ttdoc">A slice of some array.</div></div>
-<div class="ttc" id="aslice99_8h_html_a3e3a66e2441e671e725b50545328f14d"><div class="ttname"><a href="slice99_8h.html#a3e3a66e2441e671e725b50545328f14d">SLICE99_TO_TYPED</a></div><div class="ttdeci">#define SLICE99_TO_TYPED(self)</div><div class="ttdoc">Converts Slice99 to a typed representation.</div><div class="ttdef"><b>Definition:</b> slice99.h:326</div></div>
-<div class="ttc" id="aslice99_8h_html_a97fddbbb1c51ba529d7ca210c4ec4697"><div class="ttname"><a href="slice99_8h.html#a97fddbbb1c51ba529d7ca210c4ec4697">SLICE99_TO_UNTYPED</a></div><div class="ttdeci">#define SLICE99_TO_UNTYPED(self)</div><div class="ttdoc">Converts the typed slice self to Slice99.</div><div class="ttdef"><b>Definition:</b> slice99.h:346</div></div>
-<div class="ttc" id="aslice99_8h_html_a71ea7b96fe0a7ac510adb7005e863c49"><div class="ttname"><a href="slice99_8h.html#a71ea7b96fe0a7ac510adb7005e863c49">Slice99_typed_from_array</a></div><div class="ttdeci">#define Slice99_typed_from_array(...)</div><div class="ttdoc">The same as Slice99_from_array but for typed slices.</div><div class="ttdef"><b>Definition:</b> slice99.h:427</div></div>
-<div class="ttc" id="aslice99_8h_html_ade9d7971e5940ca105fe84079766c4a9"><div class="ttname"><a href="slice99_8h.html#ade9d7971e5940ca105fe84079766c4a9">SLICE99_APPEND</a></div><div class="ttdeci">#define SLICE99_APPEND(buffer, obj)</div><div class="ttdoc">Copies obj to buffer, returning the next position of buffer to write to.</div><div class="ttdef"><b>Definition:</b> slice99.h:378</div></div>
+<div class="ttc" id="aslice99_8h_html_a3e3a66e2441e671e725b50545328f14d"><div class="ttname"><a href="slice99_8h.html#a3e3a66e2441e671e725b50545328f14d">SLICE99_TO_TYPED</a></div><div class="ttdeci">#define SLICE99_TO_TYPED(self)</div><div class="ttdoc">Converts Slice99 to a typed representation.</div><div class="ttdef"><b>Definition:</b> slice99.h:329</div></div>
+<div class="ttc" id="aslice99_8h_html_a97fddbbb1c51ba529d7ca210c4ec4697"><div class="ttname"><a href="slice99_8h.html#a97fddbbb1c51ba529d7ca210c4ec4697">SLICE99_TO_UNTYPED</a></div><div class="ttdeci">#define SLICE99_TO_UNTYPED(self)</div><div class="ttdoc">Converts the typed slice self to Slice99.</div><div class="ttdef"><b>Definition:</b> slice99.h:349</div></div>
+<div class="ttc" id="aslice99_8h_html_a71ea7b96fe0a7ac510adb7005e863c49"><div class="ttname"><a href="slice99_8h.html#a71ea7b96fe0a7ac510adb7005e863c49">Slice99_typed_from_array</a></div><div class="ttdeci">#define Slice99_typed_from_array(...)</div><div class="ttdoc">The same as Slice99_from_array but for typed slices.</div><div class="ttdef"><b>Definition:</b> slice99.h:430</div></div>
+<div class="ttc" id="aslice99_8h_html_ade9d7971e5940ca105fe84079766c4a9"><div class="ttname"><a href="slice99_8h.html#ade9d7971e5940ca105fe84079766c4a9">SLICE99_APPEND</a></div><div class="ttdeci">#define SLICE99_APPEND(buffer, obj)</div><div class="ttdoc">Copies obj to buffer, returning the next position of buffer to write to.</div><div class="ttdef"><b>Definition:</b> slice99.h:381</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
