@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
  - String formatting support:
-   - The `CharSlice99_(v)(n)fmt` functions that make `CharSlice99` out a formatted string.
+   - The `CharSlice99_(v)(n)fmt` functions that make `CharSlice99` out of a formatted string.
    - The `CharSlice99_alloca_fmt` convenience macro.
    - The `SLICE99_DISABLE_STDIO` macro setting.
    - The `SLICE99_VSPRINTF`, `SLICE99_VSNPRINTF`, and `SLICE99_SNPRINTF` macros.
