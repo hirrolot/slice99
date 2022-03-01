@@ -897,6 +897,30 @@ TEST(to_untyped) {
     // clang-format on
 }
 
+TEST(fmt) {
+    char *expected = "123 --- abc", *fmt = "%d --- %s";
+    const size_t bufsz = strlen(expected) + 1;
+    char *buffer = alloca(bufsz);
+
+#define CHECK assert(CharSlice99_primitive_eq(ret, CharSlice99_from_str(expected)))
+
+    CharSlice99 ret;
+
+    ret = CharSlice99_fmt(buffer, fmt, 123, "abc");
+    CHECK;
+    memset(buffer, '\0', bufsz);
+    return;
+    ret = CharSlice99_nfmt(buffer, bufsz, fmt, 123, "abc");
+    CHECK;
+    memset(buffer, '\0', bufsz);
+    return;
+    ret = CharSlice99_alloca_fmt(fmt, 123, "abc");
+    CHECK;
+    memset(buffer, '\0', bufsz);
+
+#undef CHECK
+}
+
 int main(void) {
     srand((unsigned)time(NULL));
 
@@ -933,6 +957,8 @@ int main(void) {
     test_fundamentals();
     test_to_typed();
     test_to_untyped();
+
+    test_fmt();
 
     puts("All the tests have passed!");
 }

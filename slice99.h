@@ -26,11 +26,13 @@ SOFTWARE.
  * @file
  * @brief A slice of some array.
  *
- * The macros #SLICE99_ASSERT, #SLICE99_MEMCMP, #SLICE99_MEMCPY, #SLICE99_MEMMOVE, and
- * #SLICE99_STRLEN are automatically defined in case they have not been defined before including
- * this header file. They represent the corresponding standard library's functions, although actual
- * implementations can differ. If you develop software for a freestanding environment, these macros
- * must be defined beforehand.
+ * Some macros are automatically defined in case they have not been defined before including this
+ * header file; these are: #SLICE99_ASSERT, #SLICE99_MEMCMP, #SLICE99_MEMCPY, #SLICE99_MEMMOVE,
+ * #SLICE99_STRLEN, #SLICE99_VSPRINTF, #SLICE99_VSNPRINTF, and #SLICE99_SNPRINTF. They represent the
+ * corresponding standard library's functions, although actual implementations can differ. If you
+ * develop software for a freestanding environment, these macros must be defined beforehand. If you
+ * do not want to implement string formatting macros from `stdio.h`, define `SLICE99_DISABLE_STDIO`
+ * and Slice99 will not require them from you.
  */
 
 /**
@@ -47,6 +49,7 @@ SOFTWARE.
 #ifndef SLICE99_H
 #define SLICE99_H
 
+#include <stdarg.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
@@ -961,5 +964,104 @@ inline static char *CharSlice99_c_str(CharSlice99 self, char out[restrict]) {
  * not use this macro for big strings to avoid stack overflow.
  */
 #define CharSlice99_alloca_c_str(self) CharSlice99_c_str((self), alloca((self).len + 1))
+
+#ifndef SLICE99_DISABLE_STDIO
+
+#ifndef SLICE99_VSPRINTF
+#include <stdio.h>
+/// Like `vsprintf`. Defined only if it has not been defined previously **and**
+/// `SLICE99_DISABLE_STDIO` is **not** defined.
+#define SLICE99_VSPRINTF vsprintf
+#endif
+
+#ifndef SLICE99_VSNPRINTF
+#include <stdio.h>
+/// Like `vsnprintf`. Defined only if it has not been defined previously **and**
+/// `SLICE99_DISABLE_STDIO` is **not** defined.
+#define SLICE99_VSNPRINTF vsnprintf
+#endif
+
+#ifndef SLICE99_SNPRINTF
+#include <stdio.h>
+/// Like `snprintf`. Defined only if it has not been defined previously **and**
+/// `SLICE99_DISABLE_STDIO` is **not** defined.
+#define SLICE99_SNPRINTF snprintf
+#endif
+
+/**
+ * Prints a formatted string to @p out and returns the corresponding character slice.
+ *
+ * Defined only if `SLICE99_DISABLE_STDIO` is **not** defined.
+ *
+ * @param[out] out The buffer that must be capable of holding all characters that will be written by
+ * #SLICE99_VSPRINTF.
+ * @param[in] fmt The `printf`-like format string.
+ * @param[in] list The variadic function arguments reified into `va_list`.
+ *
+ * @return A character slice constructed from @p out.
+ *
+ * @pre `out != NULL`
+ * @pre `fmt != NULL`
+ */
+inline static SLICE99_WARN_UNUSED_RESULT CharSlice99
+CharSlice99_vfmt(char out[restrict], const char *restrict fmt, va_list list) {
+    SLICE99_ASSERT(out);
+    SLICE99_ASSERT(fmt);
+
+    SLICE99_VSPRINTF(out, fmt, list);
+    return CharSlice99_from_str(out);
+}
+
+/**
+ * The #CharSlice99_vfmt twin.
+ *
+ * Defined only if `SLICE99_DISABLE_STDIO` is **not** defined.
+ */
+inline static SLICE99_WARN_UNUSED_RESULT CharSlice99
+CharSlice99_fmt(char out[restrict], const char *restrict fmt, ...) {
+    va_list ap;
+    va_start(ap, fmt);
+    const CharSlice99 result = CharSlice99_vfmt(out, fmt, ap);
+    va_end(ap);
+    return result;
+}
+
+/**
+ * The same as #CharSlice99_vfmt but writes at most `bufsz - 1` characters.
+ *
+ * Defined only if `SLICE99_DISABLE_STDIO` is **not** defined.
+ */
+inline static SLICE99_WARN_UNUSED_RESULT CharSlice99
+CharSlice99_vnfmt(char out[restrict], size_t bufsz, const char *restrict fmt, va_list list) {
+    SLICE99_VSNPRINTF(out, bufsz, fmt, list);
+    return CharSlice99_from_str(out);
+}
+
+/**
+ * The #CharSlice99_vnfmt twin.
+ *
+ * Defined only if `SLICE99_DISABLE_STDIO` is **not** defined.
+ */
+inline static SLICE99_WARN_UNUSED_RESULT CharSlice99
+CharSlice99_nfmt(char out[restrict], size_t bufsz, const char *restrict fmt, ...) {
+    va_list ap;
+    va_start(ap, fmt);
+    const CharSlice99 result = CharSlice99_vnfmt(out, bufsz, fmt, ap);
+    va_end(ap);
+    return result;
+}
+
+/**
+ * Printfs a formatted string to a character slice using `alloca`.
+ *
+ * The same as #CharSlice99_fmt, except that the first parameter is allocated using `alloca`. Do not
+ * use this macro for big strings to avoid stack overflow.
+ *
+ * Defined only if `SLICE99_DISABLE_STDIO` is **not** defined.
+ */
+#define CharSlice99_alloca_fmt(fmt, ...)                                                           \
+    CharSlice99_fmt(alloca(SLICE99_SNPRINTF(NULL, 0, (fmt), __VA_ARGS__) + 1), (fmt), __VA_ARGS__)
+
+#endif // SLICE99_DISABLE_STDIO
 
 #endif // SLICE99_H
