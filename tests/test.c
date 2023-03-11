@@ -822,11 +822,11 @@ TEST(def_typed) {
 
     TYPECHECK(MyPoints_copy, void (*_)(MyPoints, MyPoints));
     TYPECHECK(MyPoints_copy_non_overlapping, void (*_)(MyPoints, MyPoints));
-    TYPECHECK(MyPoints_swap, void (*_)(MyPoints, ptrdiff_t, ptrdiff_t, Point * restrict));
-    TYPECHECK(MyPoints_swap_with_slice, void (*_)(MyPoints, MyPoints, Point * restrict));
-    TYPECHECK(MyPoints_reverse, void (*_)(MyPoints, Point * restrict));
+    TYPECHECK(MyPoints_swap, void (*_)(MyPoints, ptrdiff_t, ptrdiff_t, Point *restrict));
+    TYPECHECK(MyPoints_swap_with_slice, void (*_)(MyPoints, MyPoints, Point *restrict));
+    TYPECHECK(MyPoints_reverse, void (*_)(MyPoints, Point *restrict));
     TYPECHECK(
-        MyPoints_split_at, void (*_)(MyPoints, size_t, MyPoints * restrict, MyPoints * restrict));
+        MyPoints_split_at, void (*_)(MyPoints, size_t, MyPoints *restrict, MyPoints *restrict));
 
 #undef TYPECHECK
 
