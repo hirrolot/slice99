@@ -156,7 +156,7 @@ This library automatically defines typed slices of several fundamental types. I 
 
 ## Projects using Slice99
 
- - [Hirrolot/smolrtsp](https://github.com/Hirrolot/smolrtsp) --  A small, portable, extensible RTSP 1.0 implementation in C99.
+ - [OpenIPC/smolrtsp](https://github.com/OpenIPC/smolrtsp) --  A small, portable, extensible RTSP 1.0 implementation in C99.
 
 ## Release procedure
 
