@@ -1,5 +1,5 @@
 # Slice99
-[![CI](https://github.com/Hirrolot/slice99/workflows/C/C++%20CI/badge.svg)](https://github.com/Hirrolot/slice99/actions)
+[![CI](https://github.com/hirrolot/slice99/workflows/C/C++%20CI/badge.svg)](https://github.com/hirrolot/slice99/actions)
 [![docs](https://img.shields.io/badge/docs-github.io-blue)](https://hirrolot.github.io/slice99/slice99_8h.html)
 
 This library provides [array slicing] facilities for pure C99.
@@ -94,7 +94,7 @@ include(FetchContent)
 
 FetchContent_Declare(
     slice99
-    URL https://github.com/Hirrolot/slice99/archive/refs/tags/v1.2.3.tar.gz # v1.2.3
+    URL https://github.com/hirrolot/slice99/archive/refs/tags/v1.2.3.tar.gz # v1.2.3
 )
 
 FetchContent_MakeAvailable(slice99)
@@ -165,7 +165,7 @@ This library automatically defines typed slices of several fundamental types. I 
  3. Update `CHANGELOG.md`.
  4. Release the project in [GitHub Releases].
 
-[GitHub Releases]: https://github.com/Hirrolot/slice99/releases
+[GitHub Releases]: https://github.com/hirrolot/slice99/releases
 
 ## FAQ
 

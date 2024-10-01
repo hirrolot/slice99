@@ -22,7 +22,7 @@ include(FetchContent)
 
 FetchContent_Declare(
     assert-algebraic
-    URL https://github.com/Hirrolot/assert-algebraic/archive/refs/tags/v0.2.0.tar.gz
+    URL https://github.com/hirrolot/assert-algebraic/archive/refs/tags/v0.2.0.tar.gz
 )
 
 FetchContent_MakeAvailable(assert-algebraic)

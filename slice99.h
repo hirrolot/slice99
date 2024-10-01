@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2020-2024 Hirrolot
+Copyright (c) 2020-2024 hirrolot
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -42,7 +42,7 @@ SOFTWARE.
  * facilities for pure C99.<br>
  *
  * All the documentation is located in slice99.h. See <a
- * href="https://github.com/Hirrolot/slice99">our official GitHub repository</a> for a high-level
+ * href="https://github.com/hirrolot/slice99">our official GitHub repository</a> for a high-level
  * overview.
  */
 
