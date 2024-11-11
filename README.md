@@ -6,7 +6,7 @@ This library provides [array slicing] facilities for pure C99.
 
 [array slicing]: https://en.wikipedia.org/wiki/Array_slicing
 
-[[`examples/demo.c`](examples/demo.c)] [ [Playground >>](https://godbolt.org/z/ef3j66) ]
+[[`examples/demo.c`](examples/demo.c)] [ [Playground >>](https://godbolt.org/z/cz5z1Mz4o) ]
 ```c
 #include <slice99.h>
 
