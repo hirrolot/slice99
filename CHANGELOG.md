@@ -98,7 +98,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
  - The `Slice99_pack_to_(u8|u16|u32|u64)_beginning` functions. They are like `Slice99_pack_to_(u8|u16|u32|u64)` but only take the beginning of a slice.
  - Specify `__attribute__((always_inline))` on `SLICE99_DEF_TYPED`-generated functions if compiling on GCC.
- - Typed slices of fundamental types:
+ - Typed slices of fundamental types (unconditionally defined):
    - `CharSlice99` of `char`.
    - `SCharSlice99` of `signed char`.
    - `UCharSlice99` of `unsigned char`.
@@ -114,14 +114,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    - `DoubleSlice99` of `double`.
    - `LongDoubleSlice99` of `long double`.
    - `BoolSlice99` of `_Bool`.
-   - `U8Slice99` of `uint8_t` (if supported).
-   - `U16Slice99` of `uint16_t` (if supported).
-   - `U32Slice99` of `uint32_t` (if supported).
-   - `U64Slice99` of `uint64_t` (if supported).
-   - `I8Slice99` of `int8_t` (if supported).
-   - `I16Slice99` of `int16_t` (if supported).
-   - `I32Slice99` of `int32_t` (if supported).
-   - `I64Slice99` of `int64_t` (if supported).
+ - Typed slices of fixed-width integer types (each if supported by the platform):
+   - `U8Slice99` of `uint8_t`.
+   - `U16Slice99` of `uint16_t`.
+   - `U32Slice99` of `uint32_t`.
+   - `U64Slice99` of `uint64_t`.
+   - `I8Slice99` of `int8_t`.
+   - `I16Slice99` of `int16_t`.
+   - `I32Slice99` of `int32_t`.
+   - `I64Slice99` of `int64_t`.
 
 ### Fixed
 
@@ -131,23 +132,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
- - Strongly typed slices:
-   - `SLICE99_DEF_TYPED` to generate a typed slice.
-   - `SLICE99_TO_TYPED` to convert an untyped slice into a typed one.
-   - `SLICE99_TO_UNTYPED` to convert a typed slice into an untyped one.
-   - `Slice99_typed_from_array` as a typed slice counterpart of `Slice99_from_array`.
+ - Static typing for slices (all macros):
+   - `SLICE99_DEF_TYPED` to generate a typed slice definition.
+   - `SLICE99_TO_(UN)TYPED` to convert between typed and untyped slices.
+   - `Slice99_typed_from_array` to obtain a typed slice.
 
 ### Removed
 
- - Useless higher-order functions:
-   - `Slice99_for_each`, `Slice99_find`.
- - I/O functions:
-   - `Slice99_fwrite(_ln)`, `Slice99_write(_ln)`.
- - Field updating functions:
-   - `Slice99_update_(ptr|item_size)`.
+ - Useless higher-order functions: `Slice99_for_each`, `Slice99_find`.
+ - I/O functions: `Slice99_fwrite(_ln)`, `Slice99_write(_ln)`.
+ - Field updating functions: `Slice99_update_(ptr|item_size)`.
  - `Slice99Maybe` facilities:
    - The `Slice99Maybe` type.
-   - The `Slice99Maybe_(just|nothing)`, functions.
+   - The `Slice99Maybe_(just|nothing)` functions.
 
 ## 0.3.0 - 2021-03-27
 
