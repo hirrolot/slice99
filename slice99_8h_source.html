@@ -309,8 +309,8 @@ $(function() {
 <div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<span class="preprocessor">    ((void *)((char *)SLICE99_MEMCPY((buffer), &amp;(obj), sizeof(obj)) + sizeof(obj)))</span></div>
 <div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160; </div>
 <div class="line"><a name="l00393"></a><span class="lineno"><a class="line" href="slice99_8h.html#a602156c96682543a687b6c9d783f7c87">  393</a></span>&#160;<span class="preprocessor">#define SLICE99_APPEND_ARRAY(buffer, ptr, len)                                                     \</span></div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;<span class="preprocessor">    ((void                                                                                         \</span></div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;<span class="preprocessor">          *)((char *)SLICE99_MEMCPY((buffer), (ptr), sizeof((ptr)[0]) * (len)) + sizeof((ptr)[0]) * (len)))</span></div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;<span class="preprocessor">    ((void *)((char *)SLICE99_MEMCPY((buffer), (ptr), sizeof((ptr)[0]) * (len)) +                  \</span></div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;<span class="preprocessor">              sizeof((ptr)[0]) * (len)))</span></div>
 <div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160; </div>
 <div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="preprocessor">#ifdef UINT8_MAX</span></div>
 <div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160; </div>
