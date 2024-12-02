@@ -10,7 +10,7 @@
 
 #include <alloca.h>
 
-#include <assert_algebraic.h>
+#include "assert_algebraic.h"
 
 // Auxiliary stuff {
 

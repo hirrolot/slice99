@@ -18,22 +18,13 @@ endif()
 
 add_executable(test test.c)
 
-include(FetchContent)
-
-FetchContent_Declare(
-    assert-algebraic
-    URL https://github.com/hirrolot/assert-algebraic/archive/refs/tags/v0.2.0.tar.gz
-)
-
-FetchContent_MakeAvailable(assert-algebraic)
-
 get_property(
   TESTS
   DIRECTORY .
   PROPERTY BUILDSYSTEM_TARGETS)
 
 foreach(TARGET ${TESTS})
-  target_link_libraries(${TARGET} slice99 assert-algebraic)
+  target_link_libraries(${TARGET} slice99)
   set_target_properties(${TARGET} PROPERTIES C_STANDARD 99 C_STANDARD_REQUIRED
                                                          ON)
 endforeach()
