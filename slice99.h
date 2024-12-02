@@ -391,8 +391,9 @@ SOFTWARE.
  * This function has the same requirements and a return value as of #SLICE99_APPEND.
  */
 #define SLICE99_APPEND_ARRAY(buffer, ptr, len)                                                     \
-    ((void *)((char *)SLICE99_MEMCPY((buffer), (ptr), sizeof((ptr)[0]) * (len)) +                  \
-              sizeof((ptr)[0]) * (len)))
+    /* clang-format off */ \
+    ((void *)((char *)SLICE99_MEMCPY((buffer), (ptr), sizeof((ptr)[0]) * (len)) + \
+              sizeof((ptr)[0]) * (len))) /* clang-format on */
 
 #ifdef UINT8_MAX
 
