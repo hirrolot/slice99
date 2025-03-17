@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5.0)
+cmake_minimum_required(VERSION 3.10.0)
 project(slice99 LANGUAGES C)
 
 # Fix the warnings about `DOWNLOAD_EXTRACT_TIMESTAMP` in newer CMake versions.
